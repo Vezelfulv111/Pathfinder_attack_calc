@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Widget.Theme.D20attack_calc.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">#66BC3F3F</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+</resources>
