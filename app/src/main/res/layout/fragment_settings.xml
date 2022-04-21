@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
 
 
-    tools:context="pathfinder.attack_calc.settings_fragment">
+    android:background="#959494"
+    tools:context="com.pathfinder.attackcalc.settings_fragment">
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -31,7 +32,7 @@
             <TextView
                 android:layout_width="55dp"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
+
                 android:text="Attack mod"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -192,10 +193,10 @@
                     android:layout_width="61dp"
                     android:layout_height="match_parent"
                     android:ems="10"
+                    android:gravity="center"
                     android:inputType="numberSigned|number"
                     android:text="2"
-                    android:textSize="30sp"
-                    android:gravity="center"/>
+                    android:textSize="30sp" />
             </TableRow>
         </TableRow>
 
@@ -269,10 +270,10 @@
                     android:layout_width="61dp"
                     android:layout_height="match_parent"
 
+                    android:gravity="center"
                     android:inputType="numberSigned|number"
                     android:text="1"
-                    android:textSize="30sp"
-                    android:gravity="center"/>
+                    android:textSize="30sp" />
             </TableRow>
         </TableRow>
 
@@ -315,10 +316,10 @@
                     android:layout_width="61dp"
                     android:layout_height="match_parent"
 
+                    android:gravity="center"
                     android:inputType="number"
                     android:text="1"
-                    android:textSize="30sp"
-                    android:gravity="center"/>
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -326,7 +327,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="x"
-                    android:textSize="34sp"  />
+                    android:textSize="34sp" />
 
                 <Spinner
                     android:id="@+id/sneak_spinner"
@@ -347,6 +348,7 @@
         android:id="@+id/EditButton"
         android:layout_width="162dp"
         android:layout_height="54dp"
+        android:backgroundTint="#6C6C6C"
         android:onClick="AddItemToList"
         android:text="Edit 1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -357,6 +359,7 @@
         android:id="@+id/Addbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#6C6C6C"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/EditButton"

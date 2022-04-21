@@ -288,9 +288,9 @@ class settings_fragment : Fragment() {
 
 
 
-              SpinAt1.setSelection(CopyArray[0][position].toInt(),true)
-              SpinAt2.setSelection(CopyArray[1][position].toInt(),true)
-              SpinAt3.setSelection(CopyArray[2][position].toInt(),true)
+              SpinAt1.setSelection(CopyArray[0][position].toInt()-1,true)
+              SpinAt2.setSelection(CopyArray[1][position].toInt()-1,true)
+              SpinAt3.setSelection(CopyArray[2][position].toInt()-1,true)
            Bonus1.setText(CopyArray[3][position].toInt().toString())
            Bonus2.setText(CopyArray[4][position].toInt().toString())
            Bonus3.setText(CopyArray[5][position].toInt().toString())

@@ -4,13 +4,14 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:background="#9C9393"
+    android:orientation="horizontal">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
         android:divider="#2C2C2C"
+        android:paddingStart="5dp"
         android:showDividers="middle">
 
         <TextView
@@ -83,7 +84,7 @@
 
                 <TextView
                     android:id="@+id/bonus1"
-                    android:layout_width="30dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
 
                     android:autoSizeTextType="uniform"
@@ -133,7 +134,7 @@
 
                 <TextView
                     android:id="@+id/bonus2"
-                    android:layout_width="0dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
 
                     android:autoSizeTextType="uniform"
