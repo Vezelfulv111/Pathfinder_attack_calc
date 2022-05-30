@@ -17,8 +17,8 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorColor="#B54BA58C"
-        app:tabSelectedTextColor="#B52E6A5A">
+        app:tabIndicatorColor="#B544E6B9"
+        app:tabSelectedTextColor="#B544E6B9">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

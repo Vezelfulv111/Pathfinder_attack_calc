@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#6C6C6C"
         android:text="Generate"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#6C6C6C"
         android:text="rfsh"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -90,7 +92,7 @@
                 <ImageButton
                     android:id="@+id/Fstminus"
                     android:layout_width="33dp"
-                    android:layout_height="33dp"
+                    android:layout_height="38dp"
                     android:background="#FD070707"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/minus_icon" />
@@ -100,15 +102,17 @@
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:autoSizeTextType="uniform"
                     android:foregroundGravity="center"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="0"
                     android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/Fstplus"
                     android:layout_width="33dp"
-                    android:layout_height="33dp"
+                    android:layout_height="38dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/plus_icon" />
 
@@ -126,7 +130,7 @@
                 <ImageButton
                     android:id="@+id/Fstminus2"
                     android:layout_width="33dp"
-                    android:layout_height="33dp"
+                    android:layout_height="38dp"
                     android:background="#00FAFAFA"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/minus_icon" />
@@ -136,15 +140,17 @@
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:autoSizeTextType="uniform"
                     android:foregroundGravity="center"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="0"
                     android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/Fstplus2"
                     android:layout_width="33dp"
-                    android:layout_height="33dp"
+                    android:layout_height="38dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/plus_icon" />
 
@@ -164,13 +170,22 @@
                 android:layout_weight="1"
                 android:text="Sneak attack" />
 
-            <TextView
-                android:id="@+id/which_sneak"
+            <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="none"
-                android:textSize="16sp" />
+                android:layout_weight="1">
+
+                <Switch
+                    android:id="@+id/snky_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:switchMinWidth="60dp"
+                    android:text="none"
+                    android:textColor="#FFFFFF" />
+            </TableRow>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity()  {
     private lateinit var tabLayout: TabLayout
 
 
-    val All = "AllinAll.txt"
+    val All = "AllinAll2.txt"
     val file = File("/data/data/com.pathfinder.attackcalc/" + File.separator + All)
 
 

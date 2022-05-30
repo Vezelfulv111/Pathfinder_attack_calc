@@ -21,10 +21,10 @@ class generate_fragment : Fragment() {
     private lateinit var listView: ListView
     var Sneak_attacks= intArrayOf(0, 0,0)
 
-    val All = "AllinAll.txt"
+    val All = "AllinAll2.txt"
     val file = File("/data/data/com.pathfinder.attackcalc/" + File.separator + All)
 
-    val Sneak = "Sneak.txt"
+    val Sneak = "Sneak2.txt"
     val file_sneak = File("/data/data/com.pathfinder.attackcalc/" + File.separator + Sneak)
 
     private lateinit var GenButton: Button
@@ -48,7 +48,9 @@ class generate_fragment : Fragment() {
         var im3_At2 = arrayOf("4", "4", "4")
     var At2_enable = arrayOf("0", "1", "0")
     var At3_enable = arrayOf("1", "1", "0")
-    var AllinAll = arrayOf(X12,X22,X32,plus12,plus22,plus32,im1_At2,im2_At2,im3_At2,Hit_modifier2,At2_enable,At3_enable)
+    var Attack_names = arrayOf("sai", "saber +1","kukri")
+
+    var AllinAll = arrayOf(X12,X22,X32,plus12,plus22,plus32,im1_At2,im2_At2,im3_At2,Hit_modifier2,At2_enable,At3_enable,Attack_names)
 
     var dices = intArrayOf(
         3,
@@ -58,6 +60,8 @@ class generate_fragment : Fragment() {
         10,
         12,
     )
+
+
 
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
@@ -73,29 +77,49 @@ class generate_fragment : Fragment() {
         }
 
 
-        var Which_sneak = view.findViewById(R.id.which_sneak) as TextView
+        var  snky_switch = view.findViewById(R.id.snky_switch) as Switch
+
+
+
+
 
         if(file_sneak.exists())
         {   val o2 = ObjectInputStream(FileInputStream(file_sneak))
             Sneak_attacks =  o2.readObject() as IntArray
             o2.close()
             if (Sneak_attacks[0]==1)
-            {Which_sneak.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()}
+            {
+             snky_switch.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()
+            }
             else
-            {Which_sneak.text ="None"}
+            { snky_switch.text ="None"}
         }
 
+       snky_switch.setOnClickListener()
+       {
+
+
+           if (Sneak_attacks[0]==0)
+           {
+            Toast.makeText(context as Activity,"Set in settings window",Toast.LENGTH_SHORT).show();
+            snky_switch.isChecked = false;
+           }
+           else
+           {snky_switch.isEnabled = true;}
+
+       }
 
 
 
-        var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks)
+
+        var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
 
 
         GenButton = view.findViewById(R.id.gen_but);
         GenButton.setOnClickListener {
            CONDITION =1;
-           var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks)
+           var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
            listView.adapter = ListAdapter
            CONDITION =0;
         }
@@ -112,29 +136,13 @@ class generate_fragment : Fragment() {
                     AllinAll,
                     CONDITION,
                     Temporary_modifers,
-                    Sneak_attacks
+                    Sneak_attacks,
+                    snky_switch.isChecked
                 )
                 ois.close()
             }
             listView.adapter = ListAdapter
-
-            if(file_sneak.exists()) {
-            val o2 = ObjectInputStream(FileInputStream(file_sneak))
-            Sneak_attacks = o2.readObject() as IntArray
-            o2.close()
-            }
-
-            if (Sneak_attacks[0]==1)
-            {Which_sneak.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()}
-            else
-            {Which_sneak.text = "None"}
-
         }
-
-
-
-
-
 
         Plus1 = view.findViewById(R.id.Fstplus);
         Minus1 = view.findViewById(R.id.Fstminus);
@@ -203,11 +211,14 @@ class generate_fragment : Fragment() {
             {Result3 = 0}
             Summ.text = (Result1+Result2+Result3+Temporary_modifers[1]).toString()
             var SneakThrow = 0
-            if (Sneak_attacks[0]==1) {
-                val sneak1 = view.findViewById(R.id.sneakky) as TextView
+
+            val sneak1 = view.findViewById(R.id.sneakky) as TextView
+            if (Sneak_attacks[0]==1 && snky_switch.isChecked) {
                 SneakThrow = DiceThrow(Sneak_attacks[1], Sneak_attacks[2])
                 sneak1.text = SneakThrow.toString()
             }
+            else
+            { sneak1.text = "0"}
             Summ.text = (Result1+Result2+Result3+Temporary_modifers[1]+SneakThrow).toString()
 
         }
@@ -243,13 +254,15 @@ class generate_fragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        var  snky_switch = view?.findViewById(R.id.snky_switch) as Switch
         if(file.exists())
         {   val ois = ObjectInputStream(FileInputStream(file))
             AllinAll =  ois.readObject() as Array<Array<String>>
             ois.close()
         }
         listView = view?.findViewById(R.id.result_list)!!
-        var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks)
+        var ListAdapter = Result_adapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
         if(file_sneak.exists()) {
             val o2 = ObjectInputStream(FileInputStream(file_sneak))
@@ -257,16 +270,16 @@ class generate_fragment : Fragment() {
             o2.close()
         }
 
-        var Which_sneak = view?.findViewById(R.id.which_sneak) as TextView
 
         if(file_sneak.exists())
         {   val o2 = ObjectInputStream(FileInputStream(file_sneak))
             Sneak_attacks =  o2.readObject() as IntArray
             o2.close()
             if (Sneak_attacks[0]==1)
-            {Which_sneak.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()}
+            { snky_switch.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()}
             else
-            {Which_sneak.text ="None"}
+            {snky_switch.text="None"
+             snky_switch.isChecked = false;}
         }
 
 

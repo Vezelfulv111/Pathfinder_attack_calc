@@ -3,15 +3,18 @@ package com.pathfinder.attackcalc
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.TextView
+import androidx.core.view.isGone
 
 
 class Result_adapter(
     private val context: Activity, private var Allinall: Array<Array<String>>,
-    private var Condition: Int,private var Temp_modif: IntArray,private var Sneak: IntArray
+    private var Condition: Int,private var Temp_modif: IntArray,private var Sneak: IntArray,
+    private var switch_on_of: Boolean
 
     )
     : ArrayAdapter<Any>(context, R.layout.result_view, Allinall[1]) {
@@ -64,6 +67,13 @@ class Result_adapter(
             R.drawable.d12,
 
         )
+
+        //имя атаки
+        var attack_name = rowView.findViewById(R.id.attack_name_gen) as TextView
+        attack_name.text = Allinall[12][position].toString()
+        if (Allinall[12][position].isEmpty())//если строка пустая то убираем подпись
+        {attack_name.visibility = GONE;}
+
 
         //тк по 3 компонента цикл по 3м
         for (i in 0..2)
@@ -122,7 +132,7 @@ class Result_adapter(
 
             val sneak1 = rowView.findViewById(R.id.sneakky) as TextView
             var SneakThrow = 0
-            if (Sneak[0]==1)
+            if (Sneak[0]==1 && switch_on_of)
             {
              SneakThrow = DiceThrow(Sneak[1],Sneak[2])
             }
