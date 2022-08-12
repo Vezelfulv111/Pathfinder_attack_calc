@@ -11,7 +11,9 @@
         android:theme="@style/Theme.D20attack_calc">
         <activity
             android:name="com.pathfinder.attackcalc.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
