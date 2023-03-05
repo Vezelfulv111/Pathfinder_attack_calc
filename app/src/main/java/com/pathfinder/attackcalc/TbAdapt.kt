@@ -7,21 +7,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 
 class TbAdapt(fragmentActivity: MainActivity) :
-
-
     FragmentStateAdapter(fragmentActivity) {
-
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> generate_fragment()
-            else -> settings_fragment()
+            0 -> GenerateFragment()
+            else -> SettingsFragment()
         }
-
     }
-
     override fun getItemCount(): Int {
-        return 2;
-
+        return 2
     }
 
 

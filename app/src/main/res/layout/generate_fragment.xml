@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#959494"
     android:tag="SET"
-    tools:context="com.pathfinder.attackcalc.generate_fragment">
+    tools:context="com.pathfinder.attackcalc.GenerateFragment">
 
     <ListView
         android:id="@+id/result_list"
