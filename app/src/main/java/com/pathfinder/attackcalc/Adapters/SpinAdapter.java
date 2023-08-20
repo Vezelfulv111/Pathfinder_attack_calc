@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc;
+package com.pathfinder.attackcalc.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.pathfinder.attackcalc.R;
+
 public class SpinAdapter extends ArrayAdapter<String> {
 
     Context context;
     int[] images;
-
     public SpinAdapter(Context context, String[] Languages, int[] images) {
         super(context, R.layout.spinner_dice,Languages);
         this.context=context;

@@ -1,9 +1,12 @@
-package com.pathfinder.attackcalc
+package com.pathfinder.attackcalc.Adapters
 
 
 import androidx.fragment.app.Fragment
 
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.pathfinder.attackcalc.Fragments.GenerateFragment
+import com.pathfinder.attackcalc.Fragments.SettingsFragment
+import com.pathfinder.attackcalc.MainActivity
 
 
 class TbAdapt(fragmentActivity: MainActivity) :

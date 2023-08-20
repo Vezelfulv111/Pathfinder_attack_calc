@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc
+package com.pathfinder.attackcalc.Adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -8,26 +8,29 @@ import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.TextView
+import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.Dices
+import com.pathfinder.attackcalc.R
 
 
 class GenerateAdapter(
     private val context: Activity, private var Allinall: DataClass,
-    private var Condition: Int,private var Temp_modif: IntArray,private var Sneak: IntArray,
+    private var Condition: Int, private var Temp_modif: IntArray,
     private var switch_on_of: Boolean
     )
-    : ArrayAdapter<Any>(context, R.layout.result_view, Allinall.X12.toArray()) {
+    : ArrayAdapter<Any>(context, R.layout.result_view, Allinall.numDice1.toArray()) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView = inflater.inflate(R.layout.result_view, null, true)
         //делаем список полосатым
-        rowView.setBackgroundColor(if (position and 1 === 1) Color.DKGRAY else Color.GRAY)
+        rowView.setBackgroundColor(if (position and 1 == 1) Color.DKGRAY else Color.GRAY)
         val header = rowView.findViewById(R.id.header) as TableRow
         if (position != 0) {
             header.visibility = GONE
         }
         val attacNum = rowView.findViewById(R.id.current_number) as TextView
-        attacNum.text = (position+1).toString()
+        (position+1).toString().also { attacNum.text = it }
 
         val bonus1 = rowView.findViewById(R.id.bonus1) as TextView
         val bonus2 = rowView.findViewById(R.id.bonus2) as TextView
@@ -71,9 +74,9 @@ class GenerateAdapter(
         bonus2.text = Allinall.bonus2[position]
         bonus3.text = Allinall.bonus3[position]
 
-        diceAmount1.text = Allinall.X12[position]
-        diceAmount2.text = Allinall.X22[position]
-        diceAmount3.text = Allinall.X32[position]
+        diceAmount1.text = Allinall.numDice1[position]
+        diceAmount2.text = Allinall.numDice2[position]
+        diceAmount3.text = Allinall.numDice3[position]
 
         //условия по не отображению элементов
         val table2 = rowView.findViewById(R.id.table2) as TableRow
@@ -92,9 +95,9 @@ class GenerateAdapter(
         val gen3 = rowView.findViewById(R.id.answer3) as TextView
         if (Condition==1) {
             //бросок эн кубов
-            val fstAtDice = DiceThrow(Allinall.img1[position].toInt(),diceAmount1.text.toString().toInt())
-            val sndAtDice = DiceThrow(Allinall.img2[position].toInt(),diceAmount2.text.toString().toInt())
-            val thirdDice = DiceThrow(Allinall.img3[position].toInt(),diceAmount3.text.toString().toInt())
+            val fstAtDice = diceThrow(Allinall.img1[position].toInt(),diceAmount1.text.toString().toInt())
+            val sndAtDice = diceThrow(Allinall.img2[position].toInt(),diceAmount2.text.toString().toInt())
+            val thirdDice = diceThrow(Allinall.img3[position].toInt(),diceAmount3.text.toString().toInt())
 
             //результат с бонусом
             val result1 =  fstAtDice + bonus1.text.toString().toInt()
@@ -109,7 +112,9 @@ class GenerateAdapter(
             val d20resust = rowView.findViewById(R.id.d20throw) as TextView
             val d20throw = (1..20).random()
             val toHit = hitModifier.text.toString().toInt()
-            d20resust.text = "${toHit+d20throw+Temp_modif[0]}"
+
+            val d20resVal = toHit+d20throw+Temp_modif[0]
+            d20resust.text = d20resVal.toString()
             //прикрепили результат броска к текствью
             val d20Kinuli = rowView.findViewById(R.id.d20_kinuli) as TextView
             d20Kinuli.text = d20throw.toString()
@@ -125,10 +130,9 @@ class GenerateAdapter(
 
             val sneak1 = rowView.findViewById(R.id.sneakky) as TextView
             var sneakThrow = 0
-            if (Sneak[0]==1 && switch_on_of)
-            {
-             sneakThrow = DiceThrow(Sneak[1],Sneak[2])
-            }
+
+            if (Allinall.sneakEnable == 1 && switch_on_of)
+                sneakThrow = diceThrow(Allinall.sneakDicetype, Allinall.sneakNum)
 
             summ.text = "${result1+result2+result3+Temp_modif[1]+sneakThrow}"
             sneak1.text = sneakThrow.toString()
@@ -136,11 +140,9 @@ class GenerateAdapter(
          return rowView
     }
 
-    fun DiceThrow(inputdicenum:Int,numberofThrows:Int): Int
-    {
+    private fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
         var rez = 0;
-        for (i in 1..numberofThrows)
-        {
+        for (i in 1..numberofThrows) {
             rez += (1..Dices.dices[inputdicenum]).random()
         }
         return rez

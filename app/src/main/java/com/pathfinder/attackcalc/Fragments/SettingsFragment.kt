@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc
+package com.pathfinder.attackcalc.Fragments
 
 
 import android.annotation.SuppressLint
@@ -16,6 +16,11 @@ import android.widget.AdapterView.OnItemClickListener
 import java.io.*
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
+import com.pathfinder.attackcalc.Adapters.SettingsAdapter
+import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.FileInfo
+import com.pathfinder.attackcalc.R
+import com.pathfinder.attackcalc.Adapters.SpinAdapter
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
@@ -29,7 +34,6 @@ class SettingsFragment : Fragment() {
     private lateinit var EditButton: Button
     private lateinit var AddButton: Button
     private lateinit var listView: ListView
-    var CurrentPositon = 0;
 
     var images = intArrayOf(
         R.drawable.d3,
@@ -41,7 +45,6 @@ class SettingsFragment : Fragment() {
     )
 
     var Enable_attacks= intArrayOf(0, 0)
-    var Sneak_attacks= intArrayOf(0, 0,0)
 
     var Dices = arrayOf("1", "2","3","4","5","6")
     var AllinAll2 = DataClass()
@@ -116,24 +119,7 @@ class SettingsFragment : Fragment() {
                 Bonus3_signed = "+" + bonus3.text.toString().toInt().toString()
             }
 
-            var SCHITKA = arrayOf(
-                (spinAt1.selectedItem.toString()),
-                (spinAt2.selectedItem.toString()),
-                (spinAt3.selectedItem.toString()),
-                Bonus1_signed,
-                Bonus2_signed,
-                Bonus3_signed,
-                (Spinner_1.selectedItemId).toString(),
-                (Spinner_2.selectedItemId).toString(),
-                (Spinner_3.selectedItemId).toString(),
-                EditText_signed,
-                Enable_attacks[0].toString(),
-                Enable_attacks[1].toString(),
-                Attack_name.text.toString()
-            )
-
-            val myListAdapter = SettingsAdapter(context as Activity, AllinAll2,listView)
-            listView.adapter = myListAdapter
+            listView.adapter = SettingsAdapter(context as Activity, AllinAll2,listView)
             }
 
         AddButton.setOnClickListener {
@@ -160,9 +146,9 @@ class SettingsFragment : Fragment() {
 
             AllinAll2.hitModifier.add(editTextSigned)
 
-            AllinAll2.X12.add(spinAt1.selectedItem.toString())
-            AllinAll2.X22.add(spinAt2.selectedItem.toString())
-            AllinAll2.X32.add(spinAt3.selectedItem.toString())
+            AllinAll2.numDice1.add(spinAt1.selectedItem.toString())
+            AllinAll2.numDice2.add(spinAt2.selectedItem.toString())
+            AllinAll2.numDice3.add(spinAt3.selectedItem.toString())
 
             AllinAll2.bonus1.add(bonus1Signed)
             AllinAll2.bonus2.add(bonus2Signed)
@@ -220,26 +206,26 @@ class SettingsFragment : Fragment() {
         SneakSwich.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked)
-                Sneak_attacks[0] =1;
+                AllinAll2.sneakEnable = 1
             else
-                Sneak_attacks[0]=0
+                AllinAll2.sneakEnable = 0
 
-            Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
-            Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-            val f2 = FileOutputStream(fileInfo.fileSneak)
+            AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
+            AllinAll2.sneakNum = SneakEdit.text.toString().toInt()
+            val f2 = FileOutputStream(fileInfo.fileMain)
             val o2 = ObjectOutputStream(f2)
-            o2.writeObject(Sneak_attacks)
+            o2.writeObject(AllinAll2)
             o2.close()
             f2.close()
         }
         //перезаписываем данные при изменении кубика сник атаки
         Spinner_Sneak.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?,itemSelected: View, selectedItemPosition: Int, selectedId: Long) {
-                Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
-                Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(fileInfo.fileSneak)
+                AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
+                AllinAll2.sneakNum = SneakEdit.text.toString().toInt()
+                val f2 = FileOutputStream(fileInfo.fileMain)
                 val o2 = ObjectOutputStream(f2)
-                o2.writeObject(Sneak_attacks)
+                o2.writeObject(AllinAll2)
                 o2.close()
                 f2.close()
             }
@@ -252,18 +238,18 @@ class SettingsFragment : Fragment() {
                                            count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
-                Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
-                Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(fileInfo.fileSneak)
+                AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
+                AllinAll2.sneakNum= SneakEdit.text.toString().toInt()
+                val f2 = FileOutputStream(fileInfo.fileMain)
                 val o2 = ObjectOutputStream(f2)
-                o2.writeObject(Sneak_attacks)
+                o2.writeObject(AllinAll2)
                 o2.close()
                 f2.close()
             }
         })
         return view
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }

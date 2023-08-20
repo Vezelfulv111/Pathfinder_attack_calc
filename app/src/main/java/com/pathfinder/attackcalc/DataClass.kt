@@ -8,11 +8,10 @@ import java.io.Serializable
 class DataClass: Serializable {
     var hitModifier = arrayOf("+1", "+2", "-3").toCollection(ArrayList())
 
-
     //2-4
-    var X12 = arrayOf("1", "2", "3").toCollection(ArrayList())
-    var X22 = arrayOf("1", "2", "3").toCollection(ArrayList())
-    var X32 = arrayOf("1", "2", "3").toCollection(ArrayList())
+    var numDice1 = arrayOf("1", "2", "3").toCollection(ArrayList())
+    var numDice2 = arrayOf("1", "2", "3").toCollection(ArrayList())
+    var numDice3 = arrayOf("1", "2", "3").toCollection(ArrayList())
 
     //5-7
     var bonus1 = arrayOf("-1", "+2", "-3").toCollection(ArrayList())
@@ -29,12 +28,16 @@ class DataClass: Serializable {
     var at3Enable = arrayOf("1", "1", "0").toCollection(ArrayList())
     var attackName = arrayOf("sai", "saber +1","kukri").toCollection(ArrayList())
 
+    var sneakEnable = 0
+    var sneakNum = 0
+    var sneakDicetype = 0
+
     fun removeAt(position: Int) {
         hitModifier.removeAt(position)
 
-        X12.removeAt(position)
-        X22.removeAt(position)
-        X32.removeAt(position)
+        numDice1.removeAt(position)
+        numDice2.removeAt(position)
+        numDice3.removeAt(position)
 
         bonus1.removeAt(position)
         bonus2.removeAt(position)
@@ -53,11 +56,8 @@ class DataClass: Serializable {
 }
 
 class FileInfo {
-    private val fileName = "AllinAll24e12e4ddddd.txt";
+    private val fileName = "Data.txt";
     val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
-
-    private val sneak = "Sneak9.txt"
-    val fileSneak = File("/data/data/com.pathfinder.attackcalc/" + File.separator + sneak)
 
     fun writeToFile(file : File, data : DataClass) {
         try {
@@ -67,7 +67,7 @@ class FileInfo {
             o.close()
             f.close()
         } catch (e: Exception) {
-            System.err.println("Error opening file.");
+            System.err.println("Error opening file.")
         }
     }
 }

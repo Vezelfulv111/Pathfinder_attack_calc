@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc
+package com.pathfinder.attackcalc.Adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.TextView
+import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.FileInfo
+import com.pathfinder.attackcalc.R
 
 
 class SettingsAdapter(private val context: Activity, private var Allinall: DataClass,
                       private val listview: ListView
 )
-    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, Allinall.X12.toArray()) {
+    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, Allinall.numDice1.toArray()) {
 
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {

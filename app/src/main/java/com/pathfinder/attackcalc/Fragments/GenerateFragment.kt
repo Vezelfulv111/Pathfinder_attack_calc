@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc
+package com.pathfinder.attackcalc.Fragments
 
 
 import android.annotation.SuppressLint
@@ -9,17 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.pathfinder.attackcalc.Adapters.GenerateAdapter
+import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.Dices
+import com.pathfinder.attackcalc.FileInfo
+import com.pathfinder.attackcalc.R
 import java.io.FileInputStream
 import java.io.ObjectInputStream
 
 
 class GenerateFragment : Fragment() {
 
-    var CONDITION = 0;
+    private var CONDITION = 0;
 
     private lateinit var listView: ListView
-    var Sneak_attacks= intArrayOf(0, 0,0)
-
     private lateinit var GenButton: Button
     private lateinit var RefreshButton: Button
 
@@ -27,13 +30,10 @@ class GenerateFragment : Fragment() {
     private lateinit var Minus1: ImageButton
     private lateinit var Plus2: ImageButton
     private lateinit var Minus2: ImageButton
+
     var Temporary_modifers= intArrayOf(0, 0)
-
     private var AllinAll2 = DataClass();
-
     var fileInfo = FileInfo()
-
-
 
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
@@ -49,23 +49,10 @@ class GenerateFragment : Fragment() {
             ois.close()
         }
 
-
         val  snky_switch = view.findViewById(R.id.snky_switch) as Switch
 
-        if(fileInfo.fileSneak.exists()) {
-            val o2 = ObjectInputStream(FileInputStream(fileInfo.fileSneak))
-            Sneak_attacks =  o2.readObject() as IntArray
-            o2.close()
-            if (Sneak_attacks[0]==1) {
-             snky_switch.text = Sneak_attacks[2].toString() +"d"+ Dices.dices[Sneak_attacks[1]].toString()
-            }
-            else {
-                snky_switch.text ="None"
-            }
-        }
-
-       snky_switch.setOnClickListener() {
-           if (Sneak_attacks[0]==0) {
+           snky_switch.setOnClickListener() {
+           if (AllinAll2.sneakEnable == 0) {
             Toast.makeText(context as Activity,"Set in settings window",Toast.LENGTH_SHORT).show()
             snky_switch.isChecked = false
            }
@@ -73,12 +60,12 @@ class GenerateFragment : Fragment() {
                snky_switch.isEnabled = true
            }
        }
-        var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
         listView.adapter = ListAdapter
         GenButton = view.findViewById(R.id.gen_but);
         GenButton.setOnClickListener {
            CONDITION =1
-           var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+           var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
            listView.adapter = ListAdapter
            CONDITION =0
         }
@@ -94,7 +81,6 @@ class GenerateFragment : Fragment() {
                     AllinAll2,
                     CONDITION,
                     Temporary_modifers,
-                    Sneak_attacks,
                     snky_switch.isChecked
                 )
                 ois.close()
@@ -172,8 +158,8 @@ class GenerateFragment : Fragment() {
             var SneakThrow = 0
 
             val sneak1 = view.findViewById(R.id.sneakky) as TextView
-            if (Sneak_attacks[0]==1 && snky_switch.isChecked) {
-                SneakThrow = DiceThrow(Sneak_attacks[1], Sneak_attacks[2])
+            if (AllinAll2.sneakEnable == 1 && snky_switch.isChecked) {
+                SneakThrow = DiceThrow(AllinAll2.sneakDicetype, AllinAll2.sneakNum)
                 sneak1.text = SneakThrow.toString()
             }
             else {
@@ -210,21 +196,18 @@ class GenerateFragment : Fragment() {
             ois.close()
         }
         listView = view?.findViewById(R.id.result_list)!!
-        val ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        val ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
         listView.adapter = ListAdapter
 
-        if(fileInfo.fileSneak.exists()) {
-            val o2 = ObjectInputStream(FileInputStream(fileInfo.fileSneak))
-            Sneak_attacks =  o2.readObject() as IntArray
-            o2.close()
-            if (Sneak_attacks[0]==1) {
-                snky_switch.text = Sneak_attacks[2].toString() +"d"+ Dices.dices[Sneak_attacks[1]].toString()
+            if (AllinAll2.sneakEnable == 1) {
+                val str = AllinAll2.sneakNum.toString() +"d"+ Dices.dices[AllinAll2.sneakDicetype].toString()
+                snky_switch.text = str
             }
             else {
                 snky_switch.text="None"
                 snky_switch.isChecked = false
             }
-        }
+
 
 
     }
