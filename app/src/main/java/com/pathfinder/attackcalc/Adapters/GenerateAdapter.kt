@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.Adapters
+package com.pathfinder.attackcalc.adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.Dices
 import com.pathfinder.attackcalc.R
+import com.pathfinder.attackcalc.diceThrow
 
 
 class GenerateAdapter(
@@ -140,11 +141,4 @@ class GenerateAdapter(
          return rowView
     }
 
-    private fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
-        var rez = 0;
-        for (i in 1..numberofThrows) {
-            rez += (1..Dices.dices[inputdicenum]).random()
-        }
-        return rez
-    }
 }

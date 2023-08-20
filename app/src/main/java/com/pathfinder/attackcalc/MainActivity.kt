@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayout
 
 
 import com.google.android.material.tabs.TabLayoutMediator
-import com.pathfinder.attackcalc.Adapters.TbAdapt
+import com.pathfinder.attackcalc.adapters.TbAdapt
 
 
 class MainActivity : AppCompatActivity()  {

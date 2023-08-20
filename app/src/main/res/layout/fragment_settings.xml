@@ -7,7 +7,7 @@
 
 
     android:background="#959494"
-    tools:context="com.pathfinder.attackcalc.Fragments.SettingsFragment">
+    tools:context="com.pathfinder.attackcalc.fragments.SettingsFragment">
 
     <TableLayout
         android:id="@+id/tableLayout"

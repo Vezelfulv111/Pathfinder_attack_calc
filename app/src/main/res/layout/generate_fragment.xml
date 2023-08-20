@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#959494"
     android:tag="SET"
-    tools:context="com.pathfinder.attackcalc.Fragments.GenerateFragment">
+    tools:context="com.pathfinder.attackcalc.fragments.GenerateFragment">
 
     <ListView
         android:id="@+id/result_list"
@@ -52,7 +52,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Temporary modifiers" />
+                android:text="Temporary modifiers"
+                android:textSize="22sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,19 +88,19 @@
                     android:foregroundGravity="center"
                     android:gravity="center"
                     android:text="hit "
-                    android:textSize="14sp" />
+                    android:textSize="22sp" />
 
                 <ImageButton
                     android:id="@+id/Fstminus"
-                    android:layout_width="33dp"
-                    android:layout_height="38dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="#FD070707"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/minus_icon" />
 
                 <TextView
                     android:id="@+id/hitbonus"
-                    android:layout_width="24dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:autoSizeTextType="uniform"
@@ -107,12 +108,12 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="0"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
                 <ImageButton
                     android:id="@+id/Fstplus"
-                    android:layout_width="33dp"
-                    android:layout_height="38dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/plus_icon" />
 
@@ -125,19 +126,19 @@
                     android:gravity="center"
                     android:paddingStart="10dp"
                     android:text="damage"
-                    android:textSize="14sp" />
+                    android:textSize="22sp" />
 
                 <ImageButton
                     android:id="@+id/Fstminus2"
-                    android:layout_width="33dp"
-                    android:layout_height="38dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="#00FAFAFA"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/minus_icon" />
 
                 <TextView
                     android:id="@+id/hitbonus2"
-                    android:layout_width="24dp"
+                    android:layout_width="32dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:autoSizeTextType="uniform"
@@ -145,7 +146,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="0"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
                 <ImageButton
                     android:id="@+id/Fstplus2"
@@ -160,6 +161,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginEnd="40dp"
             android:orientation="vertical"
             android:paddingStart="5dp">
 
@@ -168,23 +170,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sneak attack" />
+                android:text="Sneak attack"
+                android:textSize="22sp" />
 
-            <TableRow
+            <Switch
+                android:id="@+id/snky_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Switch
-                    android:id="@+id/snky_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:maxLines="1"
-                    android:switchMinWidth="60dp"
-                    android:text="none"
-                    android:textColor="#FFFFFF" />
-            </TableRow>
+                android:layout_weight="2"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:switchMinWidth="60dp"
+                android:text="none"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 

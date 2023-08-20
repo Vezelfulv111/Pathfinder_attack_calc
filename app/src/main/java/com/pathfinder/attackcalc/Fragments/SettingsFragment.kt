@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.Fragments
+package com.pathfinder.attackcalc.fragments
 
 
 import android.annotation.SuppressLint
@@ -16,24 +16,27 @@ import android.widget.AdapterView.OnItemClickListener
 import java.io.*
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
-import com.pathfinder.attackcalc.Adapters.SettingsAdapter
+import com.pathfinder.attackcalc.adapters.SettingsAdapter
 import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.FileInfo
 import com.pathfinder.attackcalc.R
-import com.pathfinder.attackcalc.Adapters.SpinAdapter
+import com.pathfinder.attackcalc.adapters.SpinAdapter
+import com.pathfinder.attackcalc.writeToFile
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
 class SettingsFragment : Fragment() {
 
      private lateinit var adapter: SpinAdapter
-    private lateinit var Spinner_1: Spinner
-    private lateinit var Spinner_2: Spinner
-    private lateinit var Spinner_3: Spinner
+    private lateinit var spinnerImg1: Spinner
+    private lateinit var spinnerImg2: Spinner
+    private lateinit var spinnerImg3: Spinner
     private lateinit var Spinner_Sneak: Spinner
     private lateinit var EditButton: Button
     private lateinit var AddButton: Button
     private lateinit var listView: ListView
+    var CurrentPositon = 0;
+
 
     var images = intArrayOf(
         R.drawable.d3,
@@ -55,9 +58,9 @@ class SettingsFragment : Fragment() {
             View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
-        Spinner_1 = view.findViewById<Spinner>(R.id.Dice_spinner1)
-        Spinner_2 = view.findViewById<Spinner>(R.id.Dice_spinner2)
-        Spinner_3 = view.findViewById<Spinner>(R.id.Dice_spinner3)
+        spinnerImg1 = view.findViewById<Spinner>(R.id.Dice_spinner1)
+        spinnerImg2 = view.findViewById<Spinner>(R.id.Dice_spinner2)
+        spinnerImg3 = view.findViewById<Spinner>(R.id.Dice_spinner3)
 
         val spinAt1 = view.findViewById<Spinner>(R.id.Spin_n1) as Spinner
         val spinAt2 = view.findViewById<Spinner>(R.id.Spin_n2) as Spinner
@@ -84,9 +87,9 @@ class SettingsFragment : Fragment() {
         //Добавили картинки к спинерам
         adapter = SpinAdapter(context, Dices, images)
 
-        Spinner_1.adapter = adapter
-        Spinner_2.adapter = adapter
-        Spinner_3.adapter = adapter
+        spinnerImg1.adapter = adapter
+        spinnerImg2.adapter = adapter
+        spinnerImg3.adapter = adapter
         Spinner_Sneak.adapter = adapter
 
             val bonus1 = view.findViewById(R.id.Edittext1) as EditText
@@ -119,8 +122,32 @@ class SettingsFragment : Fragment() {
                 Bonus3_signed = "+" + bonus3.text.toString().toInt().toString()
             }
 
+            //проверка на выход за диапазон
+            if(AllinAll2.hitModifier.size < CurrentPositon)
+                return@setOnClickListener
+
+            AllinAll2.hitModifier[CurrentPositon] = EditText_signed
+
+            AllinAll2.numDice1[CurrentPositon] = spinAt1.selectedItem.toString()
+            AllinAll2.numDice2[CurrentPositon] = spinAt2.selectedItem.toString()
+            AllinAll2.numDice3[CurrentPositon] = spinAt3.selectedItem.toString()
+
+            AllinAll2.bonus1[CurrentPositon] = Bonus1_signed
+            AllinAll2.bonus2[CurrentPositon] = Bonus2_signed
+            AllinAll2.bonus3[CurrentPositon] = Bonus3_signed
+
+            AllinAll2.img1[CurrentPositon] = (spinnerImg1.selectedItemId).toString()
+            AllinAll2.img2[CurrentPositon] = (spinnerImg2.selectedItemId).toString()
+            AllinAll2.img3[CurrentPositon] = (spinnerImg3.selectedItemId).toString()
+
+            AllinAll2.at2Enable[CurrentPositon] = Enable_attacks[0].toString()
+            AllinAll2.at3Enable[CurrentPositon] = Enable_attacks[1].toString()
+            AllinAll2.attackName[CurrentPositon] = Attack_name.text.toString()
+
             listView.adapter = SettingsAdapter(context as Activity, AllinAll2,listView)
-            }
+
+            writeToFile(fileInfo.fileMain, AllinAll2)
+        }
 
         AddButton.setOnClickListener {
             var AllinAll2 = DataClass()
@@ -131,7 +158,7 @@ class SettingsFragment : Fragment() {
             }
 
             var editTextSigned = EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt()>0)
+            if (EditModifer.text.toString().toInt() > 0)
                 editTextSigned = "+" +EditModifer.text.toString().toInt().toString()
 
             var bonus1Signed = bonus1.text.toString()
@@ -154,9 +181,9 @@ class SettingsFragment : Fragment() {
             AllinAll2.bonus2.add(bonus2Signed)
             AllinAll2.bonus3.add(bonus3Signed)
 
-            AllinAll2.img1.add((Spinner_1.selectedItemId).toString())
-            AllinAll2.img2.add((Spinner_2.selectedItemId).toString())
-            AllinAll2.img3.add((Spinner_3.selectedItemId).toString())
+            AllinAll2.img1.add((spinnerImg1.selectedItemId).toString())
+            AllinAll2.img2.add((spinnerImg2.selectedItemId).toString())
+            AllinAll2.img3.add((spinnerImg3.selectedItemId).toString())
 
             AllinAll2.at2Enable.add(Enable_attacks[0].toString())
             AllinAll2.at3Enable.add(Enable_attacks[1].toString())
@@ -164,41 +191,56 @@ class SettingsFragment : Fragment() {
 
 
             listView.adapter =  SettingsAdapter(context as Activity, AllinAll2,listView)
-            fileInfo.writeToFile(fileInfo.fileMain, AllinAll2)
+            writeToFile(fileInfo.fileMain, AllinAll2)
         }
 
         var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Enable_attacks[0] =1;
+                Enable_attacks[0] =1
             } else {
-                Enable_attacks[0]=0
+                Enable_attacks[0]= 0
             }
         }
 
         var Switch3d = view.findViewById(R.id.switchthird) as Switch
         Switch3d.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-               Enable_attacks[1] =1;
+               Enable_attacks[1] = 1
             } else {
-               Enable_attacks[1]=0
+               Enable_attacks[1]= 0
             }
         }
 
         //Если нажать на список
         listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-            if (AllinAll2.at2Enable[position].toInt() == 1)
-                Switch2nd.isChecked = TRUE
-            else
-                Switch2nd.isChecked = FALSE
-
-            if (AllinAll2.at3Enable[position].toInt() == 1)
-                Switch3d.isChecked = TRUE
-            else
-                Switch3d.isChecked = FALSE
+            CurrentPositon = position
 
             EditButton.text = "Edit ".plus((position+1).toString())
             Attack_name.text = AllinAll2.attackName[position]
+
+            bonus1.setText(AllinAll2.bonus1[position].toInt().toString())
+            spinnerImg1.setSelection(AllinAll2.img1[position].toInt(),true)
+            spinAt1.setSelection(AllinAll2.numDice1[position].toInt(),true)
+
+            if (AllinAll2.at2Enable[position].toInt() == 1) {
+                Switch2nd.isChecked = TRUE
+                bonus2.setText(AllinAll2.bonus1[position].toInt().toString())
+                spinnerImg2.setSelection(AllinAll2.img2[position].toInt(),true)
+                spinAt2.setSelection(AllinAll2.numDice2[position].toInt(),true)
+            }
+            else
+                Switch2nd.isChecked = FALSE
+
+            if (AllinAll2.at3Enable[position].toInt() == 1) {
+                Switch3d.isChecked = TRUE
+                bonus3.setText(AllinAll2.bonus1[position].toInt().toString())
+                spinnerImg3.setSelection(AllinAll2.img3[position].toInt(),true)
+                spinAt3.setSelection(AllinAll2.numDice3[position].toInt(),true)
+            }
+            else
+                Switch3d.isChecked = FALSE
+
         }
 
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
@@ -249,7 +291,7 @@ class SettingsFragment : Fragment() {
         })
         return view
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }

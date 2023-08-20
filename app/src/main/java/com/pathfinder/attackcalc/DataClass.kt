@@ -55,20 +55,28 @@ class DataClass: Serializable {
 
 }
 
-class FileInfo {
-    private val fileName = "Data.txt";
-    val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
-
-    fun writeToFile(file : File, data : DataClass) {
-        try {
-            val f = FileOutputStream(file)
-            val o = ObjectOutputStream(f)
-            o.writeObject(data)
-            o.close()
-            f.close()
-        } catch (e: Exception) {
-            System.err.println("Error opening file.")
-        }
+fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
+    var rez = 0;
+    for (i in 1..numberofThrows) {
+        rez += (1..Dices.dices[inputdicenum]).random()
     }
+    return rez
+}
+
+fun writeToFile(file : File, data : DataClass) {
+    try {
+        val f = FileOutputStream(file)
+        val o = ObjectOutputStream(f)
+        o.writeObject(data)
+        o.close()
+        f.close()
+    } catch (e: Exception) {
+        System.err.println("Error opening file.")
+    }
+}
+
+class FileInfo {
+    private val fileName = "Data2.txt"
+    val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
 }
 

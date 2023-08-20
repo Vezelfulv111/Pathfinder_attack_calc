@@ -1,11 +1,11 @@
-package com.pathfinder.attackcalc.Adapters
+package com.pathfinder.attackcalc.adapters
 
 
 import androidx.fragment.app.Fragment
 
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.pathfinder.attackcalc.Fragments.GenerateFragment
-import com.pathfinder.attackcalc.Fragments.SettingsFragment
+import com.pathfinder.attackcalc.fragments.GenerateFragment
+import com.pathfinder.attackcalc.fragments.SettingsFragment
 import com.pathfinder.attackcalc.MainActivity
 
 

@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.Adapters
+package com.pathfinder.attackcalc.adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.FileInfo
 import com.pathfinder.attackcalc.R
+import com.pathfinder.attackcalc.writeToFile
 
 
 class SettingsAdapter(private val context: Activity, private var Allinall: DataClass,
@@ -29,9 +30,9 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         val Attac_num = rowView.findViewById(R.id.cur_num) as TextView
         Attac_num.text = (position+1).toString()
 
-        val Bonus1 = rowView.findViewById(R.id.bonus1) as TextView
-        val Bonus2 = rowView.findViewById(R.id.bonus2) as TextView
-        val Bonus3 = rowView.findViewById(R.id.bonus3) as TextView
+        val bonus1 = rowView.findViewById(R.id.bonus1) as TextView
+        val bonus2 = rowView.findViewById(R.id.bonus2) as TextView
+        val bonus3 = rowView.findViewById(R.id.bonus3) as TextView
             val img1 = rowView.findViewById(R.id.img1) as ImageView
             val img2 = rowView.findViewById(R.id.img2) as ImageView
             val img3 = rowView.findViewById(R.id.img3) as ImageView
@@ -40,9 +41,6 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         val plus3 = rowView.findViewById(R.id.attack_num3) as TextView
 
         var hit_modifier = rowView.findViewById(R.id.hit_modifier) as TextView
-
-        var AllElements = arrayOf(plus1,plus2,plus3,Bonus1,Bonus2,Bonus3)
-        var AllImgs = arrayOf(img1,img2,img3)
 
         //меняем картинки
         var images = intArrayOf(
@@ -63,6 +61,19 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         val Table2 = rowView.findViewById(R.id.table2) as TableRow
         val Table3 = rowView.findViewById(R.id.table3) as TableRow
 
+        hit_modifier.text = Allinall.hitModifier[position]
+        plus1.text = Allinall.numDice1[position]
+        plus2.text = Allinall.numDice2[position]
+        plus3.text = Allinall.numDice3[position]
+
+        bonus1.text = Allinall.bonus1[position]
+        bonus2.text = Allinall.bonus2[position]
+        bonus3.text = Allinall.bonus3[position]
+
+        img1.setImageResource(images[Allinall.img1[position].toInt()])
+        img2.setImageResource(images[Allinall.img2[position].toInt()])
+        img3.setImageResource(images[Allinall.img3[position].toInt()])
+
         if (Allinall.at2Enable[position].toInt() == 0)
             Table2.visibility = View.GONE
         if (Allinall.at3Enable[position].toInt() == 0)
@@ -75,7 +86,7 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
             Allinall.removeAt(position)
 
             val file = FileInfo()
-            file.writeToFile(file.fileMain, Allinall)
+            writeToFile(file.fileMain, Allinall)
 
             val listview = listview
             val myListAdapter2 = SettingsAdapter(context, Allinall, listview)

@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.Adapters;
+package com.pathfinder.attackcalc.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
