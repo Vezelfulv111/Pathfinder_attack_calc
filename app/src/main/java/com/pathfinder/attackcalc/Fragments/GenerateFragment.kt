@@ -17,8 +17,6 @@ import java.io.ObjectInputStream
 
 class GenerateFragment : Fragment() {
 
-    private var CONDITION = 0;
-
     private lateinit var listView: ListView
     private lateinit var GenButton: Button
     private lateinit var RefreshButton: Button
@@ -46,24 +44,21 @@ class GenerateFragment : Fragment() {
             ois.close()
         }
 
-        val  snky_switch = view.findViewById(R.id.snky_switch) as Switch
+        var snky_switch = view.findViewById(R.id.snky_switch) as Switch
 
            snky_switch.setOnClickListener() {
            if (AllinAll2.sneakEnable == 0) {
-            Toast.makeText(context as Activity,"Set in settings window",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context as Activity,"Set it in settings window!",Toast.LENGTH_SHORT).show()
             snky_switch.isChecked = false
            }
            else {
                snky_switch.isEnabled = true
            }
        }
-        var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
-        listView.adapter = ListAdapter
+        listView.adapter =  GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers,snky_switch.isChecked)
         GenButton = view.findViewById(R.id.gen_but);
         GenButton.setOnClickListener {
-           CONDITION =1
-           listView.adapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
-           CONDITION =0
+           listView.adapter = GenerateAdapter(context as Activity,AllinAll2,1,Temporary_modifers,snky_switch.isChecked)
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
@@ -72,16 +67,8 @@ class GenerateFragment : Fragment() {
                 val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
                 AllinAll2 = ois.readObject() as DataClass
                 ois.close()
-                ListAdapter = GenerateAdapter(
-                    context as Activity,
-                    AllinAll2,
-                    CONDITION,
-                    Temporary_modifers,
-                    snky_switch.isChecked
-                )
-                ois.close()
             }
-            listView.adapter = ListAdapter
+            listView.adapter = GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers, snky_switch.isChecked)
         }
 
         Plus1 = view.findViewById(R.id.Fstplus)
@@ -185,14 +172,14 @@ class GenerateFragment : Fragment() {
             ois.close()
         }
         listView = requireView().findViewById(R.id.result_list)
-        listView.adapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,snky_switch.isChecked)
+        listView.adapter = GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers,snky_switch.isChecked)
 
             if (AllinAll2.sneakEnable == 1) {
                 val str = AllinAll2.sneakNum.toString() +"d"+ Dices.dices[AllinAll2.sneakDicetype].toString()
                 snky_switch.text = str
             }
             else {
-                snky_switch.text="None"
+                snky_switch.text=getString(R.string.SneakSwitchStrNone)
                 snky_switch.isChecked = false
             }
     }

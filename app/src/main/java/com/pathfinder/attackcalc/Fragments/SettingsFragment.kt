@@ -35,7 +35,7 @@ class SettingsFragment : Fragment() {
     private lateinit var EditButton: Button
     private lateinit var AddButton: Button
     private lateinit var listView: ListView
-    var CurrentPositon = 0;
+    var CurrentPositon = 0
 
 
     var images = intArrayOf(
@@ -48,8 +48,6 @@ class SettingsFragment : Fragment() {
     )
 
     var Enable_attacks= intArrayOf(0, 0)
-
-    var Dices = arrayOf("1", "2","3","4","5","6")
     var AllinAll2 = DataClass()
     var fileInfo = FileInfo()
 
@@ -85,7 +83,7 @@ class SettingsFragment : Fragment() {
         listView =view.findViewById(R.id.listView)
 
         //Добавили картинки к спинерам
-        adapter = SpinAdapter(context, Dices, images)
+        adapter = SpinAdapter(context, arrayOf("1", "2","3","4","5","6"), images)
 
         spinnerImg1.adapter = adapter
         spinnerImg2.adapter = adapter
@@ -123,7 +121,7 @@ class SettingsFragment : Fragment() {
             }
 
             //проверка на выход за диапазон
-            if(AllinAll2.hitModifier.size < CurrentPositon)
+            if(AllinAll2.hitModifier.size <= CurrentPositon ||  AllinAll2.hitModifier.isEmpty())
                 return@setOnClickListener
 
             AllinAll2.hitModifier[CurrentPositon] = EditText_signed
@@ -150,7 +148,6 @@ class SettingsFragment : Fragment() {
         }
 
         AddButton.setOnClickListener {
-            var AllinAll2 = DataClass()
             if (fileInfo.fileMain.exists()) {
                 val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
                 AllinAll2 =  ois.readObject() as DataClass
@@ -221,13 +218,13 @@ class SettingsFragment : Fragment() {
 
             bonus1.setText(AllinAll2.bonus1[position].toInt().toString())
             spinnerImg1.setSelection(AllinAll2.img1[position].toInt(),true)
-            spinAt1.setSelection(AllinAll2.numDice1[position].toInt(),true)
+            spinAt1.setSelection(AllinAll2.numDice1[position].toInt()-1,true)
 
             if (AllinAll2.at2Enable[position].toInt() == 1) {
                 Switch2nd.isChecked = TRUE
                 bonus2.setText(AllinAll2.bonus1[position].toInt().toString())
                 spinnerImg2.setSelection(AllinAll2.img2[position].toInt(),true)
-                spinAt2.setSelection(AllinAll2.numDice2[position].toInt(),true)
+                spinAt2.setSelection(AllinAll2.numDice2[position].toInt()-1,true)
             }
             else
                 Switch2nd.isChecked = FALSE
@@ -236,7 +233,7 @@ class SettingsFragment : Fragment() {
                 Switch3d.isChecked = TRUE
                 bonus3.setText(AllinAll2.bonus1[position].toInt().toString())
                 spinnerImg3.setSelection(AllinAll2.img3[position].toInt(),true)
-                spinAt3.setSelection(AllinAll2.numDice3[position].toInt(),true)
+                spinAt3.setSelection(AllinAll2.numDice3[position-1].toInt(),true)
             }
             else
                 Switch3d.isChecked = FALSE
