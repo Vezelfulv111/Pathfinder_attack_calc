@@ -10,10 +10,10 @@ import android.widget.TextView
 import java.io.*
 
 
-class ArrayList_Adapter(private val context: Activity, private var Allinall: Array< Array<String>>,
+class ArrayList_Adapter(private val context: Activity, private var Allinall: DataClass,
                         private val listview: ListView
 )
-    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, Allinall[1]) {
+    : ArrayAdapter<Any>(context, R.layout.attac_st_listview) {
 
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -54,103 +54,63 @@ class ArrayList_Adapter(private val context: Activity, private var Allinall: Arr
             R.drawable.d12,
         )
 
-        //тк по 3 компонента цикл по 3м
-        for (i in 0..2)
-        {
-          AllElements[i].text = (Allinall[i][position] as String)
-          AllElements[i+3].text = (Allinall[i+3][position] as String)
-          AllImgs[i].setImageResource( images[Allinall[i+6][position].toString().toInt() as Int])
-        }
-        hit_modifier.text = Allinall[9][position] as String
 
         //имя атаки
-        var attack_name = rowView.findViewById(R.id.attack_name) as TextView
-        attack_name.text = Allinall[12][position].toString()
+        val attack_name = rowView.findViewById(R.id.attack_name) as TextView
+        attack_name.text = Allinall.Attack_names[position]
 
         //условия по не отображению элементов
         val Table2 = rowView.findViewById(R.id.table2) as TableRow
         val Table3 = rowView.findViewById(R.id.table3) as TableRow
-            if (Allinall[10][position].toInt() == 0)
+            if (Allinall.At2_enable[position].toInt() == 0)
             {Table2.visibility = View.GONE}
-            if (Allinall[11][position].toInt() == 0)
+            if (Allinall.At3_enable[position].toInt() == 0)
             {Table3.visibility = View.GONE}
 
         val DelBut = rowView.findViewById(R.id.Delbut) as Button
-        var listview = listview;
+        val listview = listview;
 
 
-        val A =  arrayListOf(
-            Allinall[0].toMutableList(),
-            Allinall[1].toMutableList(),
-            Allinall[2].toMutableList(),
-            Allinall[3].toMutableList(),
-            Allinall[4].toMutableList(),
-            Allinall[5].toMutableList(),
-            Allinall[6].toMutableList(),
-            Allinall[7].toMutableList(),
-            Allinall[8].toMutableList(),
-            Allinall[9].toMutableList(),
-            Allinall[10].toMutableList(),
-            Allinall[11].toMutableList(),
-            Allinall[12].toMutableList(),
-        )
-
-         try {
-         val f = FileOutputStream(file)
-         val o = ObjectOutputStream(f)
-         o.writeObject(Allinall)
-         o.close()
-         f.close()
-         } catch (e: FileNotFoundException) {
-        println("File not found")
-        } catch (e: IOException) {
-        println("Error initializing stream")
-         } catch (e: ClassNotFoundException) {
-        e.printStackTrace()
-         }
+//         try {
+//             val f = FileOutputStream(file)
+//             val o = ObjectOutputStream(f)
+//             //o.writeObject(Allinall)
+//             o.close()
+//             f.close()
+//         } catch (e: FileNotFoundException) {
+//            println("File not found")
+//        } catch (e: IOException) {
+//            println("Error initializing stream")
+//         } catch (e: ClassNotFoundException) {
+//            e.printStackTrace()
+//         }
 
 
 
        DelBut.setOnClickListener(View.OnClickListener {
           //  Toast.makeText(context, "gf", Toast.LENGTH_SHORT).show()
 
-            for (i in 0..12)
-            {
-               A[i].removeAt(position)
+            for (i in 0..12) {
+               //A[i].removeAt(position)
             }
 
-             Allinall =  arrayOf(
-                A[0].toTypedArray(),
-                A[1].toTypedArray(),
-                A[2].toTypedArray(),
-                A[3].toTypedArray(),
-                A[4].toTypedArray(),
-                A[5].toTypedArray(),
-                A[6].toTypedArray(),
-                A[7].toTypedArray(),
-                A[8].toTypedArray(),
-                A[9].toTypedArray(),
-                A[10].toTypedArray(),
-                A[11].toTypedArray(),
-                A[12].toTypedArray(),
-                )
 
-            try {
-                val f = FileOutputStream(file)
-                val o = ObjectOutputStream(f)
-                o.writeObject(Allinall)
-                o.close()
-                f.close()
-            } catch (e: FileNotFoundException) {
-                println("File not found")
-            } catch (e: IOException) {
-                println("Error initializing stream")
-            } catch (e: ClassNotFoundException) {
-                // TODO Auto-generated catch block
-                e.printStackTrace()
-            }
+//            try {
+//                val f = FileOutputStream(file)
+//                val o = ObjectOutputStream(f)
+//                //o.writeObject(Allinall)
+//                o.close()
+//                f.close()
+//            } catch (e: FileNotFoundException) {
+//                println("File not found")
+//            } catch (e: IOException) {
+//                println("Error initializing stream")
+//            } catch (e: ClassNotFoundException) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace()
+//            }
 
-            val myListAdapter2 = ArrayList_Adapter(context as Activity,  Allinall,listview)
+            val myListAdapter2 = ArrayList_Adapter(context,  Allinall,listview)
             listview.adapter= myListAdapter2;
 
         })

@@ -21,13 +21,7 @@ import android.widget.AdapterView
 
 class SettingsFragment : Fragment() {
 
-    val all = "AllinAll2.txt"
-    val file = File("/data/data/com.pathfinder.attackcalc/" + File.separator + all)
-
-    val sneak = "Sneak2.txt"
-    val file_sneak = File("/data/data/com.pathfinder.attackcalc/" + File.separator + sneak)
-
-    private lateinit var adapter: SpinAdapter
+     private lateinit var adapter: SpinAdapter
     private lateinit var Spinner_1: Spinner
     private lateinit var Spinner_2: Spinner
     private lateinit var Spinner_3: Spinner
@@ -50,31 +44,11 @@ class SettingsFragment : Fragment() {
     var Enable_attacks= intArrayOf(0, 0)
     var Sneak_attacks= intArrayOf(0, 0,0)
 
-    //проверка два
-    var Hit_modifier2 = arrayOf("+9", "+20", "+0")
-    var X12 = arrayOf("1", "2", "3")
-    var X22 = arrayOf("1", "2", "3")
-    var X32 = arrayOf("1", "2", "3")
-
-    var plus12 = arrayOf("-1", "+2", "-3")
-    var plus22 = arrayOf("-1", "+2", "+0")
-    var plus32 = arrayOf("-1", "+2", "-3")
-
-    var im1_At2 = arrayOf("1", "2", "3")
-    var im2_At2 = arrayOf("1", "2", "3")
-    var im3_At2 = arrayOf("4", "4", "4")
-
-
-    var At2_enable = arrayOf("0", "1", "0")
-    var At3_enable = arrayOf("1", "1", "0")
 
 
     var Dices = arrayOf("1", "2","3","4","5","6")
-
-    var Attack_names = arrayOf("sai", "saber +1","kukri")
-
-    var AllinAll = arrayOf(X12,X22,X32,plus12,plus22,plus32,im1_At2,im2_At2,im3_At2,Hit_modifier2,At2_enable,At3_enable,Attack_names)
-
+    var AllinAll2 = DataClass()
+    var fileInfo = FileInfo()
 
 
 
@@ -97,10 +71,10 @@ class SettingsFragment : Fragment() {
         spinAt2.adapter = arrayAdapter
         spinAt3.adapter = arrayAdapter
 
-        if (file.exists())
+        if (fileInfo.fileMain.exists())
         {
-            val ois = ObjectInputStream(FileInputStream(file))
-            AllinAll =  ois.readObject() as Array<Array<String>>
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
             ois.close()
         }
 
@@ -125,14 +99,14 @@ class SettingsFragment : Fragment() {
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = ArrayList_Adapter(context as Activity,AllinAll,listView)
+        val myListAdapter = ArrayList_Adapter(context as Activity,AllinAll2,listView)
         listView.adapter = myListAdapter
 
         EditButton.setOnClickListener {
 
-            if (file.exists()) {
-              val ois = ObjectInputStream(FileInputStream(file))
-              AllinAll =  ois.readObject() as Array<Array<String>>
+            if (fileInfo.fileMain.exists()) {
+              val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+              AllinAll2 =  ois.readObject() as DataClass
               ois.close()
             }
 
@@ -169,20 +143,20 @@ class SettingsFragment : Fragment() {
                 Attack_name.text.toString()
             )
 
-            if ( CurrentPositon <(AllinAll[0].size)) {
-                for (i in 0..12) {
-                    AllinAll[i][CurrentPositon] = SCHITKA[i]
-                }
-            }
+//            if ( CurrentPositon <(AllinAll[0].size)) {
+//                for (i in 0..12) {
+//                    AllinAll[i][CurrentPositon] = SCHITKA[i]
+//                }
+//            }
 
-            val myListAdapter = ArrayList_Adapter(context as Activity, AllinAll,listView)
+            val myListAdapter = ArrayList_Adapter(context as Activity, AllinAll2,listView)
             listView.adapter = myListAdapter
             }
 
         AddButton.setOnClickListener {
-            if (file.exists()) {
-                val ois = ObjectInputStream(FileInputStream(file))
-                AllinAll =  ois.readObject() as Array<Array<String>>
+            if (fileInfo.fileMain.exists()) {
+                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+                AllinAll2 =  ois.readObject() as DataClass
                 ois.close()
             }
 
@@ -237,16 +211,12 @@ class SettingsFragment : Fragment() {
                 Attack_name.text.toString()
             )
 
-
-            for (i in 0..12) {
-                 copyArray[i] = AllinAll[i]+SCHITKA[i]
-            }
-            listView.adapter =  ArrayList_Adapter(context as Activity, copyArray,listView)
-                val f = FileOutputStream(file)
-                val o = ObjectOutputStream(f)
-                o.writeObject(copyArray)
-                o.close()
-                f.close()
+//            listView.adapter =  ArrayList_Adapter(context as Activity, AllinAll2,listView)
+//                val f = FileOutputStream(fileInfo.fileMain)
+//                val o = ObjectOutputStream(f)
+//                //o.writeObject(AllinAll2)
+//                o.close()
+//                f.close()
             }
 
         var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
@@ -270,40 +240,40 @@ class SettingsFragment : Fragment() {
         //Если нажать на список
         listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
 
-            var CopyArray = AllinAll
-            if (file.exists())
-            {
-                val ois = ObjectInputStream(FileInputStream(file))
-                CopyArray =  ois.readObject() as Array<Array<String>>
-                ois.close()
-            }
-              spinAt1.setSelection(CopyArray[0][position].toInt()-1,true)
-              spinAt2.setSelection(CopyArray[1][position].toInt()-1,true)
-              spinAt3.setSelection(CopyArray[2][position].toInt()-1,true)
-           bonus1.setText(CopyArray[3][position].toInt().toString())
-           bonus2.setText(CopyArray[4][position].toInt().toString())
-           bonus3.setText(CopyArray[5][position].toInt().toString())
-             Spinner_1.setSelection(CopyArray[6][position].toInt() ,true)
-             Spinner_2.setSelection(CopyArray[7][position].toInt(),true)
-             Spinner_3.setSelection(CopyArray[8][position].toInt(),true)
-            EditModifer.setText(CopyArray[9][position].toInt().toString())
-
-            if (CopyArray[10][position].toInt() ==1) {
-                Switch2nd.isChecked = TRUE
-            }
-            else {
-                Switch2nd.isChecked = FALSE
-            }
-
-           if (CopyArray[11][position].toInt() ==1) {
-               Switch3d.isChecked = TRUE}
-            else{
-                Switch3d.isChecked = FALSE
-            }
-
-            EditButton.text = "Edit ".plus((position+1).toString())
-            CurrentPositon = position
-            Attack_name.text = CopyArray[12][position]
+//            var CopyArray = AllinAll2
+//            if (file.exists())
+//            {
+//                val ois = ObjectInputStream(FileInputStream(file))
+//                CopyArray =  ois.readObject() as Array<Array<String>>
+//                ois.close()
+//            }
+//              spinAt1.setSelection(CopyArray[0][position].toInt()-1,true)
+//              spinAt2.setSelection(CopyArray[1][position].toInt()-1,true)
+//              spinAt3.setSelection(CopyArray[2][position].toInt()-1,true)
+//           bonus1.setText(CopyArray[3][position].toInt().toString())
+//           bonus2.setText(CopyArray[4][position].toInt().toString())
+//           bonus3.setText(CopyArray[5][position].toInt().toString())
+//             Spinner_1.setSelection(CopyArray[6][position].toInt() ,true)
+//             Spinner_2.setSelection(CopyArray[7][position].toInt(),true)
+//             Spinner_3.setSelection(CopyArray[8][position].toInt(),true)
+//            EditModifer.setText(CopyArray[9][position].toInt().toString())
+//
+//            if (CopyArray[10][position].toInt() ==1) {
+//                Switch2nd.isChecked = TRUE
+//            }
+//            else {
+//                Switch2nd.isChecked = FALSE
+//            }
+//
+//           if (CopyArray[11][position].toInt() ==1) {
+//               Switch3d.isChecked = TRUE}
+//            else{
+//                Switch3d.isChecked = FALSE
+//            }
+//
+//            EditButton.text = "Edit ".plus((position+1).toString())
+//            CurrentPositon = position
+//            Attack_name.text = CopyArray[12][position]
         }
 
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
@@ -317,7 +287,7 @@ class SettingsFragment : Fragment() {
             }
             Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
             Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-            val f2 = FileOutputStream(file_sneak)
+            val f2 = FileOutputStream(fileInfo.fileSneak)
             val o2 = ObjectOutputStream(f2)
             o2.writeObject(Sneak_attacks)
             o2.close()
@@ -328,7 +298,7 @@ class SettingsFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?,itemSelected: View, selectedItemPosition: Int, selectedId: Long) {
                 Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
                 Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(file_sneak)
+                val f2 = FileOutputStream(fileInfo.fileSneak)
                 val o2 = ObjectOutputStream(f2)
                 o2.writeObject(Sneak_attacks)
                 o2.close()
@@ -345,7 +315,7 @@ class SettingsFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
                 Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
                 Sneak_attacks[2]= SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(file_sneak)
+                val f2 = FileOutputStream(fileInfo.fileSneak)
                 val o2 = ObjectOutputStream(f2)
                 o2.writeObject(Sneak_attacks)
                 o2.close()
@@ -357,5 +327,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            }
     }
+
+}

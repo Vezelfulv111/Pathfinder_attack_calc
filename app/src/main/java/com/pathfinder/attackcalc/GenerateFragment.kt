@@ -21,12 +21,6 @@ class GenerateFragment : Fragment() {
     private lateinit var listView: ListView
     var Sneak_attacks= intArrayOf(0, 0,0)
 
-    val All = "AllinAll2.txt"
-    val file = File("/data/data/com.pathfinder.attackcalc/" + File.separator + All)
-
-    val Sneak = "Sneak2.txt"
-    val file_sneak = File("/data/data/com.pathfinder.attackcalc/" + File.separator + Sneak)
-
     private lateinit var GenButton: Button
     private lateinit var RefreshButton: Button
 
@@ -36,30 +30,9 @@ class GenerateFragment : Fragment() {
     private lateinit var Minus2: ImageButton
     var Temporary_modifers= intArrayOf(0, 0)
 
-    var Hit_modifier2 = arrayOf("+9", "+20", "-2")
-        var X12 = arrayOf("1", "2", "3")
-        var X22 = arrayOf("1", "2", "3")
-        var X32 = arrayOf("1", "2", "3")
-    var plus12 = arrayOf("-1", "+2", "-3")
-    var plus22 = arrayOf("-1", "+2", "+0")
-    var plus32 = arrayOf("-1", "+2", "-3")
-        var im1_At2 = arrayOf("1", "2", "3")
-        var im2_At2 = arrayOf("1", "2", "3")
-        var im3_At2 = arrayOf("4", "4", "4")
-    var At2_enable = arrayOf("0", "1", "0")
-    var At3_enable = arrayOf("1", "1", "0")
-    var Attack_names = arrayOf("sai", "saber +1","kukri")
+    private var AllinAll2 = DataClass();
 
-    var AllinAll = arrayOf(X12,X22,X32,plus12,plus22,plus32,im1_At2,im2_At2,im3_At2,Hit_modifier2,At2_enable,At3_enable,Attack_names)
-
-    var dices = intArrayOf(
-        3,
-        4,
-        6,
-        8,
-        10,
-        12,
-    )
+    var fileInfo = FileInfo()
 
 
 
@@ -70,9 +43,10 @@ class GenerateFragment : Fragment() {
         val view: View = inflater!!.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)
 
-        if(file.exists()) {
-            val ois = ObjectInputStream(FileInputStream(file))
-            AllinAll =  ois.readObject() as Array<Array<String>>
+
+        if(fileInfo.fileMain.exists()) {
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
             ois.close()
         }
 
@@ -80,16 +54,16 @@ class GenerateFragment : Fragment() {
         val  snky_switch = view.findViewById(R.id.snky_switch) as Switch
 
 
-        if(file_sneak.exists()) {
-            val o2 = ObjectInputStream(FileInputStream(file_sneak))
+        if(fileInfo.fileSneak.exists()) {
+            val o2 = ObjectInputStream(FileInputStream(fileInfo.fileSneak))
             Sneak_attacks =  o2.readObject() as IntArray
             o2.close()
-            if (Sneak_attacks[0]==1)
-            {
-             snky_switch.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()
+            if (Sneak_attacks[0]==1) {
+             snky_switch.text = Sneak_attacks[2].toString() +"d"+ Dices.dices[Sneak_attacks[1]].toString()
             }
-            else
-            { snky_switch.text ="None"}
+            else {
+                snky_switch.text ="None"
+            }
         }
 
        snky_switch.setOnClickListener() {
@@ -101,25 +75,25 @@ class GenerateFragment : Fragment() {
                snky_switch.isEnabled = true
            }
        }
-        var ListAdapter = ResultAdapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        var ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
         GenButton = view.findViewById(R.id.gen_but);
         GenButton.setOnClickListener {
            CONDITION =1;
-           var ListAdapter = ResultAdapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+           var ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
            listView.adapter = ListAdapter
            CONDITION =0;
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
-            if(file.exists()) {
-                val ois = ObjectInputStream(FileInputStream(file))
-                AllinAll = ois.readObject() as Array<Array<String>>
+            if(fileInfo.fileMain.exists()) {
+                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+                AllinAll2 = ois.readObject() as DataClass
                 ois.close()
                 ListAdapter = ResultAdapter(
                     context as Activity,
-                    AllinAll,
+                    AllinAll2,
                     CONDITION,
                     Temporary_modifers,
                     Sneak_attacks,
@@ -169,9 +143,9 @@ class GenerateFragment : Fragment() {
             val diceamount1 = view.findViewById(R.id.attack_num1) as TextView
             val diceamount2 = view.findViewById(R.id.attack_num2) as TextView
             val diceamount3 = view.findViewById(R.id.attack_num3) as TextView
-            var FstAtDice = DiceThrow(AllinAll[6][position].toInt(),diceamount1.text.toString().toInt());
-            var SndAtDice = DiceThrow(AllinAll[7][position].toInt(),diceamount2.text.toString().toInt() );
-            var ThirdDice = DiceThrow(AllinAll[8][position].toInt(),diceamount3.text.toString().toInt()  );
+            var FstAtDice = DiceThrow(AllinAll2.im1_At2[position].toInt(),diceamount1.text.toString().toInt());
+            var SndAtDice = DiceThrow(AllinAll2.im2_At2[7][position].toInt(),diceamount2.text.toString().toInt() );
+            var ThirdDice = DiceThrow(AllinAll2.im3_At2[8][position].toInt(),diceamount3.text.toString().toInt()  );
 
             val Bonus1 = view.findViewById(R.id.bonus1) as TextView
             val Bonus2 = view.findViewById(R.id.bonus2) as TextView
@@ -190,10 +164,12 @@ class GenerateFragment : Fragment() {
             Gen3.text =  Result3.toString()
 
             val Summ = view.findViewById(R.id.total_result) as TextView
-            if (AllinAll[10][position].toInt() == 0)
-            {Result2 = 0}
-            if (AllinAll[11][position].toInt() == 0)
-            {Result3 = 0}
+            if (AllinAll2.At2_enable[position].toInt() == 0) {
+                Result2 = 0
+            }
+            if (AllinAll2.At3_enable[position].toInt() == 0) {
+                Result3 = 0
+            }
             Summ.text = (Result1+Result2+Result3+Temporary_modifers[1]).toString()
             var SneakThrow = 0
 
@@ -202,8 +178,9 @@ class GenerateFragment : Fragment() {
                 SneakThrow = DiceThrow(Sneak_attacks[1], Sneak_attacks[2])
                 sneak1.text = SneakThrow.toString()
             }
-            else
-            { sneak1.text = "0"}
+            else {
+                sneak1.text = "0"
+            }
             Summ.text = (Result1+Result2+Result3+Temporary_modifers[1]+SneakThrow).toString()
 
         }
@@ -218,19 +195,11 @@ class GenerateFragment : Fragment() {
 
     fun DiceThrow(inputdicenum:Int,numberofThrows:Int): Int
     {
-        var dices = intArrayOf(
-            3,
-            4,
-            6,
-            8,
-            10,
-            12,
-        )
 
         var rez = 0;
         for (i in 1..numberofThrows)
         {
-            rez += (1..dices[inputdicenum]).random()
+            rez += (1..Dices.dices[inputdicenum]).random()
         }
         return rez
     }
@@ -239,30 +208,26 @@ class GenerateFragment : Fragment() {
         super.onResume()
 
         var  snky_switch = view?.findViewById(R.id.snky_switch) as Switch
-        if(file.exists())
-        {   val ois = ObjectInputStream(FileInputStream(file))
-            AllinAll =  ois.readObject() as Array<Array<String>>
+        if(fileInfo.fileMain.exists()) {
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
             ois.close()
         }
         listView = view?.findViewById(R.id.result_list)!!
-        val ListAdapter = ResultAdapter(context as Activity,AllinAll,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        val ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
-        if(file_sneak.exists()) {
-            val o2 = ObjectInputStream(FileInputStream(file_sneak))
-            Sneak_attacks = o2.readObject() as IntArray
-            o2.close()
-        }
 
-
-        if(file_sneak.exists())
-        {   val o2 = ObjectInputStream(FileInputStream(file_sneak))
+        if(fileInfo.fileSneak.exists()) {
+            val o2 = ObjectInputStream(FileInputStream(fileInfo.fileSneak))
             Sneak_attacks =  o2.readObject() as IntArray
             o2.close()
-            if (Sneak_attacks[0]==1)
-            { snky_switch.text = Sneak_attacks[2].toString() +"d"+ dices[Sneak_attacks[1]].toString()}
-            else
-            {snky_switch.text="None"
-             snky_switch.isChecked = false;}
+            if (Sneak_attacks[0]==1) {
+                snky_switch.text = Sneak_attacks[2].toString() +"d"+ Dices.dices[Sneak_attacks[1]].toString()
+            }
+            else {
+                snky_switch.text="None"
+                snky_switch.isChecked = false
+            }
         }
 
 
