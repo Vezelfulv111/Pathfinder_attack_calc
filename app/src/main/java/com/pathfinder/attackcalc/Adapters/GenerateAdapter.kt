@@ -9,7 +9,6 @@ import android.widget.*
 
 import android.widget.TextView
 import com.pathfinder.attackcalc.DataClass
-import com.pathfinder.attackcalc.Dices
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.diceThrow
 
@@ -23,7 +22,7 @@ class GenerateAdapter(
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
-        val rowView = inflater.inflate(R.layout.result_view, null, true)
+        val rowView = view ?: inflater.inflate(R.layout.result_view, null, true)
         //делаем список полосатым
         rowView.setBackgroundColor(if (position and 1 == 1) Color.DKGRAY else Color.GRAY)
         val header = rowView.findViewById(R.id.header) as TableRow
@@ -135,7 +134,8 @@ class GenerateAdapter(
             if (Allinall.sneakEnable == 1 && switch_on_of)
                 sneakThrow = diceThrow(Allinall.sneakDicetype, Allinall.sneakNum)
 
-            summ.text = "${result1+result2+result3+Temp_modif[1]+sneakThrow}"
+            val summRez = result1+result2+result3+Temp_modif[1]+sneakThrow
+            summ.text = summRez.toString()
             sneak1.text = sneakThrow.toString()
         }
          return rowView

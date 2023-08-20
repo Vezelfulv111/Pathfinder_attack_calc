@@ -52,8 +52,7 @@ class SettingsFragment : Fragment() {
     var fileInfo = FileInfo()
 
     @SuppressLint("ResourceType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
-            View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
         spinnerImg1 = view.findViewById<Spinner>(R.id.Dice_spinner1)

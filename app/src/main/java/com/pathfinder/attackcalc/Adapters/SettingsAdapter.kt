@@ -21,7 +21,7 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
-        val rowView = inflater.inflate(R.layout.attac_st_listview, null, true)
+        val rowView = view ?: inflater.inflate(R.layout.attac_st_listview, null, true)
         //делаем список полосатым
         rowView.setBackgroundColor(if (position and 1 == 1) {
             Color.DKGRAY
@@ -40,10 +40,10 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         val plus2 = rowView.findViewById(R.id.attack_num2) as TextView
         val plus3 = rowView.findViewById(R.id.attack_num3) as TextView
 
-        var hit_modifier = rowView.findViewById(R.id.hit_modifier) as TextView
+        val hit_modifier = rowView.findViewById(R.id.hit_modifier) as TextView
 
         //меняем картинки
-        var images = intArrayOf(
+        val images = intArrayOf(
             R.drawable.d3,
             R.drawable.d4,
             R.drawable.d6,

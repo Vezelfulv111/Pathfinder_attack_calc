@@ -56,7 +56,7 @@ class DataClass: Serializable {
 }
 
 fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
-    var rez = 0;
+    var rez = 0
     for (i in 1..numberofThrows) {
         rez += (1..Dices.dices[inputdicenum]).random()
     }

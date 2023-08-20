@@ -31,8 +31,7 @@ class GenerateFragment : Fragment() {
     var fileInfo = FileInfo()
 
     @SuppressLint("ResourceType")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
-            View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val view: View = inflater!!.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)

@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_main)
 
         if (supportActionBar != null) {
-            supportActionBar?.hide();
+            supportActionBar?.hide()
         }
 
         val viewPager: ViewPager2 = findViewById(R.id.viewpager)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity()  {
             //  Toast.makeText(this@MainActivity, "Selected position:2", Toast.LENGTH_SHORT).show()
             }
         }
-        viewPager.registerOnPageChangeCallback(myPageChangeCallback);
+        viewPager.registerOnPageChangeCallback(myPageChangeCallback)
     }
 
 
