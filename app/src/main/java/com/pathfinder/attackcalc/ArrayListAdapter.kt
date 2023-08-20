@@ -10,10 +10,10 @@ import android.widget.TextView
 import java.io.*
 
 
-class ArrayList_Adapter(private val context: Activity, private var Allinall: DataClass,
+class ArrayListAdapter(private val context: Activity, private var Allinall: DataClass,
                         private val listview: ListView
 )
-    : ArrayAdapter<Any>(context, R.layout.attac_st_listview) {
+    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, Allinall.X12.toArray()) {
 
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -38,8 +38,7 @@ class ArrayList_Adapter(private val context: Activity, private var Allinall: Dat
         var hit_modifier = rowView.findViewById(R.id.hit_modifier) as TextView
 
 
-        val All = "AllinAll2.txt"
-        val file = File("/data/data/com.pathfinder.attackcalc/" + File.separator + All)
+
 
         var AllElements = arrayOf(plus1,plus2,plus3,Bonus1,Bonus2,Bonus3)
         var AllImgs = arrayOf(img1,img2,img3)
@@ -63,9 +62,9 @@ class ArrayList_Adapter(private val context: Activity, private var Allinall: Dat
         val Table2 = rowView.findViewById(R.id.table2) as TableRow
         val Table3 = rowView.findViewById(R.id.table3) as TableRow
             if (Allinall.At2_enable[position].toInt() == 0)
-            {Table2.visibility = View.GONE}
+                Table2.visibility = View.GONE
             if (Allinall.At3_enable[position].toInt() == 0)
-            {Table3.visibility = View.GONE}
+                Table3.visibility = View.GONE
 
         val DelBut = rowView.findViewById(R.id.Delbut) as Button
         val listview = listview;
@@ -110,7 +109,7 @@ class ArrayList_Adapter(private val context: Activity, private var Allinall: Dat
 //                e.printStackTrace()
 //            }
 
-            val myListAdapter2 = ArrayList_Adapter(context,  Allinall,listview)
+            val myListAdapter2 = ArrayListAdapter(context,  Allinall,listview)
             listview.adapter= myListAdapter2;
 
         })

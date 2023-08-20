@@ -45,9 +45,9 @@ class GenerateFragment : Fragment() {
 
 
         if(fileInfo.fileMain.exists()) {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
-            ois.close()
+//            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+//            AllinAll2 =  ois.readObject() as DataClass
+//            ois.close()
         }
 
 
@@ -88,18 +88,18 @@ class GenerateFragment : Fragment() {
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
             if(fileInfo.fileMain.exists()) {
-                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-                AllinAll2 = ois.readObject() as DataClass
-                ois.close()
-                ListAdapter = ResultAdapter(
-                    context as Activity,
-                    AllinAll2,
-                    CONDITION,
-                    Temporary_modifers,
-                    Sneak_attacks,
-                    snky_switch.isChecked
-                )
-                ois.close()
+//                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+//                AllinAll2 = ois.readObject() as DataClass
+//                ois.close()
+//                ListAdapter = ResultAdapter(
+//                    context as Activity,
+//                    AllinAll2,
+//                    CONDITION,
+//                    Temporary_modifers,
+//                    Sneak_attacks,
+//                    snky_switch.isChecked
+//                )
+//                ois.close()
             }
             listView.adapter = ListAdapter
         }
@@ -209,9 +209,9 @@ class GenerateFragment : Fragment() {
 
         var  snky_switch = view?.findViewById(R.id.snky_switch) as Switch
         if(fileInfo.fileMain.exists()) {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
-            ois.close()
+            //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            //AllinAll2 =  ois.readObject() as DataClass
+            //ois.close()
         }
         listView = view?.findViewById(R.id.result_list)!!
         val ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)

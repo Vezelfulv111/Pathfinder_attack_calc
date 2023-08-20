@@ -73,9 +73,9 @@ class SettingsFragment : Fragment() {
 
         if (fileInfo.fileMain.exists())
         {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
-            ois.close()
+            //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            //AllinAll2 =  ois.readObject() as DataClass
+            //ois.close()
         }
 
         var Attack_name = view.findViewById<TextView>(R.id.enter_at_name)
@@ -99,20 +99,20 @@ class SettingsFragment : Fragment() {
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = ArrayList_Adapter(context as Activity,AllinAll2,listView)
+        val myListAdapter = ArrayListAdapter(context as Activity,AllinAll2,listView)
         listView.adapter = myListAdapter
 
         EditButton.setOnClickListener {
 
             if (fileInfo.fileMain.exists()) {
-              val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-              AllinAll2 =  ois.readObject() as DataClass
-              ois.close()
+              //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+              //AllinAll2 =  ois.readObject() as DataClass
+              //ois.close()
             }
 
             var EditText_signed=EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt()>0)
-            {EditText_signed = "+" +EditModifer.text.toString().toInt().toString()
+            if (EditModifer.text.toString().toInt()>0) {
+                EditText_signed = "+" +EditModifer.text.toString().toInt().toString()
             }
             var Bonus1_signed = bonus1.text.toString()
             var Bonus2_signed = bonus2.text.toString()
@@ -149,33 +149,18 @@ class SettingsFragment : Fragment() {
 //                }
 //            }
 
-            val myListAdapter = ArrayList_Adapter(context as Activity, AllinAll2,listView)
+            val myListAdapter = ArrayListAdapter(context as Activity, AllinAll2,listView)
             listView.adapter = myListAdapter
             }
 
         AddButton.setOnClickListener {
+            var AllinAll2 = DataClass()
             if (fileInfo.fileMain.exists()) {
                 val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
                 AllinAll2 =  ois.readObject() as DataClass
                 ois.close()
             }
 
-            //Создали пустой массив
-            val copyArray =  arrayOf(
-             arrayOf<String>(),
-             arrayOf<String>(),
-             arrayOf<String>(),
-                    arrayOf<String>(),
-                    arrayOf<String>(),
-                    arrayOf<String>(),
-            arrayOf<String>(),
-            arrayOf<String>(),
-            arrayOf<String>(),
-                arrayOf<String>(),
-                arrayOf<String>(),
-                arrayOf<String>(),
-            arrayOf<String>(),
-            )
 
             var EditTextSigned=EditModifer.text.toString()
             if (EditModifer.text.toString().toInt()>0) {
@@ -195,29 +180,31 @@ class SettingsFragment : Fragment() {
                 Bonus3_signed = "+" + bonus3.text.toString().toInt().toString()
             }
 
-            val SCHITKA = arrayOf(
-                (spinAt1.selectedItem.toString()),
-                (spinAt2.selectedItem.toString()),
-                (spinAt3.selectedItem.toString()),
-                Bonus1_signed,
-                Bonus2_signed,
-                Bonus3_signed,
-                (Spinner_1.selectedItemId).toString(),
-                (Spinner_2.selectedItemId).toString(),
-                (Spinner_3.selectedItemId).toString(),
-                EditTextSigned,
-                Enable_attacks[0].toString(),
-                Enable_attacks[1].toString(),
-                Attack_name.text.toString()
-            )
 
-//            listView.adapter =  ArrayList_Adapter(context as Activity, AllinAll2,listView)
-//                val f = FileOutputStream(fileInfo.fileMain)
-//                val o = ObjectOutputStream(f)
-//                //o.writeObject(AllinAll2)
-//                o.close()
-//                f.close()
-            }
+            AllinAll2.Hit_modifier2.add("1")
+
+            AllinAll2.X12.add(spinAt1.selectedItem.toString())
+            AllinAll2.X22.add(spinAt2.selectedItem.toString())
+            AllinAll2.X32.add(spinAt3.selectedItem.toString())
+
+            AllinAll2.plus12.add(Bonus1_signed)
+            AllinAll2.plus22.add(Bonus2_signed)
+            AllinAll2.plus32.add(Bonus3_signed)
+
+            AllinAll2.im1_At2.add((Spinner_1.selectedItemId).toString())
+            AllinAll2.im2_At2.add((Spinner_2.selectedItemId).toString())
+            AllinAll2.im3_At2.add((Spinner_3.selectedItemId).toString())
+
+            AllinAll2.At2_enable.add( Enable_attacks[0].toString())
+            AllinAll2.At3_enable.add(Enable_attacks[1].toString())
+            AllinAll2.Attack_names.add(Attack_name.text.toString())
+
+
+            listView.adapter =  ArrayListAdapter(context as Activity, AllinAll2,listView)
+
+            fileInfo.writeToFile(fileInfo.fileMain, AllinAll2)
+
+        }
 
         var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
