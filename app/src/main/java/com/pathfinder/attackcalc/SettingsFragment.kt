@@ -14,10 +14,10 @@ import android.widget.*
 
 import android.widget.AdapterView.OnItemClickListener
 import java.io.*
-import java.lang.Boolean.FALSE
-import java.lang.Boolean.TRUE
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
+import java.lang.Boolean.FALSE
+import java.lang.Boolean.TRUE
 
 class SettingsFragment : Fragment() {
 
@@ -40,17 +40,12 @@ class SettingsFragment : Fragment() {
         R.drawable.d12,
     )
 
-
     var Enable_attacks= intArrayOf(0, 0)
     var Sneak_attacks= intArrayOf(0, 0,0)
-
-
 
     var Dices = arrayOf("1", "2","3","4","5","6")
     var AllinAll2 = DataClass()
     var fileInfo = FileInfo()
-
-
 
     @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?):
@@ -73,9 +68,9 @@ class SettingsFragment : Fragment() {
 
         if (fileInfo.fileMain.exists())
         {
-            //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            //AllinAll2 =  ois.readObject() as DataClass
-            //ois.close()
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
+            ois.close()
         }
 
         var Attack_name = view.findViewById<TextView>(R.id.enter_at_name)
@@ -99,21 +94,15 @@ class SettingsFragment : Fragment() {
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = ArrayListAdapter(context as Activity,AllinAll2,listView)
+        val myListAdapter = SettingsAdapter(context as Activity,AllinAll2,listView)
         listView.adapter = myListAdapter
 
         EditButton.setOnClickListener {
 
-            if (fileInfo.fileMain.exists()) {
-              //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-              //AllinAll2 =  ois.readObject() as DataClass
-              //ois.close()
-            }
-
-            var EditText_signed=EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt()>0) {
+            var EditText_signed = EditModifer.text.toString()
+            if (EditModifer.text.toString().toInt()>0)
                 EditText_signed = "+" +EditModifer.text.toString().toInt().toString()
-            }
+
             var Bonus1_signed = bonus1.text.toString()
             var Bonus2_signed = bonus2.text.toString()
             var Bonus3_signed = bonus3.text.toString()
@@ -143,13 +132,7 @@ class SettingsFragment : Fragment() {
                 Attack_name.text.toString()
             )
 
-//            if ( CurrentPositon <(AllinAll[0].size)) {
-//                for (i in 0..12) {
-//                    AllinAll[i][CurrentPositon] = SCHITKA[i]
-//                }
-//            }
-
-            val myListAdapter = ArrayListAdapter(context as Activity, AllinAll2,listView)
+            val myListAdapter = SettingsAdapter(context as Activity, AllinAll2,listView)
             listView.adapter = myListAdapter
             }
 
@@ -161,49 +144,41 @@ class SettingsFragment : Fragment() {
                 ois.close()
             }
 
+            var editTextSigned = EditModifer.text.toString()
+            if (EditModifer.text.toString().toInt()>0)
+                editTextSigned = "+" +EditModifer.text.toString().toInt().toString()
 
-            var EditTextSigned=EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt()>0) {
-                EditTextSigned = "+" +EditModifer.text.toString().toInt().toString()
-            }
+            var bonus1Signed = bonus1.text.toString()
+            var bonus2Signed = bonus2.text.toString()
+            var bonus3Signed = bonus3.text.toString()
+            if (bonus1.text.toString().toInt()>0)
+                bonus1Signed = "+" + bonus1.text.toString().toInt().toString()
+            if (bonus2.text.toString().toInt()>0)
+                bonus2Signed = "+" + bonus2.text.toString().toInt().toString()
+            if (bonus3.text.toString().toInt()>0)
+                bonus3Signed = "+" + bonus3.text.toString().toInt().toString()
 
-            var Bonus1_signed = bonus1.text.toString()
-            var Bonus2_signed = bonus2.text.toString()
-            var Bonus3_signed = bonus3.text.toString()
-            if (bonus1.text.toString().toInt()>0) {
-                Bonus1_signed = "+" + bonus1.text.toString().toInt().toString()
-            }
-            if (bonus2.text.toString().toInt()>0) {
-                Bonus2_signed = "+" + bonus2.text.toString().toInt().toString()
-            }
-            if (bonus3.text.toString().toInt()>0) {
-                Bonus3_signed = "+" + bonus3.text.toString().toInt().toString()
-            }
-
-
-            AllinAll2.Hit_modifier2.add("1")
+            AllinAll2.hitModifier.add(editTextSigned)
 
             AllinAll2.X12.add(spinAt1.selectedItem.toString())
             AllinAll2.X22.add(spinAt2.selectedItem.toString())
             AllinAll2.X32.add(spinAt3.selectedItem.toString())
 
-            AllinAll2.plus12.add(Bonus1_signed)
-            AllinAll2.plus22.add(Bonus2_signed)
-            AllinAll2.plus32.add(Bonus3_signed)
+            AllinAll2.bonus1.add(bonus1Signed)
+            AllinAll2.bonus2.add(bonus2Signed)
+            AllinAll2.bonus3.add(bonus3Signed)
 
-            AllinAll2.im1_At2.add((Spinner_1.selectedItemId).toString())
-            AllinAll2.im2_At2.add((Spinner_2.selectedItemId).toString())
-            AllinAll2.im3_At2.add((Spinner_3.selectedItemId).toString())
+            AllinAll2.img1.add((Spinner_1.selectedItemId).toString())
+            AllinAll2.img2.add((Spinner_2.selectedItemId).toString())
+            AllinAll2.img3.add((Spinner_3.selectedItemId).toString())
 
-            AllinAll2.At2_enable.add( Enable_attacks[0].toString())
-            AllinAll2.At3_enable.add(Enable_attacks[1].toString())
-            AllinAll2.Attack_names.add(Attack_name.text.toString())
+            AllinAll2.at2Enable.add(Enable_attacks[0].toString())
+            AllinAll2.at3Enable.add(Enable_attacks[1].toString())
+            AllinAll2.attackName.add(Attack_name.text.toString())
 
 
-            listView.adapter =  ArrayListAdapter(context as Activity, AllinAll2,listView)
-
+            listView.adapter =  SettingsAdapter(context as Activity, AllinAll2,listView)
             fileInfo.writeToFile(fileInfo.fileMain, AllinAll2)
-
         }
 
         var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
@@ -226,52 +201,29 @@ class SettingsFragment : Fragment() {
 
         //Если нажать на список
         listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
+            if (AllinAll2.at2Enable[position].toInt() == 1)
+                Switch2nd.isChecked = TRUE
+            else
+                Switch2nd.isChecked = FALSE
 
-//            var CopyArray = AllinAll2
-//            if (file.exists())
-//            {
-//                val ois = ObjectInputStream(FileInputStream(file))
-//                CopyArray =  ois.readObject() as Array<Array<String>>
-//                ois.close()
-//            }
-//              spinAt1.setSelection(CopyArray[0][position].toInt()-1,true)
-//              spinAt2.setSelection(CopyArray[1][position].toInt()-1,true)
-//              spinAt3.setSelection(CopyArray[2][position].toInt()-1,true)
-//           bonus1.setText(CopyArray[3][position].toInt().toString())
-//           bonus2.setText(CopyArray[4][position].toInt().toString())
-//           bonus3.setText(CopyArray[5][position].toInt().toString())
-//             Spinner_1.setSelection(CopyArray[6][position].toInt() ,true)
-//             Spinner_2.setSelection(CopyArray[7][position].toInt(),true)
-//             Spinner_3.setSelection(CopyArray[8][position].toInt(),true)
-//            EditModifer.setText(CopyArray[9][position].toInt().toString())
-//
-//            if (CopyArray[10][position].toInt() ==1) {
-//                Switch2nd.isChecked = TRUE
-//            }
-//            else {
-//                Switch2nd.isChecked = FALSE
-//            }
-//
-//           if (CopyArray[11][position].toInt() ==1) {
-//               Switch3d.isChecked = TRUE}
-//            else{
-//                Switch3d.isChecked = FALSE
-//            }
-//
-//            EditButton.text = "Edit ".plus((position+1).toString())
-//            CurrentPositon = position
-//            Attack_name.text = CopyArray[12][position]
+            if (AllinAll2.at3Enable[position].toInt() == 1)
+                Switch3d.isChecked = TRUE
+            else
+                Switch3d.isChecked = FALSE
+
+            EditButton.text = "Edit ".plus((position+1).toString())
+            Attack_name.text = AllinAll2.attackName[position]
         }
 
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
         var SneakSwich = view.findViewById(R.id.sneak_switch) as Switch
         SneakSwich.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+
+            if (isChecked)
                 Sneak_attacks[0] =1;
-            }
-            else {
+            else
                 Sneak_attacks[0]=0
-            }
+
             Sneak_attacks[1]= Spinner_Sneak.selectedItemId.toInt()
             Sneak_attacks[2]= SneakEdit.text.toString().toInt()
             val f2 = FileOutputStream(fileInfo.fileSneak)

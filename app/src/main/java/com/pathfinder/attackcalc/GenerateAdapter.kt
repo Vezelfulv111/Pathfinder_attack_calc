@@ -10,12 +10,12 @@ import android.widget.*
 import android.widget.TextView
 
 
-class ResultAdapter(
+class GenerateAdapter(
     private val context: Activity, private var Allinall: DataClass,
     private var Condition: Int,private var Temp_modif: IntArray,private var Sneak: IntArray,
     private var switch_on_of: Boolean
     )
-    : ArrayAdapter<Any>(context, R.layout.result_view) {
+    : ArrayAdapter<Any>(context, R.layout.result_view, Allinall.X12.toArray()) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -23,7 +23,7 @@ class ResultAdapter(
         //делаем список полосатым
         rowView.setBackgroundColor(if (position and 1 === 1) Color.DKGRAY else Color.GRAY)
         val header = rowView.findViewById(R.id.header) as TableRow
-        if (position !=0) {
+        if (position != 0) {
             header.visibility = GONE
         }
         val attacNum = rowView.findViewById(R.id.current_number) as TextView
@@ -41,7 +41,6 @@ class ResultAdapter(
 
         val hitModifier = rowView.findViewById(R.id.hit_modifier) as TextView
 
-        val allElements = arrayOf(diceAmount1,diceAmount2 ,diceAmount3 ,bonus1,bonus2,bonus3)
         val allImgs = arrayOf(img1,img2,img3)
 
         //меняем картинки
@@ -55,34 +54,35 @@ class ResultAdapter(
         )
         //имя атаки
         val attackName = rowView.findViewById(R.id.attack_name_gen) as TextView
-        attackName.text = Allinall.Attack_names[position]
+        attackName.text = Allinall.attackName[position]
 
-        if (Allinall.Attack_names.isEmpty()) {//если строка пустая то убираем подпись
+        if (Allinall.attackName.isEmpty()) {//если строка пустая то убираем подпись
             attackName.visibility = GONE
         }
 
 
-//        //тк по 3 компонента цикл по 3м
-//        for (i in 0..2) {
-//          allElements[i].text = (Allinall[i][position])
-//          allElements[i+3].text = (Allinall[i+3][position])
-//          allImgs[i].setImageResource( images[Allinall[i+6][position].toString().toInt()])
-//        }
+        allImgs[0].setImageResource( images[Allinall.img1[position].toInt()])
+        allImgs[1].setImageResource( images[Allinall.img2[position].toInt()])
+        allImgs[2].setImageResource( images[Allinall.img3[position].toInt()])
 
+        hitModifier.text = Allinall.hitModifier[position]
 
-        allImgs[0].setImageResource( images[Allinall.im1_At2[position].toInt()])
-        allImgs[1].setImageResource( images[Allinall.im2_At2[position].toInt()])
-        allImgs[2].setImageResource( images[Allinall.im3_At2[position].toInt()])
+        bonus1.text = Allinall.bonus1[position]
+        bonus2.text = Allinall.bonus2[position]
+        bonus3.text = Allinall.bonus3[position]
 
+        diceAmount1.text = Allinall.X12[position]
+        diceAmount2.text = Allinall.X22[position]
+        diceAmount3.text = Allinall.X32[position]
 
         //условия по не отображению элементов
         val table2 = rowView.findViewById(R.id.table2) as TableRow
         val table3 = rowView.findViewById(R.id.table3) as TableRow
 
-             if (Allinall.At2_enable[position].toInt() == 0) {
+             if (Allinall.at2Enable[position].toInt() == 0) {
                 table2.visibility = GONE
             }
-            if (Allinall.At3_enable[position].toInt() == 0) {
+            if (Allinall.at3Enable[position].toInt() == 0) {
                 table3.visibility = GONE
             }
 
@@ -92,9 +92,9 @@ class ResultAdapter(
         val gen3 = rowView.findViewById(R.id.answer3) as TextView
         if (Condition==1) {
             //бросок эн кубов
-            val fstAtDice = DiceThrow(Allinall.im1_At2[position].toInt(),diceAmount1.text.toString().toInt())
-            val sndAtDice = DiceThrow(Allinall.im2_At2[position].toInt(),diceAmount2.text.toString().toInt())
-            val thirdDice = DiceThrow(Allinall.im3_At2[position].toInt(),diceAmount3.text.toString().toInt())
+            val fstAtDice = DiceThrow(Allinall.img1[position].toInt(),diceAmount1.text.toString().toInt())
+            val sndAtDice = DiceThrow(Allinall.img2[position].toInt(),diceAmount2.text.toString().toInt())
+            val thirdDice = DiceThrow(Allinall.img3[position].toInt(),diceAmount3.text.toString().toInt())
 
             //результат с бонусом
             val result1 =  fstAtDice + bonus1.text.toString().toInt()
@@ -116,10 +116,10 @@ class ResultAdapter(
 
             //теперь разбираемя с cуммарным уроном
             val summ = rowView.findViewById(R.id.total_result) as TextView
-            if (Allinall.At2_enable[position].toInt() == 0) {
+            if (Allinall.at2Enable[position].toInt() == 0) {
                 result2 = 0
             }
-            if (Allinall.At3_enable[position].toInt() == 0) {
+            if (Allinall.at3Enable[position].toInt() == 0) {
                 result3 = 0
             }
 
@@ -138,18 +138,10 @@ class ResultAdapter(
 
     fun DiceThrow(inputdicenum:Int,numberofThrows:Int): Int
     {
-        val dices = intArrayOf(
-            3,
-            4,
-            6,
-            8,
-            10,
-            12,
-        )
         var rez = 0;
         for (i in 1..numberofThrows)
         {
-            rez += (1..dices[inputdicenum]).random()
+            rez += (1..Dices.dices[inputdicenum]).random()
         }
         return rez
     }

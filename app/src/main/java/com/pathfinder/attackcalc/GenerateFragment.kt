@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import java.io.File
 import java.io.FileInputStream
 import java.io.ObjectInputStream
 
@@ -45,14 +44,13 @@ class GenerateFragment : Fragment() {
 
 
         if(fileInfo.fileMain.exists()) {
-//            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-//            AllinAll2 =  ois.readObject() as DataClass
-//            ois.close()
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
+            ois.close()
         }
 
 
         val  snky_switch = view.findViewById(R.id.snky_switch) as Switch
-
 
         if(fileInfo.fileSneak.exists()) {
             val o2 = ObjectInputStream(FileInputStream(fileInfo.fileSneak))
@@ -75,31 +73,31 @@ class GenerateFragment : Fragment() {
                snky_switch.isEnabled = true
            }
        }
-        var ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
         GenButton = view.findViewById(R.id.gen_but);
         GenButton.setOnClickListener {
-           CONDITION =1;
-           var ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+           CONDITION =1
+           var ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
            listView.adapter = ListAdapter
-           CONDITION =0;
+           CONDITION =0
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
             if(fileInfo.fileMain.exists()) {
-//                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-//                AllinAll2 = ois.readObject() as DataClass
-//                ois.close()
-//                ListAdapter = ResultAdapter(
-//                    context as Activity,
-//                    AllinAll2,
-//                    CONDITION,
-//                    Temporary_modifers,
-//                    Sneak_attacks,
-//                    snky_switch.isChecked
-//                )
-//                ois.close()
+                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+                AllinAll2 = ois.readObject() as DataClass
+                ois.close()
+                ListAdapter = GenerateAdapter(
+                    context as Activity,
+                    AllinAll2,
+                    CONDITION,
+                    Temporary_modifers,
+                    Sneak_attacks,
+                    snky_switch.isChecked
+                )
+                ois.close()
             }
             listView.adapter = ListAdapter
         }
@@ -134,8 +132,8 @@ class GenerateFragment : Fragment() {
             val D20 = view.findViewById(R.id.d20_kinuli) as TextView
             val modd20 = view.findViewById(R.id.hit_modifier) as TextView
 
-            var A = (1..20).random()
-            var B = modd20.text.toString().toInt()
+            val A = (1..20).random()
+            val B = modd20.text.toString().toInt()
             D20.text  =A.toString()
             RezD20.text = (A+B+Temporary_modifers[0]).toString()
 
@@ -143,15 +141,15 @@ class GenerateFragment : Fragment() {
             val diceamount1 = view.findViewById(R.id.attack_num1) as TextView
             val diceamount2 = view.findViewById(R.id.attack_num2) as TextView
             val diceamount3 = view.findViewById(R.id.attack_num3) as TextView
-            var FstAtDice = DiceThrow(AllinAll2.im1_At2[position].toInt(),diceamount1.text.toString().toInt());
-            var SndAtDice = DiceThrow(AllinAll2.im2_At2[7][position].toInt(),diceamount2.text.toString().toInt() );
-            var ThirdDice = DiceThrow(AllinAll2.im3_At2[8][position].toInt(),diceamount3.text.toString().toInt()  );
+            val FstAtDice = DiceThrow(AllinAll2.img1[position].toInt(),diceamount1.text.toString().toInt());
+            val SndAtDice = DiceThrow(AllinAll2.img2[position].toInt(),diceamount2.text.toString().toInt() );
+            val ThirdDice = DiceThrow(AllinAll2.img3[position].toInt(),diceamount3.text.toString().toInt()  );
 
             val Bonus1 = view.findViewById(R.id.bonus1) as TextView
             val Bonus2 = view.findViewById(R.id.bonus2) as TextView
             val Bonus3 = view.findViewById(R.id.bonus3) as TextView
             //результат с бонусом
-            var Result1 =  FstAtDice + Bonus1.text.toString().toInt()
+            val Result1 =  FstAtDice + Bonus1.text.toString().toInt()
             var Result2 =  SndAtDice + Bonus2.text.toString().toInt()
             var Result3 =  ThirdDice + Bonus3.text.toString().toInt()
 
@@ -164,12 +162,12 @@ class GenerateFragment : Fragment() {
             Gen3.text =  Result3.toString()
 
             val Summ = view.findViewById(R.id.total_result) as TextView
-            if (AllinAll2.At2_enable[position].toInt() == 0) {
+            if (AllinAll2.at2Enable[position].toInt() == 0)
                 Result2 = 0
-            }
-            if (AllinAll2.At3_enable[position].toInt() == 0) {
+
+            if (AllinAll2.at3Enable[position].toInt() == 0)
                 Result3 = 0
-            }
+
             Summ.text = (Result1+Result2+Result3+Temporary_modifers[1]).toString()
             var SneakThrow = 0
 
@@ -186,16 +184,14 @@ class GenerateFragment : Fragment() {
         }
         return view
 
-
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun DiceThrow(inputdicenum:Int,numberofThrows:Int): Int
+    private fun DiceThrow(inputdicenum:Int, numberofThrows:Int): Int
     {
-
         var rez = 0;
         for (i in 1..numberofThrows)
         {
@@ -209,12 +205,12 @@ class GenerateFragment : Fragment() {
 
         var  snky_switch = view?.findViewById(R.id.snky_switch) as Switch
         if(fileInfo.fileMain.exists()) {
-            //val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            //AllinAll2 =  ois.readObject() as DataClass
-            //ois.close()
+            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
+            AllinAll2 =  ois.readObject() as DataClass
+            ois.close()
         }
         listView = view?.findViewById(R.id.result_list)!!
-        val ListAdapter = ResultAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
+        val ListAdapter = GenerateAdapter(context as Activity,AllinAll2,CONDITION,Temporary_modifers,Sneak_attacks,snky_switch.isChecked)
         listView.adapter = ListAdapter
 
         if(fileInfo.fileSneak.exists()) {

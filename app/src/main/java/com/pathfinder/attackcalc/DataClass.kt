@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream
 import java.io.Serializable
 
 class DataClass: Serializable {
-    var Hit_modifier2 = arrayOf("+1", "+2", "-3").toCollection(ArrayList())
+    var hitModifier = arrayOf("+1", "+2", "-3").toCollection(ArrayList())
 
 
     //2-4
@@ -15,23 +15,45 @@ class DataClass: Serializable {
     var X32 = arrayOf("1", "2", "3").toCollection(ArrayList())
 
     //5-7
-    var plus12 = arrayOf("-1", "+2", "-3").toCollection(ArrayList())
-    var plus22 = arrayOf("-1", "+2", "+0").toCollection(ArrayList())
-    var plus32 = arrayOf("-1", "+2", "-3").toCollection(ArrayList())
+    var bonus1 = arrayOf("-1", "+2", "-3").toCollection(ArrayList())
+    var bonus2 = arrayOf("-1", "+2", "+0").toCollection(ArrayList())
+    var bonus3 = arrayOf("-1", "+2", "-3").toCollection(ArrayList())
 
     //6-9
-    var im1_At2 = arrayOf("1", "2", "3").toCollection(ArrayList())
-    var im2_At2 = arrayOf("1", "2", "3").toCollection(ArrayList())
-    var im3_At2 = arrayOf("4", "4", "4").toCollection(ArrayList())
+    var img1 = arrayOf("1", "2", "3").toCollection(ArrayList())
+    var img2 = arrayOf("1", "2", "3").toCollection(ArrayList())
+    var img3 = arrayOf("4", "4", "4").toCollection(ArrayList())
 
     //10-13
-    var At2_enable = arrayOf("0", "1", "0").toCollection(ArrayList())
-    var At3_enable = arrayOf("1", "1", "0").toCollection(ArrayList())
-    var Attack_names = arrayOf("sai", "saber +1","kukri").toCollection(ArrayList())
+    var at2Enable = arrayOf("0", "1", "0").toCollection(ArrayList())
+    var at3Enable = arrayOf("1", "1", "0").toCollection(ArrayList())
+    var attackName = arrayOf("sai", "saber +1","kukri").toCollection(ArrayList())
+
+    fun removeAt(position: Int) {
+        hitModifier.removeAt(position)
+
+        X12.removeAt(position)
+        X22.removeAt(position)
+        X32.removeAt(position)
+
+        bonus1.removeAt(position)
+        bonus2.removeAt(position)
+        bonus3.removeAt(position)
+
+        img1.removeAt(position)
+        img2.removeAt(position)
+        img3.removeAt(position)
+
+        at2Enable.removeAt(position)
+        at3Enable.removeAt(position)
+
+        attackName.removeAt(position)
+    }
+
 }
 
 class FileInfo {
-    private val fileName = "AllinAll24e12e4dddd.txt";
+    private val fileName = "AllinAll24e12e4ddddd.txt";
     val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
 
     private val sneak = "Sneak9.txt"
