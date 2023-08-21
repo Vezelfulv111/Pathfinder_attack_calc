@@ -1,13 +1,16 @@
+import android.widget.Toast
+
 interface Contract {
 
     interface Presenter {
-            fun onViewPagerClick(position: Int)
-
             fun onDestroy()
+
+            fun readData() = null
     }
 
     interface View {
-        fun showToastMsg(msg: String)
+        fun showToastMsg(msg: String) {
+        }
     }
 
 }

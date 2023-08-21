@@ -55,6 +55,23 @@ class DataClass: Serializable {
 
 }
 
+class ThrowData {
+    var d20Throw: Int = 0
+    var d20Total: Int = 0
+
+    var dmgRoll1 : Int = 0
+    var dmgRoll2 : Int = 0
+    var dmgRoll3 : Int = 0
+
+    var sneakDmg : Int = 0
+
+    val totalDamageNoSneak: Int
+        get() = dmgRoll1+dmgRoll2+dmgRoll3
+
+    val totalDamageWithSneak: Int
+        get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg
+}
+
 fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
     var rez = 0
     for (i in 1..numberofThrows) {
