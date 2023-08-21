@@ -30,15 +30,13 @@ class GenerateFragment : Fragment(), Contract.View {
     private lateinit var sneakySwitch: Switch
 
 
-    var Temporary_modifers= intArrayOf(0, 0)
-    private var AllinAll2 = DataClass();
     var fileInfo = FileInfo()
 
     @SuppressLint("ResourceType")
     var presenterGen: PresenterGenerateFragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
-        val view: View = inflater!!.inflate(R.layout.generate_fragment, container, false)
+        val view: View = inflater.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)
 
 
@@ -47,31 +45,30 @@ class GenerateFragment : Fragment(), Contract.View {
 
         if(fileInfo.fileMain.exists()) {
             val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
+            presenterGen!!.AllinAll =  ois.readObject() as DataClass
             ois.close()
         }
 
         sneakySwitch = view.findViewById(R.id.snky_switch)
-        sneakySwitch.setOnClickListener() {
-            presenterGen?.sneakySwitch(AllinAll2)
+        sneakySwitch.setOnClickListener {
+            presenterGen?.sneakySwitch()
         }
 
-
-        listView.adapter =  GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers,sneakySwitch.isChecked)
-        GenButton = view.findViewById(R.id.gen_but);
+        listView.adapter =  GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)
+        GenButton = view.findViewById(R.id.gen_but)
 
         GenButton.setOnClickListener {
-           listView.adapter = GenerateAdapter(context as Activity,AllinAll2,1,Temporary_modifers,sneakySwitch.isChecked)
+           listView.adapter = GenerateAdapter(context as Activity,1,sneakySwitch.isChecked,presenterGen!!)
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
             if(fileInfo.fileMain.exists()) {
                 val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-                AllinAll2 = ois.readObject() as DataClass
+                presenterGen!!.AllinAll = ois.readObject() as DataClass
                 ois.close()
             }
-            listView.adapter = GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers, sneakySwitch.isChecked)
+            listView.adapter = GenerateAdapter(context as Activity,0, sneakySwitch.isChecked,presenterGen!!)
         }
 
         Plus1 = view.findViewById(R.id.Fstplus)
@@ -81,21 +78,18 @@ class GenerateFragment : Fragment(), Contract.View {
         val hitbonus = view.findViewById(R.id.hitbonus) as TextView
         val hitbonus2 = view.findViewById(R.id.hitbonus2) as TextView
 
+        //Temporary modifiers - hit and damage
         Plus1.setOnClickListener {
-            Temporary_modifers[0] += 1
-            hitbonus.text = Temporary_modifers[0].toString()
+            hitbonus.text = presenterGen!!.editMoifier(true,0)
         }
         Minus1.setOnClickListener {
-            Temporary_modifers[0] -= 1
-            hitbonus.text =  Temporary_modifers[0].toString()
+            hitbonus.text =  presenterGen!!.editMoifier(false,0)
         }
         Plus2.setOnClickListener {
-            Temporary_modifers[1]  += 1
-            hitbonus2.text = Temporary_modifers[1].toString()
+            hitbonus2.text = presenterGen!!.editMoifier(true,1)
         }
         Minus2.setOnClickListener {
-            Temporary_modifers[1] -= 1
-            hitbonus2.text =  Temporary_modifers[1].toString()
+            hitbonus2.text =  presenterGen!!.editMoifier(false,1)
         }
 
 
@@ -103,9 +97,8 @@ class GenerateFragment : Fragment(), Contract.View {
             val rezD20 = view.findViewById(R.id.d20throw) as TextView
             val d20 = view.findViewById(R.id.d20_kinuli) as TextView
 
-            val throwData = presenterGen!!.throwComputation(AllinAll2,
+            val throwData = presenterGen!!.throwComputation(
                                                             position,
-                                                            Temporary_modifers,
                                                             sneakySwitch.isChecked)
 
             d20.text  = throwData.d20Throw.toString()
@@ -136,29 +129,29 @@ class GenerateFragment : Fragment(), Contract.View {
         Toast.makeText(context as Activity, msg, Toast.LENGTH_SHORT).show()
     }
 
-    fun enableSneakAttackSwitch(flag: Boolean) {
-        sneakySwitch.isEnabled = flag
+    fun enableSneakAttackSwitch(enable: Boolean, checked: Boolean) {
+       sneakySwitch.isEnabled = enable
+       sneakySwitch.isChecked = checked
     }
 
     override fun onResume() {
         super.onResume()
 
-        var  snky_switch = requireView().findViewById(R.id.snky_switch) as Switch
-        if(fileInfo.fileMain.exists()) {
+         if(fileInfo.fileMain.exists()) {
             val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
+             presenterGen!!.AllinAll =  ois.readObject() as DataClass
             ois.close()
         }
         listView = requireView().findViewById(R.id.result_list)
-        listView.adapter = GenerateAdapter(context as Activity,AllinAll2,0,Temporary_modifers,snky_switch.isChecked)
+        listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)
 
-            if (AllinAll2.sneakEnable == 1) {
-                val str = AllinAll2.sneakNum.toString() +"d"+ Dices.dices[AllinAll2.sneakDicetype].toString()
-                snky_switch.text = str
+            if (presenterGen!!.AllinAll.sneakEnable == 1) {
+                val str = presenterGen!!.AllinAll.sneakNum.toString() +"d"+ Dices.dices[presenterGen!!.AllinAll.sneakDicetype].toString()
+                sneakySwitch.text = str
             }
             else {
-                snky_switch.text=getString(R.string.SneakSwitchStrNone)
-                snky_switch.isChecked = false
+                sneakySwitch.text=getString(R.string.SneakSwitchStrNone)
+                sneakySwitch.isChecked = false
             }
     }
 }

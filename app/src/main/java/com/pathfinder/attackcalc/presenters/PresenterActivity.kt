@@ -8,11 +8,10 @@ class PresenterActivity(
 ): Contract.Presenter
 
 {
-
     fun onViewPagerClick(position: Int) {
         //идет какая то обработка
         val stringToShow = (position).toString() + "That is selected"
-        SomeView?.showToastMsg(stringToShow)
+        SomeView.showToastMsg(stringToShow)
     }
 
     override fun onDestroy() {

@@ -11,14 +11,16 @@ import android.widget.TextView
 import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.diceThrow
+import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 
 
 class GenerateAdapter(
-    private val context: Activity, private var Allinall: DataClass,
-    private var Condition: Int, private var Temp_modif: IntArray,
-    private var switch_on_of: Boolean
+    private val context: Activity,
+    private var Condition: Int,
+    private var switch_on_of: Boolean,
+    private var presenter: PresenterGenerateFragment
     )
-    : ArrayAdapter<Any>(context, R.layout.result_view, Allinall.numDice1.toArray()) {
+    : ArrayAdapter<Any>(context, R.layout.result_view, presenter.AllinAll.numDice1.toArray()) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -29,6 +31,8 @@ class GenerateAdapter(
         if (position != 0) {
             header.visibility = GONE
         }
+        val Allinall = presenter.AllinAll
+
         val attacNum = rowView.findViewById(R.id.current_number) as TextView
         (position+1).toString().also { attacNum.text = it }
 
@@ -43,8 +47,6 @@ class GenerateAdapter(
         val diceAmount3 = rowView.findViewById(R.id.attack_num3) as TextView
 
         val hitModifier = rowView.findViewById(R.id.hit_modifier) as TextView
-
-        val allImgs = arrayOf(img1,img2,img3)
 
         //меняем картинки
         val images = intArrayOf(
@@ -63,10 +65,9 @@ class GenerateAdapter(
             attackName.visibility = GONE
         }
 
-
-        allImgs[0].setImageResource( images[Allinall.img1[position].toInt()])
-        allImgs[1].setImageResource( images[Allinall.img2[position].toInt()])
-        allImgs[2].setImageResource( images[Allinall.img3[position].toInt()])
+        img1.setImageResource( images[Allinall.img1[position].toInt()])
+        img2.setImageResource( images[Allinall.img2[position].toInt()])
+        img3.setImageResource( images[Allinall.img3[position].toInt()])
 
         hitModifier.text = Allinall.hitModifier[position]
 
@@ -82,61 +83,38 @@ class GenerateAdapter(
         val table2 = rowView.findViewById(R.id.table2) as TableRow
         val table3 = rowView.findViewById(R.id.table3) as TableRow
 
-             if (Allinall.at2Enable[position].toInt() == 0) {
+        if (Allinall.at2Enable[position].toInt() == 0) {
                 table2.visibility = GONE
-            }
-            if (Allinall.at3Enable[position].toInt() == 0) {
+        }
+        if (Allinall.at3Enable[position].toInt() == 0) {
                 table3.visibility = GONE
-            }
+        }
 
         //Генерация
-        val gen1 = rowView.findViewById(R.id.answer1) as TextView
-        val gen2 = rowView.findViewById(R.id.answer2) as TextView
-        val gen3 = rowView.findViewById(R.id.answer3) as TextView
         if (Condition==1) {
             //бросок эн кубов
-            val fstAtDice = diceThrow(Allinall.img1[position].toInt(),diceAmount1.text.toString().toInt())
-            val sndAtDice = diceThrow(Allinall.img2[position].toInt(),diceAmount2.text.toString().toInt())
-            val thirdDice = diceThrow(Allinall.img3[position].toInt(),diceAmount3.text.toString().toInt())
+            val throwData = presenter.throwComputation(position, switch_on_of)
 
-            //результат с бонусом
-            val result1 =  fstAtDice + bonus1.text.toString().toInt()
-            var result2 =  sndAtDice + bonus2.text.toString().toInt()
-            var result3 =  thirdDice + bonus3.text.toString().toInt()
+            val gen1 = rowView.findViewById(R.id.answer1) as TextView
+            val gen2 = rowView.findViewById(R.id.answer2) as TextView
+            val gen3 = rowView.findViewById(R.id.answer3) as TextView
+            gen1.text =  throwData.dmgRoll1.toString()
+            gen2.text =  throwData.dmgRoll2.toString()
+            gen3.text =  throwData.dmgRoll3.toString()
 
-            gen1.text =  result1.toString()
-            gen2.text =  result2.toString()
-            gen3.text =  result3.toString()
-
-            //теперь разбираемя с 20ткой
+            //теперь разбираемcя с 20ткой
             val d20resust = rowView.findViewById(R.id.d20throw) as TextView
-            val d20throw = (1..20).random()
-            val toHit = hitModifier.text.toString().toInt()
+            d20resust.text = throwData.d20Total.toString()
 
-            val d20resVal = toHit+d20throw+Temp_modif[0]
-            d20resust.text = d20resVal.toString()
-            //прикрепили результат броска к текствью
             val d20Kinuli = rowView.findViewById(R.id.d20_kinuli) as TextView
-            d20Kinuli.text = d20throw.toString()
+            d20Kinuli.text = throwData.d20Throw.toString()
 
             //теперь разбираемя с cуммарным уроном
             val summ = rowView.findViewById(R.id.total_result) as TextView
-            if (Allinall.at2Enable[position].toInt() == 0) {
-                result2 = 0
-            }
-            if (Allinall.at3Enable[position].toInt() == 0) {
-                result3 = 0
-            }
+            summ.text = throwData.totalDamageWithSneak.toString()
 
             val sneak1 = rowView.findViewById(R.id.sneakky) as TextView
-            var sneakThrow = 0
-
-            if (Allinall.sneakEnable == 1 && switch_on_of)
-                sneakThrow = diceThrow(Allinall.sneakDicetype, Allinall.sneakNum)
-
-            val summRez = result1+result2+result3+Temp_modif[1]+sneakThrow
-            summ.text = summRez.toString()
-            sneak1.text = sneakThrow.toString()
+            sneak1.text = throwData.sneakDmg.toString()
         }
          return rowView
     }

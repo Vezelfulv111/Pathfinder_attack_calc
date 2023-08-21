@@ -11,24 +11,32 @@ class PresenterGenerateFragment(
 ): Contract.Presenter
 
 {
+   var AllinAll = DataClass()
+   var TemporaryModifers= intArrayOf(0, 0)
 
-    fun sneakySwitch(AllinAll : DataClass) {
+    fun editMoifier(IncreaseFlag: Boolean, position: Int): String {
+        val added = if (IncreaseFlag) 1 else -1
+        TemporaryModifers[position] += added
+        return TemporaryModifers[position].toString()
+    }
+
+    fun sneakySwitch() {
         if (AllinAll.sneakEnable == 0) {
             SomeView.showToastMsg("Set it in settings window!")
-            SomeView.enableSneakAttackSwitch(false)
+            SomeView.enableSneakAttackSwitch(false, checked = false)
         }
         else {
-            SomeView.enableSneakAttackSwitch(true)
+            SomeView.enableSneakAttackSwitch(true, checked = false)
         }
     }
 
     //расчет броска одной атаки
-    fun throwComputation(AllinAll: DataClass, position: Int, TempModifiers: IntArray, sneakSwithFlag : Boolean): ThrowData {
+    fun throwComputation(position: Int, sneakSwithFlag : Boolean): ThrowData {
         val throwData = ThrowData()
 
         val diceThrow = (1..20).random()
         throwData.d20Throw = diceThrow
-        throwData.d20Total = AllinAll.hitModifier[position].toInt()+diceThrow+TempModifiers[0]
+        throwData.d20Total = AllinAll.hitModifier[position].toInt()+diceThrow+TemporaryModifers[0]
 
         val at1 =diceThrow(AllinAll.img1[position].toInt(),AllinAll.numDice1[position].toInt())
         throwData.dmgRoll1 = at1 + AllinAll.bonus1[position].toInt()
