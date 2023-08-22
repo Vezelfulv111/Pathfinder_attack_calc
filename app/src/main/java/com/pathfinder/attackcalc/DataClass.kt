@@ -80,17 +80,7 @@ fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
     return rez
 }
 
-fun writeToFile(file : File, data : DataClass) {
-    try {
-        val f = FileOutputStream(file)
-        val o = ObjectOutputStream(f)
-        o.writeObject(data)
-        o.close()
-        f.close()
-    } catch (e: Exception) {
-        System.err.println("Error opening file.")
-    }
-}
+
 
 class FileInfo {
     private val fileName = "Data2.txt"

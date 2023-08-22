@@ -1,7 +1,5 @@
 package com.pathfinder.attackcalc.fragments
 
-
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +9,9 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.pathfinder.attackcalc.*
 import com.pathfinder.attackcalc.adapters.GenerateAdapter
+import com.pathfinder.attackcalc.model.Model
 import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
-import java.io.FileInputStream
-import java.io.ObjectInputStream
+
 
 
 class GenerateFragment : Fragment(), Contract.View {
@@ -29,10 +27,6 @@ class GenerateFragment : Fragment(), Contract.View {
 
     private lateinit var sneakySwitch: Switch
 
-
-    var fileInfo = FileInfo()
-
-    @SuppressLint("ResourceType")
     var presenterGen: PresenterGenerateFragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
@@ -40,14 +34,8 @@ class GenerateFragment : Fragment(), Contract.View {
         listView =view.findViewById(R.id.result_list)
 
 
-        presenterGen = PresenterGenerateFragment(this)
-
-
-        if(fileInfo.fileMain.exists()) {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            presenterGen!!.AllinAll =  ois.readObject() as DataClass
-            ois.close()
-        }
+        presenterGen = PresenterGenerateFragment(this, Model())
+        presenterGen!!.readData()
 
         sneakySwitch = view.findViewById(R.id.snky_switch)
         sneakySwitch.setOnClickListener {
@@ -63,11 +51,7 @@ class GenerateFragment : Fragment(), Contract.View {
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
-            if(fileInfo.fileMain.exists()) {
-                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-                presenterGen!!.AllinAll = ois.readObject() as DataClass
-                ois.close()
-            }
+            presenterGen!!.readData()
             listView.adapter = GenerateAdapter(context as Activity,0, sneakySwitch.isChecked,presenterGen!!)
         }
 
@@ -137,21 +121,11 @@ class GenerateFragment : Fragment(), Contract.View {
     override fun onResume() {
         super.onResume()
 
-         if(fileInfo.fileMain.exists()) {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-             presenterGen!!.AllinAll =  ois.readObject() as DataClass
-            ois.close()
-        }
+        presenterGen!!.readData()
+
         listView = requireView().findViewById(R.id.result_list)
         listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)
 
-            if (presenterGen!!.AllinAll.sneakEnable == 1) {
-                val str = presenterGen!!.AllinAll.sneakNum.toString() +"d"+ Dices.dices[presenterGen!!.AllinAll.sneakDicetype].toString()
-                sneakySwitch.text = str
-            }
-            else {
-                sneakySwitch.text=getString(R.string.SneakSwitchStrNone)
-                sneakySwitch.isChecked = false
-            }
+        sneakySwitch.text = presenterGen!!.sneakySwitchLabel()
     }
 }

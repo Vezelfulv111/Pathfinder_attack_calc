@@ -21,11 +21,13 @@ import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.FileInfo
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.adapters.SpinAdapter
-import com.pathfinder.attackcalc.writeToFile
+import com.pathfinder.attackcalc.model.Model
+import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
+import com.pathfinder.attackcalc.presenters.PresenterSettingsFragment
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), Contract.View {
 
      private lateinit var adapter: SpinAdapter
     private lateinit var spinnerImg1: Spinner
@@ -47,11 +49,8 @@ class SettingsFragment : Fragment() {
         R.drawable.d12,
     )
 
-    var Enable_attacks= intArrayOf(0, 0)
-    var AllinAll2 = DataClass()
-    var fileInfo = FileInfo()
+    var presenterSt: PresenterSettingsFragment? = null
 
-    @SuppressLint("ResourceType")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
@@ -69,14 +68,10 @@ class SettingsFragment : Fragment() {
         spinAt2.adapter = arrayAdapter
         spinAt3.adapter = arrayAdapter
 
-        if (fileInfo.fileMain.exists())
-        {
-            val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-            AllinAll2 =  ois.readObject() as DataClass
-            ois.close()
-        }
+        presenterSt = PresenterSettingsFragment(this, Model())
+        presenterSt!!.readData()
 
-        var Attack_name = view.findViewById<TextView>(R.id.enter_at_name)
+        val Attack_name = view.findViewById<TextView>(R.id.enter_at_name)
 
         Spinner_Sneak = view.findViewById<Spinner>(R.id.sneak_spinner)
         listView =view.findViewById(R.id.listView)
@@ -97,7 +92,7 @@ class SettingsFragment : Fragment() {
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = SettingsAdapter(context as Activity,AllinAll2,listView)
+        val myListAdapter = SettingsAdapter(context as Activity,presenterSt!!,listView)
         listView.adapter = myListAdapter
 
         EditButton.setOnClickListener {
@@ -120,39 +115,35 @@ class SettingsFragment : Fragment() {
             }
 
             //проверка на выход за диапазон
-            if(AllinAll2.hitModifier.size <= CurrentPositon ||  AllinAll2.hitModifier.isEmpty())
+            if(presenterSt!!.AllinAll
+                    .hitModifier.size <= CurrentPositon || presenterSt!!.AllinAll
+                    .hitModifier.isEmpty())
                 return@setOnClickListener
 
-            AllinAll2.hitModifier[CurrentPositon] = EditText_signed
+            presenterSt!!.AllinAll.hitModifier[CurrentPositon] = EditText_signed
 
-            AllinAll2.numDice1[CurrentPositon] = spinAt1.selectedItem.toString()
-            AllinAll2.numDice2[CurrentPositon] = spinAt2.selectedItem.toString()
-            AllinAll2.numDice3[CurrentPositon] = spinAt3.selectedItem.toString()
+            presenterSt!!.AllinAll.numDice1[CurrentPositon] = spinAt1.selectedItem.toString()
+            presenterSt!!.AllinAll.numDice2[CurrentPositon] = spinAt2.selectedItem.toString()
+            presenterSt!!.AllinAll.numDice3[CurrentPositon] = spinAt3.selectedItem.toString()
 
-            AllinAll2.bonus1[CurrentPositon] = Bonus1_signed
-            AllinAll2.bonus2[CurrentPositon] = Bonus2_signed
-            AllinAll2.bonus3[CurrentPositon] = Bonus3_signed
+            presenterSt!!.AllinAll.bonus1[CurrentPositon] = Bonus1_signed
+            presenterSt!!.AllinAll.bonus2[CurrentPositon] = Bonus2_signed
+            presenterSt!!.AllinAll.bonus3[CurrentPositon] = Bonus3_signed
 
-            AllinAll2.img1[CurrentPositon] = (spinnerImg1.selectedItemId).toString()
-            AllinAll2.img2[CurrentPositon] = (spinnerImg2.selectedItemId).toString()
-            AllinAll2.img3[CurrentPositon] = (spinnerImg3.selectedItemId).toString()
+            presenterSt!!.AllinAll.img1[CurrentPositon] = (spinnerImg1.selectedItemId).toString()
+            presenterSt!!.AllinAll.img2[CurrentPositon] = (spinnerImg2.selectedItemId).toString()
+            presenterSt!!.AllinAll.img3[CurrentPositon] = (spinnerImg3.selectedItemId).toString()
 
-            AllinAll2.at2Enable[CurrentPositon] = Enable_attacks[0].toString()
-            AllinAll2.at3Enable[CurrentPositon] = Enable_attacks[1].toString()
-            AllinAll2.attackName[CurrentPositon] = Attack_name.text.toString()
+            presenterSt!!.AllinAll.at2Enable[CurrentPositon] = presenterSt!!.EnableAttacks[0].toString()
+            presenterSt!!.AllinAll.at3Enable[CurrentPositon] = presenterSt!!.EnableAttacks[1].toString()
+            presenterSt!!.AllinAll.attackName[CurrentPositon] = Attack_name.text.toString()
 
-            listView.adapter = SettingsAdapter(context as Activity, AllinAll2,listView)
+            listView.adapter = SettingsAdapter(context as Activity, presenterSt!!,listView)
 
-            writeToFile(fileInfo.fileMain, AllinAll2)
-        }
+            presenterSt!!.writeData()
+         }
 
         AddButton.setOnClickListener {
-            if (fileInfo.fileMain.exists()) {
-                val ois = ObjectInputStream(FileInputStream(fileInfo.fileMain))
-                AllinAll2 =  ois.readObject() as DataClass
-                ois.close()
-            }
-
             var editTextSigned = EditModifer.text.toString()
             if (EditModifer.text.toString().toInt() > 0)
                 editTextSigned = "+" +EditModifer.text.toString().toInt().toString()
@@ -167,45 +158,37 @@ class SettingsFragment : Fragment() {
             if (bonus3.text.toString().toInt()>0)
                 bonus3Signed = "+" + bonus3.text.toString().toInt().toString()
 
-            AllinAll2.hitModifier.add(editTextSigned)
+            presenterSt!!.AllinAll.hitModifier.add(editTextSigned)
 
-            AllinAll2.numDice1.add(spinAt1.selectedItem.toString())
-            AllinAll2.numDice2.add(spinAt2.selectedItem.toString())
-            AllinAll2.numDice3.add(spinAt3.selectedItem.toString())
+            presenterSt!!.AllinAll.numDice1.add(spinAt1.selectedItem.toString())
+            presenterSt!!.AllinAll.numDice2.add(spinAt2.selectedItem.toString())
+            presenterSt!!.AllinAll.numDice3.add(spinAt3.selectedItem.toString())
 
-            AllinAll2.bonus1.add(bonus1Signed)
-            AllinAll2.bonus2.add(bonus2Signed)
-            AllinAll2.bonus3.add(bonus3Signed)
+            presenterSt!!.AllinAll.bonus1.add(bonus1Signed)
+            presenterSt!!.AllinAll.bonus2.add(bonus2Signed)
+            presenterSt!!.AllinAll.bonus3.add(bonus3Signed)
 
-            AllinAll2.img1.add((spinnerImg1.selectedItemId).toString())
-            AllinAll2.img2.add((spinnerImg2.selectedItemId).toString())
-            AllinAll2.img3.add((spinnerImg3.selectedItemId).toString())
+            presenterSt!!.AllinAll.img1.add((spinnerImg1.selectedItemId).toString())
+            presenterSt!!.AllinAll.img2.add((spinnerImg2.selectedItemId).toString())
+            presenterSt!!.AllinAll.img3.add((spinnerImg3.selectedItemId).toString())
 
-            AllinAll2.at2Enable.add(Enable_attacks[0].toString())
-            AllinAll2.at3Enable.add(Enable_attacks[1].toString())
-            AllinAll2.attackName.add(Attack_name.text.toString())
+            presenterSt!!.AllinAll.at2Enable.add(presenterSt!!.EnableAttacks[0].toString())
+            presenterSt!!.AllinAll.at3Enable.add(presenterSt!!.EnableAttacks[1].toString())
+            presenterSt!!.AllinAll.attackName.add(Attack_name.text.toString())
 
 
-            listView.adapter =  SettingsAdapter(context as Activity, AllinAll2,listView)
-            writeToFile(fileInfo.fileMain, AllinAll2)
+            listView.adapter =  SettingsAdapter(context as Activity, presenterSt!!,listView)
+            presenterSt!!.writeData()
         }
 
         var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                Enable_attacks[0] =1
-            } else {
-                Enable_attacks[0]= 0
-            }
+            presenterSt!!.EnableAttackSwitch(isChecked,0)
         }
 
         var Switch3d = view.findViewById(R.id.switchthird) as Switch
         Switch3d.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-               Enable_attacks[1] = 1
-            } else {
-               Enable_attacks[1]= 0
-            }
+            presenterSt!!.EnableAttackSwitch(isChecked,1)
         }
 
         //Если нажать на список
@@ -213,26 +196,26 @@ class SettingsFragment : Fragment() {
             CurrentPositon = position
 
             EditButton.text = "Edit ".plus((position+1).toString())
-            Attack_name.text = AllinAll2.attackName[position]
+            Attack_name.text = presenterSt!!.AllinAll.attackName[position]
 
-            bonus1.setText(AllinAll2.bonus1[position].toInt().toString())
-            spinnerImg1.setSelection(AllinAll2.img1[position].toInt(),true)
-            spinAt1.setSelection(AllinAll2.numDice1[position].toInt()-1,true)
+            bonus1.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
+            spinnerImg1.setSelection(presenterSt!!.AllinAll.img1[position].toInt(),true)
+            spinAt1.setSelection(presenterSt!!.AllinAll.numDice1[position].toInt()-1,true)
 
-            if (AllinAll2.at2Enable[position].toInt() == 1) {
+            if (presenterSt!!.AllinAll.at2Enable[position].toInt() == 1) {
                 Switch2nd.isChecked = TRUE
-                bonus2.setText(AllinAll2.bonus1[position].toInt().toString())
-                spinnerImg2.setSelection(AllinAll2.img2[position].toInt(),true)
-                spinAt2.setSelection(AllinAll2.numDice2[position].toInt()-1,true)
+                bonus2.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
+                spinnerImg2.setSelection(presenterSt!!.AllinAll.img2[position].toInt(),true)
+                spinAt2.setSelection(presenterSt!!.AllinAll.numDice2[position].toInt()-1,true)
             }
             else
                 Switch2nd.isChecked = FALSE
 
-            if (AllinAll2.at3Enable[position].toInt() == 1) {
+            if (presenterSt!!.AllinAll.at3Enable[position].toInt() == 1) {
                 Switch3d.isChecked = TRUE
-                bonus3.setText(AllinAll2.bonus1[position].toInt().toString())
-                spinnerImg3.setSelection(AllinAll2.img3[position].toInt(),true)
-                spinAt3.setSelection(AllinAll2.numDice3[position-1].toInt(),true)
+                bonus3.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
+                spinnerImg3.setSelection(presenterSt!!.AllinAll.img3[position].toInt(),true)
+                spinAt3.setSelection(presenterSt!!.AllinAll.numDice3[position-1].toInt(),true)
             }
             else
                 Switch3d.isChecked = FALSE
@@ -242,30 +225,13 @@ class SettingsFragment : Fragment() {
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
         var SneakSwich = view.findViewById(R.id.sneak_switch) as Switch
         SneakSwich.setOnCheckedChangeListener { _, isChecked ->
-
-            if (isChecked)
-                AllinAll2.sneakEnable = 1
-            else
-                AllinAll2.sneakEnable = 0
-
-            AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
-            AllinAll2.sneakNum = SneakEdit.text.toString().toInt()
-            val f2 = FileOutputStream(fileInfo.fileMain)
-            val o2 = ObjectOutputStream(f2)
-            o2.writeObject(AllinAll2)
-            o2.close()
-            f2.close()
+            presenterSt!!.sneakSwitchRefresh(isChecked, Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
         }
+
         //перезаписываем данные при изменении кубика сник атаки
         Spinner_Sneak.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?,itemSelected: View, selectedItemPosition: Int, selectedId: Long) {
-                AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
-                AllinAll2.sneakNum = SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(fileInfo.fileMain)
-                val o2 = ObjectOutputStream(f2)
-                o2.writeObject(AllinAll2)
-                o2.close()
-                f2.close()
+                presenterSt!!.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -276,13 +242,7 @@ class SettingsFragment : Fragment() {
                                            count: Int, after: Int) {
             }
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
-                AllinAll2.sneakDicetype = Spinner_Sneak.selectedItemId.toInt()
-                AllinAll2.sneakNum= SneakEdit.text.toString().toInt()
-                val f2 = FileOutputStream(fileInfo.fileMain)
-                val o2 = ObjectOutputStream(f2)
-                o2.writeObject(AllinAll2)
-                o2.close()
-                f2.close()
+                presenterSt!!.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
         })
         return view

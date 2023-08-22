@@ -1,13 +1,12 @@
 package com.pathfinder.attackcalc.presenters
 
 import Contract
-import com.pathfinder.attackcalc.DataClass
-import com.pathfinder.attackcalc.ThrowData
-import com.pathfinder.attackcalc.diceThrow
+import com.pathfinder.attackcalc.*
 import com.pathfinder.attackcalc.fragments.GenerateFragment
 
 class PresenterGenerateFragment(
-    private var SomeView: GenerateFragment
+    private var SomeView: GenerateFragment,
+    private val model: Contract.Model
 ): Contract.Presenter
 
 {
@@ -28,6 +27,15 @@ class PresenterGenerateFragment(
         else {
             SomeView.enableSneakAttackSwitch(true, checked = false)
         }
+    }
+
+    fun sneakySwitchLabel(): String {
+        var str = if (AllinAll.sneakEnable == 1) {
+            AllinAll.sneakNum.toString() +"d"+ Dices.dices[AllinAll.sneakDicetype].toString()
+        } else {
+            "none"
+        }
+        return str
     }
 
     //расчет броска одной атаки
@@ -64,5 +72,9 @@ class PresenterGenerateFragment(
 
     override fun onDestroy() {
         //SomeView = null
+    }
+
+    override fun readData() {
+        AllinAll = model.readAttacInfo() ?: AllinAll
     }
 }

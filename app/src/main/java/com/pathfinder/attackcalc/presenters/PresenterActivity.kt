@@ -17,4 +17,6 @@ class PresenterActivity(
     override fun onDestroy() {
         //SomeView = null
     }
+
+    override fun readData() {}
 }
