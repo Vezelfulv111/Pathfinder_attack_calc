@@ -1,7 +1,6 @@
 package com.pathfinder.attackcalc.fragments
 
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
@@ -13,19 +12,13 @@ import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.AdapterView.OnItemClickListener
-import java.io.*
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
 import com.pathfinder.attackcalc.adapters.SettingsAdapter
-import com.pathfinder.attackcalc.DataClass
-import com.pathfinder.attackcalc.FileInfo
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.adapters.SpinAdapter
 import com.pathfinder.attackcalc.model.Model
-import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 import com.pathfinder.attackcalc.presenters.PresenterSettingsFragment
-import java.lang.Boolean.FALSE
-import java.lang.Boolean.TRUE
 
 class SettingsFragment : Fragment(), Contract.View {
 
@@ -51,6 +44,17 @@ class SettingsFragment : Fragment(), Contract.View {
 
     var presenterSt: PresenterSettingsFragment? = null
 
+
+    private lateinit var bonus1: EditText
+    private lateinit var bonus2: EditText
+    private lateinit var bonus3: EditText
+
+    private lateinit var spinAt1: Spinner
+    private lateinit var spinAt2: Spinner
+    private lateinit var spinAt3: Spinner
+
+    private lateinit var Switch2nd : Switch
+    private lateinit var Switch3d : Switch
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
@@ -58,9 +62,9 @@ class SettingsFragment : Fragment(), Contract.View {
         spinnerImg2 = view.findViewById<Spinner>(R.id.Dice_spinner2)
         spinnerImg3 = view.findViewById<Spinner>(R.id.Dice_spinner3)
 
-        val spinAt1 = view.findViewById<Spinner>(R.id.Spin_n1) as Spinner
-        val spinAt2 = view.findViewById<Spinner>(R.id.Spin_n2) as Spinner
-        val spinAt3 = view.findViewById<Spinner>(R.id.Spin_n3) as Spinner
+        spinAt1 = view.findViewById<Spinner>(R.id.Spin_n1) as Spinner
+        spinAt2 = view.findViewById<Spinner>(R.id.Spin_n2) as Spinner
+        spinAt3 = view.findViewById<Spinner>(R.id.Spin_n3) as Spinner
 
         val arrayAdapter: ArrayAdapter<Any> = ArrayAdapter<Any>(context as Activity,
             R.layout.spiner_123, resources.getStringArray(R.array.SpinNumbers))
@@ -84,9 +88,9 @@ class SettingsFragment : Fragment(), Contract.View {
         spinnerImg3.adapter = adapter
         Spinner_Sneak.adapter = adapter
 
-            val bonus1 = view.findViewById(R.id.Edittext1) as EditText
-            val bonus2 = view.findViewById(R.id.Edittext2) as EditText
-            val bonus3 = view.findViewById(R.id.Edittext3) as EditText
+        bonus1 = view.findViewById(R.id.Edittext1) as EditText
+        bonus2 = view.findViewById(R.id.Edittext2) as EditText
+        bonus3 = view.findViewById(R.id.Edittext3) as EditText
             val EditModifer = view.findViewById(R.id.editHit) as EditText
 
         EditButton = view.findViewById(R.id.EditButton)
@@ -97,28 +101,14 @@ class SettingsFragment : Fragment(), Contract.View {
 
         EditButton.setOnClickListener {
 
-            var EditText_signed = EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt()>0)
-                EditText_signed = "+" +EditModifer.text.toString().toInt().toString()
-
-            var Bonus1_signed = bonus1.text.toString()
-            var Bonus2_signed = bonus2.text.toString()
-            var Bonus3_signed = bonus3.text.toString()
-            if (bonus1.text.toString().toInt()>0) {
-                Bonus1_signed = "+" + bonus1.text.toString().toInt().toString()
-            }
-            if (bonus2.text.toString().toInt()>0) {
-                Bonus2_signed = "+" + bonus2.text.toString().toInt().toString()
-            }
-            if (bonus3.text.toString().toInt()>0) {
-                Bonus3_signed = "+" + bonus3.text.toString().toInt().toString()
-            }
-
             //проверка на выход за диапазон
-            if(presenterSt!!.AllinAll
-                    .hitModifier.size <= CurrentPositon || presenterSt!!.AllinAll
-                    .hitModifier.isEmpty())
+            if(presenterSt!!.AllinAll.hitModifier.size <= CurrentPositon || presenterSt!!.AllinAll.hitModifier.isEmpty())
                 return@setOnClickListener
+
+            val EditText_signed = presenterSt!!.setPlusSign(EditModifer.text.toString())
+            val Bonus1_signed =  presenterSt!!.setPlusSign(bonus1.text.toString())
+            val Bonus2_signed =  presenterSt!!.setPlusSign(bonus2.text.toString())
+            val Bonus3_signed =  presenterSt!!.setPlusSign(bonus3.text.toString())
 
             presenterSt!!.AllinAll.hitModifier[CurrentPositon] = EditText_signed
 
@@ -144,19 +134,10 @@ class SettingsFragment : Fragment(), Contract.View {
          }
 
         AddButton.setOnClickListener {
-            var editTextSigned = EditModifer.text.toString()
-            if (EditModifer.text.toString().toInt() > 0)
-                editTextSigned = "+" +EditModifer.text.toString().toInt().toString()
-
-            var bonus1Signed = bonus1.text.toString()
-            var bonus2Signed = bonus2.text.toString()
-            var bonus3Signed = bonus3.text.toString()
-            if (bonus1.text.toString().toInt()>0)
-                bonus1Signed = "+" + bonus1.text.toString().toInt().toString()
-            if (bonus2.text.toString().toInt()>0)
-                bonus2Signed = "+" + bonus2.text.toString().toInt().toString()
-            if (bonus3.text.toString().toInt()>0)
-                bonus3Signed = "+" + bonus3.text.toString().toInt().toString()
+            val editTextSigned = presenterSt!!.setPlusSign(EditModifer.text.toString())
+            val bonus1Signed = presenterSt!!.setPlusSign(bonus1.text.toString())
+            val bonus2Signed = presenterSt!!.setPlusSign(bonus2.text.toString())
+            val bonus3Signed = presenterSt!!.setPlusSign(bonus3.text.toString())
 
             presenterSt!!.AllinAll.hitModifier.add(editTextSigned)
 
@@ -176,19 +157,18 @@ class SettingsFragment : Fragment(), Contract.View {
             presenterSt!!.AllinAll.at3Enable.add(presenterSt!!.EnableAttacks[1].toString())
             presenterSt!!.AllinAll.attackName.add(Attack_name.text.toString())
 
-
             listView.adapter =  SettingsAdapter(context as Activity, presenterSt!!,listView)
             presenterSt!!.writeData()
         }
 
-        var Switch2nd = view.findViewById(R.id.switchscnd) as Switch
+        Switch2nd = view.findViewById(R.id.switchscnd) as Switch
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt!!.EnableAttackSwitch(isChecked,0)
+            presenterSt!!.enableAttackSwitch(isChecked,0)
         }
 
-        var Switch3d = view.findViewById(R.id.switchthird) as Switch
+        Switch3d = view.findViewById(R.id.switchthird) as Switch
         Switch3d.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt!!.EnableAttackSwitch(isChecked,1)
+            presenterSt!!.enableAttackSwitch(isChecked,1)
         }
 
         //Если нажать на список
@@ -202,23 +182,8 @@ class SettingsFragment : Fragment(), Contract.View {
             spinnerImg1.setSelection(presenterSt!!.AllinAll.img1[position].toInt(),true)
             spinAt1.setSelection(presenterSt!!.AllinAll.numDice1[position].toInt()-1,true)
 
-            if (presenterSt!!.AllinAll.at2Enable[position].toInt() == 1) {
-                Switch2nd.isChecked = TRUE
-                bonus2.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
-                spinnerImg2.setSelection(presenterSt!!.AllinAll.img2[position].toInt(),true)
-                spinAt2.setSelection(presenterSt!!.AllinAll.numDice2[position].toInt()-1,true)
-            }
-            else
-                Switch2nd.isChecked = FALSE
-
-            if (presenterSt!!.AllinAll.at3Enable[position].toInt() == 1) {
-                Switch3d.isChecked = TRUE
-                bonus3.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
-                spinnerImg3.setSelection(presenterSt!!.AllinAll.img3[position].toInt(),true)
-                spinAt3.setSelection(presenterSt!!.AllinAll.numDice3[position-1].toInt(),true)
-            }
-            else
-                Switch3d.isChecked = FALSE
+            Switch2nd.isChecked = presenterSt!!.checkAttack2Enable(position)
+            Switch3d.isChecked = presenterSt!!.checkAttack3Enable(position)
 
         }
 
@@ -238,14 +203,26 @@ class SettingsFragment : Fragment(), Contract.View {
         //перезаписываем при изменении числа кубиков
         SneakEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
                 presenterSt!!.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
         })
         return view
+    }
+
+    //Изменение Gui для 2й атаки
+    fun attack2SetGui(position: Int) {
+        bonus2.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
+        spinnerImg2.setSelection(presenterSt!!.AllinAll.img2[position].toInt(),true)
+        spinAt2.setSelection(presenterSt!!.AllinAll.numDice2[position].toInt()-1,true)
+    }
+
+    //Изменение Gui для 3й атаки
+    fun attack3SetGui(position: Int) {
+        bonus3.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
+        spinnerImg3.setSelection(presenterSt!!.AllinAll.img3[position].toInt(),true)
+        spinAt3.setSelection(presenterSt!!.AllinAll.numDice3[position-1].toInt(),true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

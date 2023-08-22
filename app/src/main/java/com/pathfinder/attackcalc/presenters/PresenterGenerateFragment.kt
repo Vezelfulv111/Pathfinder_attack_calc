@@ -3,16 +3,18 @@ package com.pathfinder.attackcalc.presenters
 import Contract
 import com.pathfinder.attackcalc.*
 import com.pathfinder.attackcalc.fragments.GenerateFragment
+import com.pathfinder.attackcalc.model.Model
 
 class PresenterGenerateFragment(
     private var SomeView: GenerateFragment,
-    private val model: Contract.Model
+    private val model: Model
 ): Contract.Presenter
 
 {
    var AllinAll = DataClass()
    var TemporaryModifers= intArrayOf(0, 0)
 
+    //редактирование временных модификаторов
     fun editMoifier(IncreaseFlag: Boolean, position: Int): String {
         val added = if (IncreaseFlag) 1 else -1
         TemporaryModifers[position] += added
@@ -29,9 +31,10 @@ class PresenterGenerateFragment(
         }
     }
 
+    //установка надписи - количество кубов, которые бросаются для скрытой атаки
     fun sneakySwitchLabel(): String {
-        var str = if (AllinAll.sneakEnable == 1) {
-            AllinAll.sneakNum.toString() +"d"+ Dices.dices[AllinAll.sneakDicetype].toString()
+        val str = if (AllinAll.sneakEnable == 1) {
+            AllinAll.sneakNum.toString() +"d"+ model.dices[AllinAll.sneakDicetype].toString()
         } else {
             "none"
         }
@@ -70,10 +73,37 @@ class PresenterGenerateFragment(
 
     }
 
+    private fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
+        var rez = 0
+        for (i in 1..numberofThrows) {
+            rez += (1..model.dices[inputdicenum]).random()
+        }
+        return rez
+    }
+
+    //класс хранит информацию о броске кубиков
+    class ThrowData {
+        var d20Throw: Int = 0
+        var d20Total: Int = 0
+
+        var dmgRoll1 : Int = 0
+        var dmgRoll2 : Int = 0
+        var dmgRoll3 : Int = 0
+
+        var sneakDmg : Int = 0
+
+        val totalDamageNoSneak: Int
+            get() = dmgRoll1+dmgRoll2+dmgRoll3
+
+        val totalDamageWithSneak: Int
+            get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg
+    }
+
     override fun onDestroy() {
         //SomeView = null
     }
 
+    //обращаемся к модели для чтения данных из файла
     override fun readData() {
         AllinAll = model.readAttacInfo() ?: AllinAll
     }

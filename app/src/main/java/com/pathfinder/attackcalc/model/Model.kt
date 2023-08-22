@@ -31,4 +31,14 @@ class Model: Contract.Model {
         }
     }
 
+
+    val dices = intArrayOf(
+            3,
+            4,
+            6,
+            8,
+            10,
+            12,
+    )
 }
+

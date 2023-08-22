@@ -10,7 +10,6 @@ import android.widget.*
 import android.widget.TextView
 import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.R
-import com.pathfinder.attackcalc.diceThrow
 import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 
 

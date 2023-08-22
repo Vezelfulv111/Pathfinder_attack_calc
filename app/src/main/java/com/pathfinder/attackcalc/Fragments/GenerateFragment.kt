@@ -81,9 +81,7 @@ class GenerateFragment : Fragment(), Contract.View {
             val rezD20 = view.findViewById(R.id.d20throw) as TextView
             val d20 = view.findViewById(R.id.d20_kinuli) as TextView
 
-            val throwData = presenterGen!!.throwComputation(
-                                                            position,
-                                                            sneakySwitch.isChecked)
+            val throwData = presenterGen!!.throwComputation(position,sneakySwitch.isChecked)
 
             d20.text  = throwData.d20Throw.toString()
             rezD20.text = throwData.d20Total.toString()
@@ -105,14 +103,9 @@ class GenerateFragment : Fragment(), Contract.View {
         return view
 
         }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
     override fun showToastMsg(msg: String) {
         Toast.makeText(context as Activity, msg, Toast.LENGTH_SHORT).show()
     }
-
     fun enableSneakAttackSwitch(enable: Boolean, checked: Boolean) {
        sneakySwitch.isEnabled = enable
        sneakySwitch.isChecked = checked

@@ -1,8 +1,4 @@
 package com.pathfinder.attackcalc
-
-import java.io.File
-import java.io.FileOutputStream
-import java.io.ObjectOutputStream
 import java.io.Serializable
 
 class DataClass: Serializable {
@@ -55,35 +51,7 @@ class DataClass: Serializable {
 
 }
 
-class ThrowData {
-    var d20Throw: Int = 0
-    var d20Total: Int = 0
-
-    var dmgRoll1 : Int = 0
-    var dmgRoll2 : Int = 0
-    var dmgRoll3 : Int = 0
-
-    var sneakDmg : Int = 0
-
-    val totalDamageNoSneak: Int
-        get() = dmgRoll1+dmgRoll2+dmgRoll3
-
-    val totalDamageWithSneak: Int
-        get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg
-}
-
-fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
-    var rez = 0
-    for (i in 1..numberofThrows) {
-        rez += (1..Dices.dices[inputdicenum]).random()
-    }
-    return rez
-}
 
 
 
-class FileInfo {
-    private val fileName = "Data2.txt"
-    val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
-}
 

@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.TextView
-import com.pathfinder.attackcalc.DataClass
-import com.pathfinder.attackcalc.FileInfo
 import com.pathfinder.attackcalc.R
-import com.pathfinder.attackcalc.writeToFile
+import com.pathfinder.attackcalc.presenters.PresenterSettingsFragment
 
 
-class SettingsAdapter(private val context: Activity, private var Allinall: DataClass,
+class SettingsAdapter(private val context: Activity, private var presenter: PresenterSettingsFragment,
                       private val listview: ListView
 )
-    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, Allinall.numDice1.toArray()) {
+    : ArrayAdapter<Any>(context, R.layout.attac_st_listview, presenter.AllinAll.numDice1.toArray()) {
 
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -26,6 +24,8 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         rowView.setBackgroundColor(if (position and 1 == 1) {
             Color.DKGRAY
         } else Color.GRAY)
+
+        val Allinall = presenter.AllinAll
 
         val Attac_num = rowView.findViewById(R.id.cur_num) as TextView
         Attac_num.text = (position+1).toString()
@@ -51,7 +51,6 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
             R.drawable.d10,
             R.drawable.d12,
         )
-
 
         //имя атаки
         val attack_name = rowView.findViewById(R.id.attack_name) as TextView
@@ -82,14 +81,11 @@ class SettingsAdapter(private val context: Activity, private var Allinall: DataC
         val DelBut = rowView.findViewById(R.id.Delbut) as Button
 
         DelBut.setOnClickListener {
-            //  Toast.makeText(context, "gf", Toast.LENGTH_SHORT).show()
-            Allinall.removeAt(position)
-
-            val file = FileInfo()
-            writeToFile(file.fileMain, Allinall)
+            presenter.AllinAll.removeAt(position)
+            presenter.writeData()
 
             val listview = listview
-            val myListAdapter2 = SettingsAdapter(context, Allinall, listview)
+            val myListAdapter2 = SettingsAdapter(context, presenter, listview)
             listview.adapter = myListAdapter2
         }
 
