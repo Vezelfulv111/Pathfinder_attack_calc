@@ -121,4 +121,9 @@ class GenerateFragment : Fragment(), Contract.View {
 
         sneakySwitch.text = presenterGen!!.sneakySwitchLabel()
     }
+
+    override fun onDestroy() {
+        presenterGen!!.onDestroy()
+        super.onDestroy()
+    }
 }

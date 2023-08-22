@@ -8,7 +8,6 @@ import com.pathfinder.attackcalc.fragments.GenerateFragment
 import com.pathfinder.attackcalc.fragments.SettingsFragment
 import com.pathfinder.attackcalc.MainActivity
 
-
 class TbAdapt(fragmentActivity: MainActivity) :
     FragmentStateAdapter(fragmentActivity) {
     override fun createFragment(position: Int): Fragment {

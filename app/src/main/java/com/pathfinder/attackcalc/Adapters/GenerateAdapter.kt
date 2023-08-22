@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 
 import android.widget.TextView
-import com.pathfinder.attackcalc.DataClass
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 
@@ -63,6 +62,7 @@ class GenerateAdapter(
         if (Allinall.attackName.isEmpty()) {//если строка пустая то убираем подпись
             attackName.visibility = GONE
         }
+
 
         img1.setImageResource( images[Allinall.img1[position].toInt()])
         img2.setImageResource( images[Allinall.img2[position].toInt()])

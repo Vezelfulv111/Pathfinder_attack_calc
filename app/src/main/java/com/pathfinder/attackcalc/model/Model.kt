@@ -1,17 +1,17 @@
 package com.pathfinder.attackcalc.model
 
 import Contract
-import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.AttackInfo
 import java.io.*
 
 class Model: Contract.Model {
     private val fileName = "Data2.txt"
     private val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
 
-    override fun readAttacInfo():DataClass?{
+    override fun readAttacInfo():AttackInfo?{
         return if(fileMain.exists()) {
             val ois = ObjectInputStream(FileInputStream(fileMain))
-            val data =  ois.readObject() as DataClass
+            val data =  ois.readObject() as AttackInfo
             ois.close()
             data
         } else {
@@ -19,7 +19,7 @@ class Model: Contract.Model {
         }
      }
 
-    override fun writeAttacInfo(data :DataClass) {
+    override fun writeAttacInfo(data :AttackInfo) {
         try {
             val f = FileOutputStream(fileMain)
             val o = ObjectOutputStream(f)

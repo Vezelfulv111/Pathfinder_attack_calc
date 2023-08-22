@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity(), Contract.View {
     override fun showToastMsg(msg: String) {
         //Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
     }
-
-
-
+    
 
 }

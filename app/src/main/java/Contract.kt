@@ -1,5 +1,4 @@
-import android.widget.Toast
-import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.AttackInfo
 
 interface Contract {
 
@@ -15,8 +14,8 @@ interface Contract {
     }
 
     interface Model {
-         fun readAttacInfo(): DataClass?
-         fun writeAttacInfo(data :DataClass)
+         fun readAttacInfo(): AttackInfo?
+         fun writeAttacInfo(data :AttackInfo)
     }
 
 }

@@ -1,7 +1,7 @@
 package com.pathfinder.attackcalc
 import java.io.Serializable
 
-class DataClass: Serializable {
+class AttackInfo: Serializable {
     var hitModifier = arrayOf("+1", "+2", "-3").toCollection(ArrayList())
 
     //2-4

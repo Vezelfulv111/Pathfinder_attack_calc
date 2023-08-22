@@ -1,16 +1,18 @@
 package com.pathfinder.attackcalc.presenters
 
-import com.pathfinder.attackcalc.DataClass
+import com.pathfinder.attackcalc.AttackInfo
 import com.pathfinder.attackcalc.fragments.SettingsFragment
+import com.pathfinder.attackcalc.model.Model
 
 
 class PresenterSettingsFragment(
     private var SomeView: SettingsFragment,
-    private val model: Contract.Model
+    private val model: Model
 ): Contract.Presenter {
 
     var EnableAttacks= intArrayOf(0, 0)
-    var AllinAll = DataClass()
+    var AllinAll = AttackInfo()
+    var CurrentPositon = 0;
 
     fun enableAttackSwitch(CheckFlag: Boolean, num: Int) {
         val rez = if (CheckFlag) 1 else 0
@@ -51,6 +53,14 @@ class PresenterSettingsFragment(
         writeData()
     }
 
+    //функкция обработки нажатия на EditBtn
+    fun editButtonLogic() {
+        //проверка на выход за диапазон
+        if(AllinAll.hitModifier.size <= CurrentPositon || AllinAll.hitModifier.isEmpty())
+            return
+
+        SomeView.rewritePosition(CurrentPositon)
+    }
     //функция проверки и установки в строке плюса
     fun setPlusSign(string: String): String {
         var inputStr = string

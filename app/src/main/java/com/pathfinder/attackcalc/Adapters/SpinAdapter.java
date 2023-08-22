@@ -13,8 +13,8 @@ public class SpinAdapter extends ArrayAdapter<String> {
 
     Context context;
     int[] images;
-    public SpinAdapter(Context context, String[] Languages, int[] images) {
-        super(context, R.layout.spinner_dice,Languages);
+    public SpinAdapter(Context context, String[] nums, int[] images) {
+        super(context, R.layout.spinner_dice,nums);
         this.context=context;
         this.images=images;
     }

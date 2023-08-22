@@ -83,10 +83,7 @@ class SettingsAdapter(private val context: Activity, private var presenter: Pres
         DelBut.setOnClickListener {
             presenter.AllinAll.removeAt(position)
             presenter.writeData()
-
-            val listview = listview
-            val myListAdapter2 = SettingsAdapter(context, presenter, listview)
-            listview.adapter = myListAdapter2
+            listview.adapter = SettingsAdapter(context, presenter, listview)
         }
 
         return rowView

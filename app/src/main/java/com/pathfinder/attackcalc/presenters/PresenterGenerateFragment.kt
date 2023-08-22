@@ -11,7 +11,7 @@ class PresenterGenerateFragment(
 ): Contract.Presenter
 
 {
-   var AllinAll = DataClass()
+   var AllinAll = AttackInfo()
    var TemporaryModifers= intArrayOf(0, 0)
 
     //редактирование временных модификаторов
