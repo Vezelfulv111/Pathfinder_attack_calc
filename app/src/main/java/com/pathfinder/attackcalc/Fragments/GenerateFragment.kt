@@ -33,13 +33,12 @@ class GenerateFragment : Fragment(), Contract.View {
         val view: View = inflater.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)
 
-
         presenterGen = PresenterGenerateFragment(this, Model())
         presenterGen!!.readData()
 
         sneakySwitch = view.findViewById(R.id.snky_switch)
         sneakySwitch.setOnClickListener {
-            presenterGen?.sneakySwitch()
+            presenterGen?.sneakySwitch(sneakySwitch.isChecked)
         }
 
         listView.adapter =  GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)

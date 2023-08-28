@@ -21,13 +21,13 @@ class PresenterGenerateFragment(
         return TemporaryModifers[position].toString()
     }
 
-    fun sneakySwitch() {
+    fun sneakySwitch(checkState : Boolean) {
         if (AllinAll.sneakEnable == 0) {
             SomeView.showToastMsg("Set it in settings window!")
             SomeView.enableSneakAttackSwitch(false, checked = false)
         }
         else {
-            SomeView.enableSneakAttackSwitch(true, checked = false)
+            SomeView.enableSneakAttackSwitch(true, checked = checkState)
         }
     }
 
