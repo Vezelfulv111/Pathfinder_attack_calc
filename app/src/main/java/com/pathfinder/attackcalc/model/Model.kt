@@ -5,7 +5,7 @@ import com.pathfinder.attackcalc.AttackInfo
 import java.io.*
 
 class Model: Contract.Model {
-    private val fileName = "Data2.txt"
+    private val fileName = "AttacInfo.txt"
     private val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
 
     override fun readAttacInfo():AttackInfo?{

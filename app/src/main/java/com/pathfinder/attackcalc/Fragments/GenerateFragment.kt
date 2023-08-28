@@ -27,31 +27,31 @@ class GenerateFragment : Fragment(), Contract.View {
 
     private lateinit var sneakySwitch: Switch
 
-    var presenterGen: PresenterGenerateFragment? = null
+    private lateinit var presenterGen: PresenterGenerateFragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val view: View = inflater.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)
 
         presenterGen = PresenterGenerateFragment(this, Model())
-        presenterGen!!.readData()
+        presenterGen.readData()
 
         sneakySwitch = view.findViewById(R.id.snky_switch)
         sneakySwitch.setOnClickListener {
-            presenterGen?.sneakySwitch(sneakySwitch.isChecked)
+            presenterGen.sneakySwitch(sneakySwitch.isChecked)
         }
 
-        listView.adapter =  GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)
+        listView.adapter =  GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen)
         GenButton = view.findViewById(R.id.gen_but)
 
         GenButton.setOnClickListener {
-           listView.adapter = GenerateAdapter(context as Activity,1,sneakySwitch.isChecked,presenterGen!!)
+           listView.adapter = GenerateAdapter(context as Activity,1,sneakySwitch.isChecked,presenterGen)
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
-            presenterGen!!.readData()
-            listView.adapter = GenerateAdapter(context as Activity,0, sneakySwitch.isChecked,presenterGen!!)
+            presenterGen.readData()
+            listView.adapter = GenerateAdapter(context as Activity,0, sneakySwitch.isChecked,presenterGen)
         }
 
         Plus1 = view.findViewById(R.id.Fstplus)
@@ -63,16 +63,16 @@ class GenerateFragment : Fragment(), Contract.View {
 
         //Temporary modifiers - hit and damage
         Plus1.setOnClickListener {
-            hitbonus.text = presenterGen!!.editMoifier(true,0)
+            hitbonus.text = presenterGen.editMoifier(true,0)
         }
         Minus1.setOnClickListener {
-            hitbonus.text =  presenterGen!!.editMoifier(false,0)
+            hitbonus.text =  presenterGen.editMoifier(false,0)
         }
         Plus2.setOnClickListener {
-            hitbonus2.text = presenterGen!!.editMoifier(true,1)
+            hitbonus2.text = presenterGen.editMoifier(true,1)
         }
         Minus2.setOnClickListener {
-            hitbonus2.text =  presenterGen!!.editMoifier(false,1)
+            hitbonus2.text =  presenterGen.editMoifier(false,1)
         }
 
 
@@ -80,7 +80,7 @@ class GenerateFragment : Fragment(), Contract.View {
             val rezD20 = view.findViewById(R.id.d20throw) as TextView
             val d20 = view.findViewById(R.id.d20_kinuli) as TextView
 
-            val throwData = presenterGen!!.throwComputation(position,sneakySwitch.isChecked)
+            val throwData = presenterGen.throwComputation(position,sneakySwitch.isChecked)
 
             d20.text  = throwData.d20Throw.toString()
             rezD20.text = throwData.d20Total.toString()
@@ -113,16 +113,16 @@ class GenerateFragment : Fragment(), Contract.View {
     override fun onResume() {
         super.onResume()
 
-        presenterGen!!.readData()
+        presenterGen.readData()
 
         listView = requireView().findViewById(R.id.result_list)
-        listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen!!)
+        listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen)
 
-        sneakySwitch.text = presenterGen!!.sneakySwitchLabel()
+        sneakySwitch.text = presenterGen.sneakySwitchLabel()
     }
 
     override fun onDestroy() {
-        presenterGen!!.onDestroy()
+        presenterGen.onDestroy()
         super.onDestroy()
     }
 }

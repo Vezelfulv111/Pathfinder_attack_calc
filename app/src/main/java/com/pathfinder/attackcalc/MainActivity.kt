@@ -15,7 +15,7 @@ import com.pathfinder.attackcalc.presenters.PresenterActivity
 
 class MainActivity : AppCompatActivity(), Contract.View {
 
-    var presenter: PresenterActivity? = null
+    private lateinit var presenter: PresenterActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), Contract.View {
 
         val myPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                presenter!!.onViewPagerClick(position)
+                presenter.onViewPagerClick(position)
             }
         }
         viewPager.registerOnPageChangeCallback(myPageChangeCallback)
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), Contract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter!!.onDestroy()
+        presenter.onDestroy()
     }
 
     override fun showToastMsg(msg: String) {

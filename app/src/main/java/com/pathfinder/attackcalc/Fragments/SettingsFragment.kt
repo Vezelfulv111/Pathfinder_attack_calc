@@ -40,7 +40,7 @@ class SettingsFragment : Fragment(), Contract.View {
         R.drawable.d12,
     )
 
-    var presenterSt: PresenterSettingsFragment? = null
+    private lateinit var presenterSt: PresenterSettingsFragment
 
 
     private lateinit var bonus1: EditText
@@ -74,7 +74,7 @@ class SettingsFragment : Fragment(), Contract.View {
         spinAt3.adapter = arrayAdapter
 
         presenterSt = PresenterSettingsFragment(this, Model())
-        presenterSt!!.readData()
+        presenterSt.readData()
 
         Attack_name = view.findViewById(R.id.enter_at_name)
         Spinner_Sneak = view.findViewById(R.id.sneak_spinner)
@@ -96,77 +96,77 @@ class SettingsFragment : Fragment(), Contract.View {
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = SettingsAdapter(context as Activity,presenterSt!!,listView)
+        val myListAdapter = SettingsAdapter(context as Activity,presenterSt,listView)
         listView.adapter = myListAdapter
 
         EditButton.setOnClickListener {
-            presenterSt!!.editButtonLogic()
+            presenterSt.editButtonLogic()
         }
 
         AddButton.setOnClickListener {
-            val editTextSigned = presenterSt!!.setPlusSign(EditModifer.text.toString())
-            val bonus1Signed = presenterSt!!.setPlusSign(bonus1.text.toString())
-            val bonus2Signed = presenterSt!!.setPlusSign(bonus2.text.toString())
-            val bonus3Signed = presenterSt!!.setPlusSign(bonus3.text.toString())
+            val editTextSigned = presenterSt.setPlusSign(EditModifer.text.toString())
+            val bonus1Signed = presenterSt.setPlusSign(bonus1.text.toString())
+            val bonus2Signed = presenterSt.setPlusSign(bonus2.text.toString())
+            val bonus3Signed = presenterSt.setPlusSign(bonus3.text.toString())
 
-            presenterSt!!.AllinAll.hitModifier.add(editTextSigned)
+            presenterSt.AllinAll.hitModifier.add(editTextSigned)
 
-            presenterSt!!.AllinAll.numDice1.add(spinAt1.selectedItem.toString())
-            presenterSt!!.AllinAll.numDice2.add(spinAt2.selectedItem.toString())
-            presenterSt!!.AllinAll.numDice3.add(spinAt3.selectedItem.toString())
+            presenterSt.AllinAll.numDice1.add(spinAt1.selectedItem.toString())
+            presenterSt.AllinAll.numDice2.add(spinAt2.selectedItem.toString())
+            presenterSt.AllinAll.numDice3.add(spinAt3.selectedItem.toString())
 
-            presenterSt!!.AllinAll.bonus1.add(bonus1Signed)
-            presenterSt!!.AllinAll.bonus2.add(bonus2Signed)
-            presenterSt!!.AllinAll.bonus3.add(bonus3Signed)
+            presenterSt.AllinAll.bonus1.add(bonus1Signed)
+            presenterSt.AllinAll.bonus2.add(bonus2Signed)
+            presenterSt.AllinAll.bonus3.add(bonus3Signed)
 
-            presenterSt!!.AllinAll.img1.add((spinnerImg1.selectedItemId).toString())
-            presenterSt!!.AllinAll.img2.add((spinnerImg2.selectedItemId).toString())
-            presenterSt!!.AllinAll.img3.add((spinnerImg3.selectedItemId).toString())
+            presenterSt.AllinAll.img1.add((spinnerImg1.selectedItemId).toString())
+            presenterSt.AllinAll.img2.add((spinnerImg2.selectedItemId).toString())
+            presenterSt.AllinAll.img3.add((spinnerImg3.selectedItemId).toString())
 
-            presenterSt!!.AllinAll.at2Enable.add(presenterSt!!.EnableAttacks[0].toString())
-            presenterSt!!.AllinAll.at3Enable.add(presenterSt!!.EnableAttacks[1].toString())
-            presenterSt!!.AllinAll.attackName.add(Attack_name.text.toString())
+            presenterSt.AllinAll.at2Enable.add(presenterSt.EnableAttacks[0].toString())
+            presenterSt.AllinAll.at3Enable.add(presenterSt.EnableAttacks[1].toString())
+            presenterSt.AllinAll.attackName.add(Attack_name.text.toString())
 
-            listView.adapter =  SettingsAdapter(context as Activity, presenterSt!!,listView)
-            presenterSt!!.writeData()
+            listView.adapter =  SettingsAdapter(context as Activity, presenterSt,listView)
+            presenterSt.writeData()
         }
 
         Switch2nd = view.findViewById(R.id.switchscnd) as Switch
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt!!.enableAttackSwitch(isChecked,0)
+            presenterSt.enableAttackSwitch(isChecked,0)
         }
 
         Switch3d = view.findViewById(R.id.switchthird) as Switch
         Switch3d.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt!!.enableAttackSwitch(isChecked,1)
+            presenterSt.enableAttackSwitch(isChecked,1)
         }
 
         //Если нажать на список
         listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-            presenterSt!!.CurrentPositon = position
+            presenterSt.CurrentPositon = position
 
             EditButton.text = "Edit ".plus((position+1).toString())
-            Attack_name.text = presenterSt!!.AllinAll.attackName[position]
+            Attack_name.text = presenterSt.AllinAll.attackName[position]
 
-            bonus1.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
-            spinnerImg1.setSelection(presenterSt!!.AllinAll.img1[position].toInt(),true)
-            spinAt1.setSelection(presenterSt!!.AllinAll.numDice1[position].toInt()-1,true)
+            bonus1.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
+            spinnerImg1.setSelection(presenterSt.AllinAll.img1[position].toInt(),true)
+            spinAt1.setSelection(presenterSt.AllinAll.numDice1[position].toInt()-1,true)
 
-            Switch2nd.isChecked = presenterSt!!.checkAttack2Enable(position)
-            Switch3d.isChecked = presenterSt!!.checkAttack3Enable(position)
+            Switch2nd.isChecked = presenterSt.checkAttack2Enable(position)
+            Switch3d.isChecked = presenterSt.checkAttack3Enable(position)
 
         }
 
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
         var SneakSwich = view.findViewById(R.id.sneak_switch) as Switch
         SneakSwich.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt!!.sneakSwitchRefresh(isChecked, Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
+            presenterSt.sneakSwitchRefresh(isChecked, Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
         }
 
         //перезаписываем данные при изменении кубика сник атаки
         Spinner_Sneak.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?,itemSelected: View, selectedItemPosition: Int, selectedId: Long) {
-                presenterSt!!.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
+                presenterSt.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -175,7 +175,7 @@ class SettingsFragment : Fragment(), Contract.View {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
-                presenterSt!!.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
+                presenterSt.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
         })
         return view
@@ -183,49 +183,49 @@ class SettingsFragment : Fragment(), Contract.View {
 
     //Изменение Gui для 2й атаки
     fun attack2SetGui(position: Int) {
-        bonus2.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
-        spinnerImg2.setSelection(presenterSt!!.AllinAll.img2[position].toInt(),true)
-        spinAt2.setSelection(presenterSt!!.AllinAll.numDice2[position].toInt()-1,true)
+        bonus2.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
+        spinnerImg2.setSelection(presenterSt.AllinAll.img2[position].toInt(),true)
+        spinAt2.setSelection(presenterSt.AllinAll.numDice2[position].toInt()-1,true)
     }
 
     //Изменение Gui для 3й атаки
     fun attack3SetGui(position: Int) {
-        bonus3.setText(presenterSt!!.AllinAll.bonus1[position].toInt().toString())
-        spinnerImg3.setSelection(presenterSt!!.AllinAll.img3[position].toInt(),true)
-        spinAt3.setSelection(presenterSt!!.AllinAll.numDice3[position-1].toInt(),true)
+        bonus3.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
+        spinnerImg3.setSelection(presenterSt.AllinAll.img3[position].toInt(),true)
+        spinAt3.setSelection(presenterSt.AllinAll.numDice3[position].toInt()-1,true)
     }
 
     fun rewritePosition(position: Int) {
-        val EditText_signed = presenterSt!!.setPlusSign(EditModifer.text.toString())
-        val Bonus1_signed =  presenterSt!!.setPlusSign(bonus1.text.toString())
-        val Bonus2_signed =  presenterSt!!.setPlusSign(bonus2.text.toString())
-        val Bonus3_signed =  presenterSt!!.setPlusSign(bonus3.text.toString())
+        val EditText_signed = presenterSt.setPlusSign(EditModifer.text.toString())
+        val Bonus1_signed =  presenterSt.setPlusSign(bonus1.text.toString())
+        val Bonus2_signed =  presenterSt.setPlusSign(bonus2.text.toString())
+        val Bonus3_signed =  presenterSt.setPlusSign(bonus3.text.toString())
 
-        presenterSt!!.AllinAll.hitModifier[position] = EditText_signed
+        presenterSt.AllinAll.hitModifier[position] = EditText_signed
 
-        presenterSt!!.AllinAll.numDice1[position] = spinAt1.selectedItem.toString()
-        presenterSt!!.AllinAll.numDice2[position] = spinAt2.selectedItem.toString()
-        presenterSt!!.AllinAll.numDice3[position] = spinAt3.selectedItem.toString()
+        presenterSt.AllinAll.numDice1[position] = spinAt1.selectedItem.toString()
+        presenterSt.AllinAll.numDice2[position] = spinAt2.selectedItem.toString()
+        presenterSt.AllinAll.numDice3[position] = spinAt3.selectedItem.toString()
 
-        presenterSt!!.AllinAll.bonus1[position] = Bonus1_signed
-        presenterSt!!.AllinAll.bonus2[position] = Bonus2_signed
-        presenterSt!!.AllinAll.bonus3[position] = Bonus3_signed
+        presenterSt.AllinAll.bonus1[position] = Bonus1_signed
+        presenterSt.AllinAll.bonus2[position] = Bonus2_signed
+        presenterSt.AllinAll.bonus3[position] = Bonus3_signed
 
-        presenterSt!!.AllinAll.img1[position] = (spinnerImg1.selectedItemId).toString()
-        presenterSt!!.AllinAll.img2[position] = (spinnerImg2.selectedItemId).toString()
-        presenterSt!!.AllinAll.img3[position] = (spinnerImg3.selectedItemId).toString()
+        presenterSt.AllinAll.img1[position] = (spinnerImg1.selectedItemId).toString()
+        presenterSt.AllinAll.img2[position] = (spinnerImg2.selectedItemId).toString()
+        presenterSt.AllinAll.img3[position] = (spinnerImg3.selectedItemId).toString()
 
-        presenterSt!!.AllinAll.at2Enable[position] = presenterSt!!.EnableAttacks[0].toString()
-        presenterSt!!.AllinAll.at3Enable[position] = presenterSt!!.EnableAttacks[1].toString()
-        presenterSt!!.AllinAll.attackName[position] = Attack_name.text.toString()
+        presenterSt.AllinAll.at2Enable[position] = presenterSt.EnableAttacks[0].toString()
+        presenterSt.AllinAll.at3Enable[position] = presenterSt.EnableAttacks[1].toString()
+        presenterSt.AllinAll.attackName[position] = Attack_name.text.toString()
 
-        listView.adapter = SettingsAdapter(context as Activity, presenterSt!!,listView)
+        listView.adapter = SettingsAdapter(context as Activity, presenterSt,listView)
 
-        presenterSt!!.writeData()
+        presenterSt.writeData()
     }
 
     override fun onDestroy() {
-        presenterSt!!.onDestroy()
+        presenterSt.onDestroy()
         super.onDestroy()
     }
 
