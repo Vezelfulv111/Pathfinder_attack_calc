@@ -74,7 +74,6 @@ class SettingsFragment : Fragment(), Contract.View {
         spinAt3.adapter = arrayAdapter
 
         presenterSt = PresenterSettingsFragment(this, Model())
-        presenterSt.readData()
 
         Attack_name = view.findViewById(R.id.enter_at_name)
         Spinner_Sneak = view.findViewById(R.id.sneak_spinner)
@@ -182,20 +181,20 @@ class SettingsFragment : Fragment(), Contract.View {
     }
 
     //Изменение Gui для 2й атаки
-    fun attack2SetGui(position: Int) {
+    fun attack2SetGui(position: Int, presenterSt : PresenterSettingsFragment) {
         bonus2.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
         spinnerImg2.setSelection(presenterSt.AllinAll.img2[position].toInt(),true)
         spinAt2.setSelection(presenterSt.AllinAll.numDice2[position].toInt()-1,true)
     }
 
     //Изменение Gui для 3й атаки
-    fun attack3SetGui(position: Int) {
+    fun attack3SetGui(position: Int, presenterSt : PresenterSettingsFragment) {
         bonus3.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
         spinnerImg3.setSelection(presenterSt.AllinAll.img3[position].toInt(),true)
         spinAt3.setSelection(presenterSt.AllinAll.numDice3[position].toInt()-1,true)
     }
 
-    fun rewritePosition(position: Int) {
+    fun rewritePosition(position: Int, presenterSt : PresenterSettingsFragment) {
         val EditText_signed = presenterSt.setPlusSign(EditModifer.text.toString())
         val Bonus1_signed =  presenterSt.setPlusSign(bonus1.text.toString())
         val Bonus2_signed =  presenterSt.setPlusSign(bonus2.text.toString())

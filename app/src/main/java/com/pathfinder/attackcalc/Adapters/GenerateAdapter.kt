@@ -63,7 +63,6 @@ class GenerateAdapter(
             attackName.visibility = GONE
         }
 
-
         img1.setImageResource( images[Allinall.img1[position].toInt()])
         img2.setImageResource( images[Allinall.img2[position].toInt()])
         img3.setImageResource( images[Allinall.img3[position].toInt()])

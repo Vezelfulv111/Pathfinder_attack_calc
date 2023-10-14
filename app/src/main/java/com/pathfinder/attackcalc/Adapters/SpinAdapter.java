@@ -23,7 +23,7 @@ public class SpinAdapter extends ArrayAdapter<String> {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row =inflater.inflate(R.layout.spinner_dice,null);
-        ImageView v1 = (ImageView) row.findViewById(R.id.flag);
+        ImageView v1 = row.findViewById(R.id.flag);
         v1.setImageResource(images[position]);
         return row;
     }

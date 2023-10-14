@@ -5,16 +5,21 @@ import com.pathfinder.attackcalc.AttackInfo
 import java.io.*
 
 class Model: Contract.Model {
-    private val fileName = "AttacInfoChs.txt"
+    private val fileName = "AttacInfo.txt"
     private val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
     var AllinAll = AttackInfo()
 
     override fun readAttacInfo(): AttackInfo?{
         return if(fileMain.exists()) {
-            val ois = ObjectInputStream(FileInputStream(fileMain))
-            val data =  ois.readObject() as AttackInfo
-            ois.close()
-            data
+            try {
+                val ois = ObjectInputStream(FileInputStream(fileMain))
+                val data : AttackInfo? = ois.readObject() as? AttackInfo?
+                ois.close()
+                data
+            }
+            catch(e: Exception) {
+                null
+            }
         } else {
             null
         }

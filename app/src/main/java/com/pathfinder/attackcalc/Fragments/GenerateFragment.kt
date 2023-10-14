@@ -34,7 +34,6 @@ class GenerateFragment : Fragment(), Contract.View {
         listView =view.findViewById(R.id.result_list)
 
         presenterGen = PresenterGenerateFragment(this, Model())
-        presenterGen.readData()
 
         sneakySwitch = view.findViewById(R.id.snky_switch)
         sneakySwitch.setOnClickListener {
