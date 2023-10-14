@@ -5,7 +5,7 @@ import com.pathfinder.attackcalc.AttackInfo
 import java.io.*
 
 class Model: Contract.Model {
-    private val fileName = "AttacInfoCh.txt"
+    private val fileName = "AttacInfoChs.txt"
     private val fileMain = File("/data/data/com.pathfinder.attackcalc/" + File.separator + fileName)
     var AllinAll = AttackInfo()
 

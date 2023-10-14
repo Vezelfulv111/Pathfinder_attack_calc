@@ -20,6 +20,18 @@ class PresenterSettingsFragmentTest {
     fun presenterSettingsFragment_enableAttackSwitch_ReturnsTrue() {
         assertTrue(presenter.enableAttackSwitch(false, 1))
     }
+    @Test
+    fun presenterSettingsFragment_editButtonLogic_ReturnsFalse() {
+        val presenter = PresenterSettingsFragment(someView, model)
+        presenter.CurrentPositon = 100//Currentpositon > DataSize
+        assertFalse(presenter.editButtonLogic())
+    }
+
+    @Test
+    fun presenterSettingsFragment_editButtonLogic_ReturnsTrue() {
+        //Currentpositon < DataSize
+        assertTrue(presenter.editButtonLogic())
+    }
 
 
 }

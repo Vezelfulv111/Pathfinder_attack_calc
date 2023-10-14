@@ -13,8 +13,9 @@ class PresenterSettingsFragment(
     var EnableAttacks= intArrayOf(0, 0)
     var AllinAll =  model.AllinAll
     var CurrentPositon = 0
-
-
+    init{
+        readData()
+    }
 
     //изменение флагов использования 2й и 3й атаки
     fun enableAttackSwitch(CheckFlag: Boolean, num: Int): Boolean {
@@ -29,7 +30,7 @@ class PresenterSettingsFragment(
     //2я атака, свитч
     fun checkAttack2Enable(position: Int): Boolean {
         return if (AllinAll.at2Enable[position].toInt() == 1) {
-            SomeView.attack2SetGui(position)
+            SomeView.attack2SetGui(position, this)
             true
         } else
             false
@@ -38,7 +39,7 @@ class PresenterSettingsFragment(
     //3я атака, свитч
     fun checkAttack3Enable(position: Int): Boolean {
         return if (AllinAll.at3Enable[position].toInt() == 1) {
-            SomeView.attack3SetGui(position)
+            SomeView.attack3SetGui(position, this)
             true
         } else
             false
@@ -61,12 +62,12 @@ class PresenterSettingsFragment(
     }
 
     //функкция обработки нажатия на EditBtn
-    fun editButtonLogic() {
+    fun editButtonLogic(): Boolean {
         //проверка на выход за диапазон
-        if(AllinAll.hitModifier.size <= CurrentPositon || AllinAll.hitModifier.isEmpty())
-            return
-
-        SomeView.rewritePosition(CurrentPositon)
+        if(!AllinAll.checkAttackInfoValidity(CurrentPositon))
+            return false
+        SomeView.rewritePosition(CurrentPositon, this)
+        return true
     }
     //функция проверки и установки в строке плюса
     fun setPlusSign(string: String): String {

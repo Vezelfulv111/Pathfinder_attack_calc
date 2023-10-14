@@ -9,10 +9,12 @@ class PresenterGenerateFragment(
     private var SomeView: GenerateFragment,
     private val model: Model
 ): Contract.Presenter
-
 {
    var AllinAll = model.AllinAll
    var TemporaryModifers= intArrayOf(0, 0)
+    init{
+        readData()
+    }
 
     //редактирование временных модификаторов
     fun editModifier(IncreaseFlag: Boolean, position: Int): String {
