@@ -11,16 +11,20 @@ class PresenterGenerateFragment(
 ): Contract.Presenter
 
 {
-   var AllinAll = AttackInfo()
+   var AllinAll = model.AllinAll
    var TemporaryModifers= intArrayOf(0, 0)
 
     //редактирование временных модификаторов
-    fun editMoifier(IncreaseFlag: Boolean, position: Int): String {
+    fun editModifier(IncreaseFlag: Boolean, position: Int): String {
+        if (position > TemporaryModifers.size)
+            return "error"
+
         val added = if (IncreaseFlag) 1 else -1
         TemporaryModifers[position] += added
         return TemporaryModifers[position].toString()
     }
 
+    //изменение состояния свитча скрытности
     fun sneakySwitch(checkState : Boolean) {
         if (AllinAll.sneakEnable == 0) {
             SomeView.showToastMsg("Set it in settings window!")
@@ -73,10 +77,16 @@ class PresenterGenerateFragment(
 
     }
 
-    private fun diceThrow(inputdicenum:Int, numberofThrows:Int): Int {
+    //функция броска кубика
+    fun diceThrow(inputDicenum:Int, numberofThrows:Int): Int {
+        if (numberofThrows < 1)
+            return -1
+        if (inputDicenum > model.dices.size)
+            return -1
+
         var rez = 0
         for (i in 1..numberofThrows) {
-            rez += (1..model.dices[inputdicenum]).random()
+            rez += (1..model.dices[inputDicenum]).random()
         }
         return rez
     }
@@ -85,16 +95,12 @@ class PresenterGenerateFragment(
     class ThrowData {
         var d20Throw: Int = 0
         var d20Total: Int = 0
-
-        var dmgRoll1 : Int = 0
-        var dmgRoll2 : Int = 0
-        var dmgRoll3 : Int = 0
-
+            var dmgRoll1 : Int = 0
+            var dmgRoll2 : Int = 0
+            var dmgRoll3 : Int = 0
         var sneakDmg : Int = 0
-
         val totalDamageNoSneak: Int
             get() = dmgRoll1+dmgRoll2+dmgRoll3
-
         val totalDamageWithSneak: Int
             get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg
     }

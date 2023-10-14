@@ -63,16 +63,16 @@ class GenerateFragment : Fragment(), Contract.View {
 
         //Temporary modifiers - hit and damage
         Plus1.setOnClickListener {
-            hitbonus.text = presenterGen.editMoifier(true,0)
+            hitbonus.text = presenterGen.editModifier(true,0)
         }
         Minus1.setOnClickListener {
-            hitbonus.text =  presenterGen.editMoifier(false,0)
+            hitbonus.text =  presenterGen.editModifier(false,0)
         }
         Plus2.setOnClickListener {
-            hitbonus2.text = presenterGen.editMoifier(true,1)
+            hitbonus2.text = presenterGen.editModifier(true,1)
         }
         Minus2.setOnClickListener {
-            hitbonus2.text =  presenterGen.editMoifier(false,1)
+            hitbonus2.text =  presenterGen.editModifier(false,1)
         }
 
 
@@ -112,12 +112,9 @@ class GenerateFragment : Fragment(), Contract.View {
 
     override fun onResume() {
         super.onResume()
-
         presenterGen.readData()
-
         listView = requireView().findViewById(R.id.result_list)
         listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen)
-
         sneakySwitch.text = presenterGen.sneakySwitchLabel()
     }
 

@@ -28,7 +28,11 @@ class AttackInfo: Serializable {
     var sneakNum = 0
     var sneakDicetype = 0
 
-    fun removeAt(position: Int) {
+    fun removeAt(position: Int): Boolean {
+        val checkAttackInfoValidity = checkAttackInfoValidity(position, this)
+        if (!checkAttackInfoValidity)
+            return false
+
         hitModifier.removeAt(position)
 
         numDice1.removeAt(position)
@@ -47,6 +51,24 @@ class AttackInfo: Serializable {
         at3Enable.removeAt(position)
 
         attackName.removeAt(position)
+
+        return true
+    }
+
+    //проверка валидности AttackInfo - вставки или удаления
+    fun checkAttackInfoValidity(position: Int, AllinAll : AttackInfo = this): Boolean {
+        if (AllinAll.bonus1.size < position || AllinAll.bonus2.size < position ||  AllinAll.bonus3.size < position )
+            return false
+        if (AllinAll.numDice1.size < position || AllinAll.numDice2.size < position ||  AllinAll.numDice3.size < position )
+            return false
+        if (AllinAll.img1.size < position || AllinAll.img2.size < position ||  AllinAll.img3.size < position )
+            return false
+        if (AllinAll.at2Enable.size < position || AllinAll.at3Enable.size < position)
+            return false
+        if (AllinAll.attackName.size < position)
+            return false
+
+        return true
     }
 
 }

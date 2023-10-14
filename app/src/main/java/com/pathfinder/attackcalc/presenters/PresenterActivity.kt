@@ -9,7 +9,6 @@ class PresenterActivity(
 
 {
     fun onViewPagerClick(position: Int) {
-        //идет какая то обработка
         val stringToShow = (position).toString() + "That is selected"
         SomeView.showToastMsg(stringToShow)
     }

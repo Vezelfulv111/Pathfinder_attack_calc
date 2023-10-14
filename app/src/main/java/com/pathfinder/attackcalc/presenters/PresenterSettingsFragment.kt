@@ -11,12 +11,19 @@ class PresenterSettingsFragment(
 ): Contract.Presenter {
 
     var EnableAttacks= intArrayOf(0, 0)
-    var AllinAll = AttackInfo()
-    var CurrentPositon = 0;
+    var AllinAll =  model.AllinAll
+    var CurrentPositon = 0
 
-    fun enableAttackSwitch(CheckFlag: Boolean, num: Int) {
+
+
+    //изменение флагов использования 2й и 3й атаки
+    fun enableAttackSwitch(CheckFlag: Boolean, num: Int): Boolean {
+        if (num > EnableAttacks.size)
+            return false
+
         val rez = if (CheckFlag) 1 else 0
         EnableAttacks[num] = rez
+        return true
     }
 
     //2я атака, свитч
