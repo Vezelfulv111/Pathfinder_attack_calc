@@ -96,7 +96,10 @@ class GenerateFragment : Fragment(), Contract.View {
             sneak1.text = throwData.sneakDmg.toString()
 
             val sum = view.findViewById(R.id.total_result) as TextView
-            sum.text = throwData.totalDamageWithSneak.toString()
+            if (throwData.totalDamageWithSneak < 0)
+                sum.text = "0"
+            else
+                sum.text = throwData.totalDamageWithSneak.toString()
         }
         return view
 

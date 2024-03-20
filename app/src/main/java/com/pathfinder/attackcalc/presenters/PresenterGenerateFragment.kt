@@ -50,6 +50,7 @@ class PresenterGenerateFragment(
     //расчет броска одной атаки
     fun throwComputation(position: Int, sneakSwithFlag : Boolean): ThrowData {
         val throwData = ThrowData()
+        throwData.tempDamageModifier = TemporaryModifers[1]
 
         val diceThrow = (1..20).random()
         throwData.d20Throw = diceThrow
@@ -95,6 +96,7 @@ class PresenterGenerateFragment(
 
     //класс хранит информацию о броске кубиков
     class ThrowData {
+        var tempDamageModifier : Int = 0;
         var d20Throw: Int = 0
         var d20Total: Int = 0
             var dmgRoll1 : Int = 0
@@ -102,9 +104,9 @@ class PresenterGenerateFragment(
             var dmgRoll3 : Int = 0
         var sneakDmg : Int = 0
         val totalDamageNoSneak: Int
-            get() = dmgRoll1+dmgRoll2+dmgRoll3
+            get() = dmgRoll1+dmgRoll2+dmgRoll3 + tempDamageModifier
         val totalDamageWithSneak: Int
-            get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg
+            get() = dmgRoll1+dmgRoll2+dmgRoll3+sneakDmg + tempDamageModifier
     }
 
     override fun onDestroy() {
