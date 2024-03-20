@@ -64,7 +64,7 @@ class PresenterSettingsFragment(
     //функкция обработки нажатия на EditBtn
     fun editButtonLogic(): Boolean {
         //проверка на выход за диапазон
-        if(!AllinAll.checkAttackInfoValidity(CurrentPositon))
+        if(!AllinAll.checkAttackInfoValidity(CurrentPositon+1))
             return false
         SomeView.rewritePosition(CurrentPositon, this)
         return true
