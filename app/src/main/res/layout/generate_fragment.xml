@@ -38,8 +38,9 @@
         android:id="@+id/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
         android:backgroundTint="#6C6C6C"
-        android:text="rfsh"
+        android:text="Refresh"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +95,6 @@
                     android:id="@+id/Fstminus"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="#FD070707"
                     android:backgroundTint="#00FFFFFF"
                     android:src="@drawable/minus_icon" />
 
@@ -150,7 +150,7 @@
 
                 <ImageButton
                     android:id="@+id/Fstplus2"
-                    android:layout_width="33dp"
+                    android:layout_width="40dp"
                     android:layout_height="38dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/plus_icon" />
@@ -159,7 +159,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="40dp"
             android:orientation="vertical"
@@ -176,12 +176,12 @@
             <Switch
                 android:id="@+id/snky_switch"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="2"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:switchMinWidth="60dp"
-                android:text="none"
+                android:text="1d6"
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>

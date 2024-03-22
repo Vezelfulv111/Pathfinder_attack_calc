@@ -4,4 +4,10 @@
         <item name="android:background">#66BC3F3F</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
 </resources>
