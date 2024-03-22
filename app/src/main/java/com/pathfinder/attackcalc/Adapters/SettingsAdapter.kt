@@ -25,6 +25,11 @@ class SettingsAdapter(private val context: Activity, private var presenter: Pres
             Color.DKGRAY
         } else Color.GRAY)
 
+        val header = rowView.findViewById(R.id.settings_header) as TableRow
+        if (position != 0) {
+            header.visibility = View.GONE
+        }
+
         val Allinall = presenter.AllinAll
 
         val Attac_num = rowView.findViewById(R.id.cur_num) as TextView
