@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.adapters
+package com.pathfinder.attackcalc.Adapters
 
 import android.app.Activity
 import android.graphics.Color

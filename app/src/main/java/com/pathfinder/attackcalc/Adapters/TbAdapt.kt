@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.adapters
+package com.pathfinder.attackcalc.Adapters
 
 
 import androidx.fragment.app.Fragment

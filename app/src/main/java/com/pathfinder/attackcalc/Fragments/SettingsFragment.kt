@@ -14,9 +14,9 @@ import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
-import com.pathfinder.attackcalc.adapters.SettingsAdapter
+import com.pathfinder.attackcalc.Adapters.SettingsAdapter
 import com.pathfinder.attackcalc.R
-import com.pathfinder.attackcalc.adapters.SpinAdapter
+import com.pathfinder.attackcalc.Adapters.SpinAdapter
 import com.pathfinder.attackcalc.model.Model
 import com.pathfinder.attackcalc.presenters.PresenterSettingsFragment
 
