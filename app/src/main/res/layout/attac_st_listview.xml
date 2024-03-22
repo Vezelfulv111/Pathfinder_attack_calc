@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#9C9393"
     android:orientation="vertical">
@@ -22,31 +22,43 @@
 
             <TextView
                 android:id="@+id/stTable_num"
-                android:layout_width="15dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="22dp"
+                android:gravity="center"
                 android:text="N" />
 
             <TextView
                 android:id="@+id/stTable_hit_modifier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
                 android:paddingStart="5dp"
                 android:paddingEnd="2dp"
-                android:text="Hit modifier" />
+                android:text="Hit" />
 
             <TextView
                 android:id="@+id/stTable_damage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="40"
+                android:layout_height="match_parent"
                 android:paddingStart="5dp"
                 android:text="Damage" />
 
             <TextView
                 android:id="@+id/stTable_attack_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:layout_height="match_parent"
                 android:paddingStart="5dp"
-                android:text="Attack name" />
+                android:text="Name" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:paddingStart="3dp"
+                android:text="Clean" />
         </TableRow>
 
         <TableRow
@@ -56,76 +68,139 @@
             android:divider="#2C2C2C"
             android:showDividers="middle">
 
-            <TextView
-                android:id="@+id/cur_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="fill"
-                android:paddingLeft="3dp"
-                android:paddingEnd="3dp"
-                android:text="1"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/hit_modifier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="fill"
-                android:paddingLeft="3dp"
-                android:paddingEnd="3dp"
-                android:text="+10"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/cur_tmp2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1" />
+
+                <TextView
+                    android:id="@+id/cur_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="1" />
+
+                <TextView
+                    android:id="@+id/cur_tmp3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:maxLines="1" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tmp_hit_modifier1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7" />
+
+                <TextView
+                    android:id="@+id/hit_modifier"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:autoSizeTextType="uniform"
+                    android:foregroundGravity="center"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:maxLines="1"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="+10" />
+
+                <TextView
+                    android:id="@+id/tmp_hit_modifier2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"/>
+            </LinearLayout>
 
             <TableLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="40"
                 android:layout_height="wrap_content">
 
                 <TableRow
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/attack_num1"
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="15"
                         android:autoSizeTextType="uniform"
                         android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
                         app:autoSizeMinTextSize="14dp" />
 
                     <TextView
                         android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:autoSizeTextType="uniform"
                         android:gravity="center_horizontal|center_vertical"
+                        android:paddingTop="10dp"
                         android:paddingRight="1dp"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="15dp"
                         android:text="x"
-                        android:textSize="24sp" />
+                        app:autoSizeMinTextSize="14dp" />
 
-                    <ImageView
-                        android:id="@+id/img1"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/d3" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15">
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            android:src="@drawable/d3"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/bonus1"
-                        android:layout_width="40dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-
+                        android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
+                        android:paddingTop="10dp"
                         android:paddingBottom="5dp"
                         android:text="1"
                         android:textAlignment="gravity"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal|center_vertical"
                         app:autoSizeMinTextSize="14dp" />
                 </TableRow>
 
@@ -137,44 +212,62 @@
 
                     <TextView
                         android:id="@+id/attack_num2"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-
+                        android:layout_weight="15"
                         android:autoSizeTextType="uniform"
                         android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
                         app:autoSizeMinTextSize="14dp" />
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:autoSizeTextType="uniform"
                         android:gravity="center_horizontal|center_vertical"
+                        android:paddingTop="10dp"
                         android:paddingRight="1dp"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="15dp"
                         android:text="x"
-                        android:textSize="24sp" />
+                        app:autoSizeMinTextSize="14dp" />
 
-                    <ImageView
-                        android:id="@+id/img2"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/d10" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15">
+
+                        <ImageView
+                            android:id="@+id/img2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:src="@drawable/d10"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/bonus2"
-                        android:layout_width="40dp"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="15"
 
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
+                        android:gravity="center_horizontal|center_vertical"
+
                         app:autoSizeMinTextSize="14dp" />
                 </TableRow>
 
@@ -186,92 +279,125 @@
 
                     <TextView
                         android:id="@+id/attack_num3"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-
+                        android:layout_weight="15"
                         android:autoSizeTextType="uniform"
                         android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
                         app:autoSizeMinTextSize="14dp" />
 
                     <TextView
                         android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:autoSizeTextType="uniform"
                         android:gravity="center_horizontal|center_vertical"
-
+                        android:paddingTop="10dp"
                         android:paddingRight="1dp"
-                        android:paddingBottom="4dp"
+                        android:paddingBottom="15dp"
                         android:text="x"
-                        android:textSize="24sp" />
+                        app:autoSizeMinTextSize="14dp" />
 
-                    <ImageView
-                        android:id="@+id/img3"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/d10" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="15">
+                        <ImageView
+                            android:id="@+id/img3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:src="@drawable/d6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/bonus3"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-
+                        android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
+                        android:layout_gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
+                        android:gravity="center_horizontal|center_vertical"
+
                         app:autoSizeMinTextSize="14dp" />
 
                 </TableRow>
             </TableLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/Delbut"
-                    android:layout_width="44dp"
-                    android:layout_height="50dp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="20">
 
-
-                    android:layout_marginEnd="10dp"
-
-                    android:background="@null"
-                    android:backgroundTint="#D16868"
-
-                    android:focusable="false"
-
-                    android:isScrollContainer="false"
-                    android:textColor="#FFFFFF"
-
-
-                    android:textColorHint="#FFFFFF"
-                    app:icon="@android:drawable/ic_menu_close_clear_cancel"
-                    app:iconGravity="top"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:rippleColor="#FFFFFF" />
+                <TextView
+                    android:id="@+id/tmp_attack_name1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7"/>
 
                 <TextView
                     android:id="@+id/attack_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
                     android:autoSizeTextType="uniform"
+                    android:foregroundGravity="center"
+                    android:gravity="center_horizontal|center_vertical"
                     android:maxLines="1"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/Delbut"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="TextView" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tmp_attack_name2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="7" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/Delbut"
+                    android:layout_width="43dp"
+                    android:layout_height="50dp"
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@null"
+                    android:backgroundTint="#D16868"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                    app:iconGravity="top"
+                    app:rippleColor="#FFFFFF" />
+            </LinearLayout>
+
         </TableRow>
     </TableLayout>
 

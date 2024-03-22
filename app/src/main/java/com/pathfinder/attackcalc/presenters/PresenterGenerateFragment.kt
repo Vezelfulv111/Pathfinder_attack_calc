@@ -11,19 +11,41 @@ class PresenterGenerateFragment(
 ): Contract.Presenter
 {
    var AllinAll = model.AllinAll
-   var TemporaryModifers= intArrayOf(0, 0)
-    init{
-        readData()
-    }
+
+   var hitModifier : Int = 0
+       set(value){
+           field = if(value>99)
+               99
+           else if (value<-99)
+               -99
+           else
+               value
+       }
+
+    var damageModifier : Int = 0
+        set(value){
+            field = if(value>99)
+                99
+            else if (value<-99)
+                -99
+            else
+                value
+        }
+
+    init{readData()}
 
     //редактирование временных модификаторов
     fun editModifier(IncreaseFlag: Boolean, position: Int): String {
-        if (position > TemporaryModifers.size)
-            return "error"
-
         val added = if (IncreaseFlag) 1 else -1
-        TemporaryModifers[position] += added
-        return TemporaryModifers[position].toString()
+
+        return if(position == 0) {
+            hitModifier += added
+            hitModifier.toString()
+        } else if(position == 1) {
+            damageModifier += added
+            damageModifier.toString()
+        } else
+            "error"
     }
 
     //изменение состояния свитча скрытности
@@ -39,11 +61,11 @@ class PresenterGenerateFragment(
     //расчет броска одной атаки
     fun throwComputation(position: Int, sneakSwithFlag : Boolean): ThrowData {
         val throwData = ThrowData()
-        throwData.tempDamageModifier = TemporaryModifers[1]
+        throwData.tempDamageModifier = damageModifier
 
         val diceThrow = (1..20).random()
         throwData.d20Throw = diceThrow
-        throwData.d20Total = AllinAll.hitModifier[position].toInt()+diceThrow+TemporaryModifers[0]
+        throwData.d20Total = AllinAll.hitModifier[position].toInt()+diceThrow+hitModifier
 
         val at1 =diceThrow(AllinAll.img1[position].toInt(),AllinAll.numDice1[position].toInt())
         throwData.dmgRoll1 = at1 + AllinAll.bonus1[position].toInt()

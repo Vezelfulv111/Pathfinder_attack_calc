@@ -14,6 +14,8 @@ import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pathfinder.attackcalc.Adapters.SettingsAdapter
 import com.pathfinder.attackcalc.R
 import com.pathfinder.attackcalc.Adapters.SpinAdapter
@@ -29,7 +31,7 @@ class SettingsFragment : Fragment(), Contract.View {
     private lateinit var Spinner_Sneak: Spinner
     private lateinit var EditButton: Button
     private lateinit var AddButton: Button
-    private lateinit var listView: ListView
+    private lateinit var listView: RecyclerView
 
     var images = intArrayOf(
         R.drawable.d3,
@@ -85,18 +87,24 @@ class SettingsFragment : Fragment(), Contract.View {
         spinnerImg1.adapter = adapter
         spinnerImg2.adapter = adapter
         spinnerImg3.adapter = adapter
+        spinnerImg1.setSelection(2)
+        spinnerImg2.setSelection(3)
+        spinnerImg3.setSelection(5)
         Spinner_Sneak.adapter = adapter
+        Spinner_Sneak.setSelection(2)
 
-        bonus1 = view.findViewById(R.id.Edittext1) as EditText
-        bonus2 = view.findViewById(R.id.Edittext2) as EditText
-        bonus3 = view.findViewById(R.id.Edittext3) as EditText
-        EditModifer = view.findViewById(R.id.editHit) as EditText
+        bonus1 = view.findViewById(R.id.Edittext1)
+        bonus2 = view.findViewById(R.id.Edittext2)
+        bonus3 = view.findViewById(R.id.Edittext3)
+        EditModifer = view.findViewById(R.id.editHit)
 
         EditButton = view.findViewById(R.id.EditButton)
         AddButton = view.findViewById(R.id.Addbutton)
 
-        val myListAdapter = SettingsAdapter(context as Activity,presenterSt,listView)
+        val myListAdapter = SettingsAdapter(context as Activity,presenterSt,listView, this)
         listView.adapter = myListAdapter
+        listView.layoutManager = LinearLayoutManager(context as Activity)
+        listView.recycledViewPool.setMaxRecycledViews(0, 0)
 
         EditButton.setOnClickListener {
             presenterSt.editButtonLogic()
@@ -126,7 +134,7 @@ class SettingsFragment : Fragment(), Contract.View {
             presenterSt.AllinAll.at3Enable.add(presenterSt.EnableAttacks[1].toString())
             presenterSt.AllinAll.attackName.add(Attack_name.text.toString())
 
-            listView.adapter =  SettingsAdapter(context as Activity, presenterSt,listView)
+            listView.adapter =  SettingsAdapter(context as Activity, presenterSt,listView, this)
             presenterSt.writeData()
         }
 
@@ -140,23 +148,7 @@ class SettingsFragment : Fragment(), Contract.View {
             presenterSt.enableAttackSwitch(isChecked,1)
         }
 
-        //Если нажать на список
-        listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
-            presenterSt.CurrentPositon = position
-
-            EditButton.text = "Edit ".plus((position+1).toString())
-            Attack_name.text = presenterSt.AllinAll.attackName[position]
-
-            bonus1.setText(presenterSt.AllinAll.bonus1[position].toInt().toString())
-            spinnerImg1.setSelection(presenterSt.AllinAll.img1[position].toInt(),true)
-            spinAt1.setSelection(presenterSt.AllinAll.numDice1[position].toInt()-1,true)
-
-            Switch2nd.isChecked = presenterSt.checkAttack2Enable(position)
-            Switch3d.isChecked = presenterSt.checkAttack3Enable(position)
-
-        }
-
-        val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
+        val SneakEdit: EditText = view.findViewById(R.id.sneak_edit)
 
         //перезаписываем данные при изменении кубика сник атаки
         Spinner_Sneak.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -217,7 +209,7 @@ class SettingsFragment : Fragment(), Contract.View {
         presenterSt.AllinAll.at3Enable[position] = presenterSt.EnableAttacks[1].toString()
         presenterSt.AllinAll.attackName[position] = Attack_name.text.toString()
 
-        listView.adapter = SettingsAdapter(context as Activity, presenterSt,listView)
+        listView.adapter = SettingsAdapter(context as Activity, presenterSt, listView, this)
 
         presenterSt.writeData()
     }
