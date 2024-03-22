@@ -3,13 +3,12 @@ package com.pathfinder.attackcalc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 
 
 import com.google.android.material.tabs.TabLayoutMediator
-import com.pathfinder.attackcalc.adapters.TbAdapt
+import com.pathfinder.attackcalc.Adapters.TbAdapt
 import com.pathfinder.attackcalc.presenters.PresenterActivity
 
 

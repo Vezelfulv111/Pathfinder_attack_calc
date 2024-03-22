@@ -11,7 +11,7 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="310dp"
         android:layout_marginStart="10dp"
         android:divider="#656565"
@@ -32,9 +32,8 @@
             <TextView
                 android:layout_width="55dp"
                 android:layout_height="match_parent"
-
+                android:gravity="center_vertical"
                 android:text="Attack mod"
-                android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TableRow
@@ -174,9 +173,9 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:popupBackground="#2E2E2E"
                     android:entries="@array/SpinNumbers"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:popupBackground="#2E2E2E" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -254,8 +253,7 @@
                     android:background="@null"
                     android:entries="@array/SpinNumbers"
                     android:gravity="center"
-                    android:popupBackground="#2E2E2E"
-                    />
+                    android:popupBackground="#2E2E2E" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -300,31 +298,16 @@
             android:id="@+id/Sneak"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1">
 
-            >
+            <TextView
+                android:id="@+id/dr"
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:gravity="center_vertical"
+                android:text="Sneak attack"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/dr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Sneak"
-                    android:textSize="20sp" />
-
-                <Switch
-                    android:id="@+id/sneak_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:switchMinWidth="80dp" />
-
-            </LinearLayout>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -378,8 +361,8 @@
 
     <Button
         android:id="@+id/Addbutton"
+        android:layout_height="54dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:backgroundTint="#6C6C6C"
         android:text="Add"
         android:textColor="#FFFFFF"
@@ -399,7 +382,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/header"
+            android:id="@+id/generate_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#756F6F"
@@ -422,7 +405,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toBottomOf="@+id/generate_header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

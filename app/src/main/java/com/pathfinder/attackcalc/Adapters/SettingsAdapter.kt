@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.adapters
+package com.pathfinder.attackcalc.Adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -24,6 +24,11 @@ class SettingsAdapter(private val context: Activity, private var presenter: Pres
         rowView.setBackgroundColor(if (position and 1 == 1) {
             Color.DKGRAY
         } else Color.GRAY)
+
+        val header = rowView.findViewById(R.id.settings_header) as TableRow
+        if (position != 0) {
+            header.visibility = View.GONE
+        }
 
         val Allinall = presenter.AllinAll
 

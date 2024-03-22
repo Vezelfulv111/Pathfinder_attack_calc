@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.pathfinder.attackcalc.*
-import com.pathfinder.attackcalc.adapters.GenerateAdapter
+import com.pathfinder.attackcalc.Adapters.GenerateAdapter
 import com.pathfinder.attackcalc.model.Model
 import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 

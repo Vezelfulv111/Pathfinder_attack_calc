@@ -1,4 +1,4 @@
-package com.pathfinder.attackcalc.adapters
+package com.pathfinder.attackcalc.Adapters
 
 import android.app.Activity
 import android.graphics.Color
@@ -25,7 +25,7 @@ class GenerateAdapter(
         val rowView = view ?: inflater.inflate(R.layout.result_view, null, true)
         //делаем список полосатым
         rowView.setBackgroundColor(if (position and 1 == 1) Color.DKGRAY else Color.GRAY)
-        val header = rowView.findViewById(R.id.header) as TableRow
+        val header = rowView.findViewById(R.id.generate_header) as TableRow
         if (position != 0) {
             header.visibility = GONE
         }

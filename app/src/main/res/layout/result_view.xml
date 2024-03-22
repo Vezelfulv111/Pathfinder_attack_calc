@@ -12,15 +12,13 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
         >
 
         <TableRow
-            android:id="@+id/header"
+            android:id="@+id/generate_header"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:background="#B544E6B9"
+            android:background="@color/tealHeader"
             android:divider="#2C2C2C"
             android:showDividers="middle">
 
@@ -37,8 +35,6 @@
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-
                 android:paddingStart="5dp"
                 android:text="Attack roll" />
 
@@ -46,7 +42,6 @@
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:paddingStart="5dp"
                 android:text="Damage rolls" />
 
@@ -54,7 +49,6 @@
                 android:id="@+id/textView20"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-
                 android:layout_gravity="center_vertical"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
@@ -66,7 +60,6 @@
                 android:id="@+id/textView19"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Total " />
@@ -75,7 +68,6 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:divider="#2C2C2C"
             android:showDividers="middle">
 
@@ -190,7 +182,6 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     >
 
                     <TableRow
@@ -202,7 +193,6 @@
                         <TextView
                             android:id="@+id/attack_num1"
                             android:layout_width="20dp"
-
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:autoSizeTextType="uniform"
@@ -394,7 +384,7 @@
 
                         <ImageView
                             android:id="@+id/img3"
-                            android:layout_width="50dp"
+                            android:layout_width="10dp"
                             android:layout_height="50dp"
                             android:layout_weight="0"
                             android:src="@drawable/d10" />
@@ -439,7 +429,6 @@
                                 android:textAlignment="gravity"
                                 android:textSize="14sp" />
                         </TableRow>
-
                     </TableRow>
                 </TableLayout>
 
@@ -453,10 +442,7 @@
 
                 <TextView
                     android:id="@+id/sneakky"
-
-
                     android:layout_height="wrap_content"
-
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="0"
@@ -465,19 +451,14 @@
             </TableRow>
 
             <TableRow
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center">
-
                 <TextView
                     android:id="@+id/total_result"
-
-
                     android:layout_height="wrap_content"
-
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="0"

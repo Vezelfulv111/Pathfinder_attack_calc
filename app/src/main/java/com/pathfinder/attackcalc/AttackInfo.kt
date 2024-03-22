@@ -24,8 +24,7 @@ class AttackInfo: Serializable {
     var at3Enable = arrayOf("1", "1", "0").toCollection(ArrayList())
     var attackName = arrayOf("sai", "saber +1","kukri").toCollection(ArrayList())
 
-    var sneakEnable = 0
-    var sneakNum = 0
+    var sneakNum = 1
     var sneakDicetype = 0
 
     fun removeAt(position: Int): Boolean {
