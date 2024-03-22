@@ -46,12 +46,7 @@ class PresenterSettingsFragment(
     }
 
     //обновление данных - включена ли сник атака
-    fun sneakSwitchRefresh(CheckFlag: Boolean, sneakDicetype: Int, sneaknum: Int) {
-        if (CheckFlag) {
-            AllinAll.sneakEnable = 1
-        } else
-            AllinAll.sneakEnable = 0
-
+    fun sneakSwitchRefresh(sneakDicetype: Int, sneaknum: Int) {
         sneakSwitchDiceType(sneakDicetype, sneaknum)
     }
 

@@ -130,12 +130,12 @@ class SettingsFragment : Fragment(), Contract.View {
             presenterSt.writeData()
         }
 
-        Switch2nd = view.findViewById(R.id.switchscnd) as Switch
+        Switch2nd = view.findViewById(R.id.switchscnd)
         Switch2nd.setOnCheckedChangeListener { _, isChecked ->
             presenterSt.enableAttackSwitch(isChecked,0)
         }
 
-        Switch3d = view.findViewById(R.id.switchthird) as Switch
+        Switch3d = view.findViewById(R.id.switchthird)
         Switch3d.setOnCheckedChangeListener { _, isChecked ->
             presenterSt.enableAttackSwitch(isChecked,1)
         }
@@ -157,10 +157,6 @@ class SettingsFragment : Fragment(), Contract.View {
         }
 
         val SneakEdit = view.findViewById(R.id.sneak_edit) as EditText
-        var SneakSwich = view.findViewById(R.id.sneak_switch) as Switch
-        SneakSwich.setOnCheckedChangeListener { _, isChecked ->
-            presenterSt.sneakSwitchRefresh(isChecked, Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
-        }
 
         //перезаписываем данные при изменении кубика сник атаки
         Spinner_Sneak.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -174,6 +170,9 @@ class SettingsFragment : Fragment(), Contract.View {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int,before: Int, count: Int) {
+                if (SneakEdit.text.isEmpty())
+                    return
+
                 presenterSt.sneakSwitchDiceType(Spinner_Sneak.selectedItemId.toInt(), SneakEdit.text.toString().toInt())
             }
         })

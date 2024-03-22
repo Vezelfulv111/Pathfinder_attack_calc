@@ -314,15 +314,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Sneak"
+                    android:text="Sneak attack"
                     android:textSize="20sp" />
-
-                <Switch
-                    android:id="@+id/sneak_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:switchMinWidth="80dp" />
 
             </LinearLayout>
 

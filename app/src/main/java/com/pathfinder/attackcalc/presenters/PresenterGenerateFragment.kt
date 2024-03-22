@@ -28,23 +28,12 @@ class PresenterGenerateFragment(
 
     //изменение состояния свитча скрытности
     fun sneakySwitch(checkState : Boolean) {
-        if (AllinAll.sneakEnable == 0) {
-            SomeView.showToastMsg("Set it in settings window!")
-            SomeView.enableSneakAttackSwitch(false, checked = false)
-        }
-        else {
-            SomeView.enableSneakAttackSwitch(true, checked = checkState)
-        }
+        SomeView.enableSneakAttackSwitch(true, checked = checkState)
     }
 
     //установка надписи - количество кубов, которые бросаются для скрытой атаки
     fun sneakySwitchLabel(): String {
-        val str = if (AllinAll.sneakEnable == 1) {
-            AllinAll.sneakNum.toString() +"d"+ model.dices[AllinAll.sneakDicetype].toString()
-        } else {
-            "none"
-        }
-        return str
+        return AllinAll.sneakNum.toString() + "d" + model.dices[AllinAll.sneakDicetype].toString()
     }
 
     //расчет броска одной атаки
@@ -71,7 +60,7 @@ class PresenterGenerateFragment(
         if (AllinAll.at3Enable[position].toInt() == 0)
             throwData.dmgRoll3 = 0
 
-        if (AllinAll.sneakEnable == 1 && sneakSwithFlag)
+        if (sneakSwithFlag)
             throwData.sneakDmg = diceThrow(AllinAll.sneakDicetype, AllinAll.sneakNum)
         else
             throwData.sneakDmg = 0
