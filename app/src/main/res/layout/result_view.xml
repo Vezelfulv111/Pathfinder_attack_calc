@@ -25,7 +25,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="22dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:gravity="center_horizontal"
                 android:paddingStart="3dp"
                 android:paddingEnd="3dp"
@@ -35,7 +35,7 @@
                 android:id="@+id/textView17"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="15"
+                android:layout_weight="13"
                 android:paddingStart="5dp"
                 android:text="Attack roll" />
 
@@ -62,7 +62,7 @@
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="6"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Total " />
@@ -78,7 +78,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:orientation="vertical">
 
                 <TextView
@@ -113,7 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="15"
+                android:layout_weight="13"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingEnd="5dp">
@@ -142,7 +142,7 @@
                         <ImageView
                             android:id="@+id/img4"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center|end"
                             android:src="@drawable/d20" />
 
@@ -232,6 +232,8 @@
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
                             android:maxLines="1"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
                             android:text="0"
                             android:textSize="20sp" />
 
@@ -581,13 +583,15 @@
 
                 <TextView
                     android:id="@+id/sneakky"
-                    android:layout_height="0dp"
                     android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="10"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:textAlignment="gravity"
-                    android:autoSizeTextType="uniform"
                     android:textSize="20sp" />
 
                 <TextView
@@ -602,7 +606,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="6"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -615,14 +619,16 @@
 
                 <TextView
                     android:id="@+id/total_result"
-                    android:layout_height="0dp"
                     android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="10"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="0"
                     android:textAlignment="gravity"
-                    android:autoSizeTextType="uniform"
                     android:textSize="20sp" />
 
                 <TextView
