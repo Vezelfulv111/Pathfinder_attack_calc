@@ -279,22 +279,10 @@
                             android:maxLines="1"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="1"
+                            android:text="1 x"
                             android:textAlignment="gravity"
                             android:textSize="12sp"
                             app:autoSizeMinTextSize="20dp" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="x" />
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -329,23 +317,9 @@
                             android:maxLines="1"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="0"
+                            android:text="0 ="
                             android:textAlignment="gravity"
                             android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="5"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="4dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="4dp"
-                            android:text="="
-                            app:autoSizeMinTextSize="14dp" />
 
                         <TextView
                             android:id="@+id/answer1"
@@ -381,22 +355,9 @@
                             android:maxLines="1"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="1"
+                            android:text="1 x"
                             android:textAlignment="gravity"
                             app:autoSizeMinTextSize="20dp" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="10dp"
-                            android:text="x" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
@@ -430,22 +391,8 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="0"
+                            android:text="0 ="
                             android:textAlignment="gravity"
-                            app:autoSizeMinTextSize="14dp" />
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="5"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="4dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="4dp"
-                            android:text="="
                             app:autoSizeMinTextSize="14dp" />
 
                         <TextView
@@ -480,21 +427,8 @@
                             android:maxLines="1"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="1"
+                            android:text="1 x"
                             android:textAlignment="gravity" />
-
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="10dp"
-                            android:text="x" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
@@ -528,23 +462,9 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:text="0"
+                            android:text="0 ="
                             android:textAlignment="gravity"
 
-                            app:autoSizeMinTextSize="14dp" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="5"
-                            android:autoSizeTextType="uniform"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="4dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="4dp"
-                            android:text="="
                             app:autoSizeMinTextSize="14dp" />
 
                         <TextView

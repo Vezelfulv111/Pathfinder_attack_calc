@@ -75,15 +75,15 @@ class GenerateAdapter(
         val Allinall = presenter.AllinAll
 
         holder.attacNum.text = (position + 1).toString()
-        holder.bonus1.text = Allinall.bonus1[position]
-        holder.bonus2.text = Allinall.bonus2[position]
-        holder.bonus3.text = Allinall.bonus3[position]
+        holder.bonus1.text = Allinall.bonus1[position]  +" ="
+        holder.bonus2.text = Allinall.bonus2[position] + " ="
+        holder.bonus3.text = Allinall.bonus3[position] + " ="
         holder.img1.setImageResource(images[Allinall.img1[position].toInt()])
         holder.img2.setImageResource(images[Allinall.img2[position].toInt()])
         holder.img3.setImageResource(images[Allinall.img3[position].toInt()])
-        holder.diceAmount1.text = Allinall.numDice1[position]
-        holder.diceAmount2.text = Allinall.numDice2[position]
-        holder.diceAmount3.text = Allinall.numDice3[position]
+        holder.diceAmount1.text = Allinall.numDice1[position] + " x"
+        holder.diceAmount2.text = Allinall.numDice2[position] + " x"
+        holder.diceAmount3.text = Allinall.numDice3[position] + " x"
         holder.hitModifier.text = Allinall.hitModifier[position]
         holder.attackName.text = Allinall.attackName[position]
 

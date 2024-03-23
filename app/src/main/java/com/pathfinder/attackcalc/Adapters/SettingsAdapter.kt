@@ -89,9 +89,9 @@ class SettingsAdapter(private val context: Activity, private var presenter: Pres
         val Table3 =  holder.Table3
 
         holder.hit_modifier.text = Allinall.hitModifier[position]
-        holder.plus1.text = Allinall.numDice1[position]
-        holder.plus2.text = Allinall.numDice2[position]
-        holder.plus3.text = Allinall.numDice3[position]
+        holder.plus1.text = Allinall.numDice1[position] + " x"
+        holder.plus2.text = Allinall.numDice2[position] + " x"
+        holder.plus3.text = Allinall.numDice3[position] + " x"
 
         holder.bonus1.text = Allinall.bonus1[position]
         holder.bonus2.text = Allinall.bonus2[position]
@@ -157,6 +157,9 @@ class SettingsAdapter(private val context: Activity, private var presenter: Pres
 
             val EditButton: Button = settingsFragment.requireView().findViewById(R.id.EditButton)
             EditButton.text = "Edit ".plus((position+1).toString())
+
+            val EditModifer: EditText = settingsFragment.requireView().findViewById(R.id.editHit)
+            EditModifer.setText(presenter.AllinAll.hitModifier[position])
 
             val Attack_name: TextView = settingsFragment.requireView().findViewById(R.id.enter_at_name)
             Attack_name.text = presenter.AllinAll.attackName[position]

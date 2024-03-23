@@ -151,25 +151,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
+                        android:gravity="center|right"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="1"
+                        android:text="1 x"
                         android:textAlignment="gravity"
-                        app:autoSizeMinTextSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="6"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:paddingTop="10dp"
-                        android:paddingRight="1dp"
-                        android:paddingBottom="15dp"
-                        android:text="x"
                         app:autoSizeMinTextSize="14dp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -193,14 +179,14 @@
                         android:id="@+id/bonus1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_weight="15"
                         android:autoSizeTextType="uniform"
+                        android:gravity="start|center_horizontal|center_vertical"
                         android:paddingTop="10dp"
-                        android:paddingBottom="5dp"
+                        android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
-                        android:layout_gravity="center"
-                        android:gravity="center_horizontal|center_vertical"
                         app:autoSizeMinTextSize="14dp" />
                 </TableRow>
 
@@ -216,25 +202,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
+                        android:gravity="center|right"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="1"
+                        android:text="1 x"
                         android:textAlignment="gravity"
-                        app:autoSizeMinTextSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="6"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:paddingTop="10dp"
-                        android:paddingRight="1dp"
-                        android:paddingBottom="15dp"
-                        android:text="x"
                         app:autoSizeMinTextSize="14dp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -258,15 +230,15 @@
                         android:id="@+id/bonus2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="15"
-
-                        android:autoSizeTextType="uniform"
                         android:layout_gravity="center"
+
+                        android:layout_weight="15"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="start|center_horizontal|center_vertical"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
-                        android:gravity="center_horizontal|center_vertical"
 
                         app:autoSizeMinTextSize="14dp" />
                 </TableRow>
@@ -283,25 +255,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:gravity="center"
+                        android:gravity="center|right"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="1"
+                        android:text="1 x"
                         android:textAlignment="gravity"
-                        app:autoSizeMinTextSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="6"
-                        android:autoSizeTextType="uniform"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:paddingTop="10dp"
-                        android:paddingRight="1dp"
-                        android:paddingBottom="15dp"
-                        android:text="x"
                         app:autoSizeMinTextSize="14dp" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -324,14 +282,14 @@
                         android:id="@+id/bonus3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_weight="15"
                         android:autoSizeTextType="uniform"
-                        android:layout_gravity="center"
+                        android:gravity="start|center_horizontal|center_vertical"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="1"
                         android:textAlignment="gravity"
-                        android:gravity="center_horizontal|center_vertical"
 
                         app:autoSizeMinTextSize="14dp" />
 
