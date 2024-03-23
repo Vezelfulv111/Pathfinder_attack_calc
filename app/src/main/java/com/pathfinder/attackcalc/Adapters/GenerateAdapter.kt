@@ -109,7 +109,7 @@ class GenerateAdapter(
             val param = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 0,
-                2.5f
+                4f
             )
             nameTemp1.layoutParams = param
             nameTemp2.layoutParams =param

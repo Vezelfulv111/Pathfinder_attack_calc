@@ -25,7 +25,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="22dp"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:paddingStart="3dp"
                 android:paddingEnd="3dp"
@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="0dp"
-                android:layout_weight="7"
+                android:layout_weight="5"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:autoSizeTextType="uniform"
@@ -62,7 +62,7 @@
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="0dp"
-                android:layout_weight="10"
+                android:layout_weight="7"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Total " />
@@ -78,7 +78,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <TextView
@@ -91,10 +91,14 @@
                     android:id="@+id/current_number"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
                     android:layout_weight="10"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:maxLines="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:text="N" />
                 <TextView
                     android:id="@+id/tmp_current_number2"
@@ -138,7 +142,7 @@
                         <ImageView
                             android:id="@+id/img4"
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center|end"
                             android:src="@drawable/d20" />
 
@@ -254,8 +258,8 @@
 
                 <TableLayout
                     android:layout_width="0dp"
-                    android:layout_weight="20"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="25">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -283,20 +287,19 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="4"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
                             android:paddingTop="10dp"
-                            android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
-                            android:text="x"
-                            app:autoSizeMinTextSize="14dp" />
+                            android:paddingBottom="10dp"
+                            android:text="x" />
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="17">
+                            android:layout_gravity="center"
+                            android:layout_weight="20">
 
 
                             <ImageView
@@ -333,12 +336,12 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="5"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
+                            android:paddingTop="4dp"
                             android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
+                            android:paddingBottom="4dp"
                             android:text="="
                             app:autoSizeMinTextSize="14dp" />
 
@@ -385,19 +388,19 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="4"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
                             android:paddingTop="10dp"
                             android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
-                            android:text="x"
-                            app:autoSizeMinTextSize="14dp" />
+                            android:paddingBottom="10dp"
+                            android:text="x" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="17">
+                            android:layout_gravity="center"
+                            android:layout_weight="20">
 
                             <ImageView
                                 android:id="@+id/img2"
@@ -434,12 +437,12 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="5"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
+                            android:paddingTop="4dp"
                             android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
+                            android:paddingBottom="4dp"
                             android:text="="
                             app:autoSizeMinTextSize="14dp" />
 
@@ -483,19 +486,19 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="4"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
                             android:paddingTop="10dp"
                             android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
-                            android:text="x"
-                            app:autoSizeMinTextSize="14dp" />
+                            android:paddingBottom="10dp"
+                            android:text="x" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="17">
+                            android:layout_gravity="center"
+                            android:layout_weight="20">
 
                             <ImageView
                                 android:id="@+id/img3"
@@ -533,12 +536,12 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="6"
+                            android:layout_weight="5"
                             android:autoSizeTextType="uniform"
                             android:gravity="center_horizontal|center_vertical"
-                            android:paddingTop="10dp"
+                            android:paddingTop="4dp"
                             android:paddingRight="1dp"
-                            android:paddingBottom="15dp"
+                            android:paddingBottom="4dp"
                             android:text="="
                             app:autoSizeMinTextSize="14dp" />
 
@@ -565,7 +568,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="7"
+                android:layout_weight="5"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -599,7 +602,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_width="0dp"
-                android:layout_weight="10"
+                android:layout_weight="7"
                 android:orientation="vertical"
                 android:gravity="center">
 
