@@ -387,7 +387,7 @@
             android:background="#756F6F"
             android:paddingStart="10dp"
             android:text="Attack List"
-            android:textSize="17sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/listView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
