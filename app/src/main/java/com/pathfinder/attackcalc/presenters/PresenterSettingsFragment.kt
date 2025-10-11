@@ -1,6 +1,5 @@
 package com.pathfinder.attackcalc.presenters
 
-import com.pathfinder.attackcalc.AttackInfo
 import com.pathfinder.attackcalc.fragments.SettingsFragment
 import com.pathfinder.attackcalc.model.Model
 
@@ -65,13 +64,20 @@ class PresenterSettingsFragment(
         return true
     }
     //функция проверки и установки в строке плюса
-    fun setPlusSign(string: String): String {
-        var inputStr = string
+    fun setSign(string: String): String {
+        val inputStr = string
 
-        if (inputStr.toInt()>0)
-            inputStr = "+" + inputStr.toInt().toString()
+        if (inputStr.isEmpty() || inputStr == "+" || inputStr == "-")
+            return "+0"
 
-        return inputStr
+        val str = inputStr.toInt().toString()
+        if (inputStr.toInt() > 0)
+            return "+$str"
+
+        if (inputStr.toInt() < 0)
+            return str
+
+        return "+0"
     }
 
     override fun onDestroy() {}

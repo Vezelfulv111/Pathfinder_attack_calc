@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pathfinder.attackcalc.*
 import com.pathfinder.attackcalc.Adapters.GenerateAdapter
 import com.pathfinder.attackcalc.model.Model
@@ -16,7 +18,7 @@ import com.pathfinder.attackcalc.presenters.PresenterGenerateFragment
 
 class GenerateFragment : Fragment(), Contract.View {
 
-    private lateinit var listView: ListView
+    private lateinit var listView: RecyclerView
     private lateinit var GenButton: Button
     private lateinit var RefreshButton: Button
 
@@ -32,6 +34,8 @@ class GenerateFragment : Fragment(), Contract.View {
 
         val view: View = inflater.inflate(R.layout.generate_fragment, container, false)
         listView =view.findViewById(R.id.result_list)
+        listView.layoutManager = LinearLayoutManager(context as Activity)
+        listView.recycledViewPool.setMaxRecycledViews(0, 0)
 
         presenterGen = PresenterGenerateFragment(this, Model())
 
@@ -40,17 +44,17 @@ class GenerateFragment : Fragment(), Contract.View {
             presenterGen.sneakySwitch(sneakySwitch.isChecked)
         }
 
-        listView.adapter =  GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen)
+        listView.adapter =  GenerateAdapter(0,sneakySwitch.isChecked,presenterGen, this)
         GenButton = view.findViewById(R.id.gen_but)
 
         GenButton.setOnClickListener {
-           listView.adapter = GenerateAdapter(context as Activity,1,sneakySwitch.isChecked,presenterGen)
+           listView.adapter = GenerateAdapter(1,sneakySwitch.isChecked,presenterGen, this)
         }
 
         RefreshButton = view.findViewById(R.id.refresh)
         RefreshButton.setOnClickListener {
             presenterGen.readData()
-            listView.adapter = GenerateAdapter(context as Activity,0, sneakySwitch.isChecked,presenterGen)
+            listView.adapter = GenerateAdapter(0, sneakySwitch.isChecked,presenterGen, this)
         }
 
         Plus1 = view.findViewById(R.id.Fstplus)
@@ -74,33 +78,6 @@ class GenerateFragment : Fragment(), Contract.View {
             hitbonus2.text =  presenterGen.editModifier(false,1)
         }
 
-
-        listView.setOnItemClickListener { _, view, position, _ ->
-            val rezD20 = view.findViewById(R.id.d20throw) as TextView
-            val d20 = view.findViewById(R.id.d20_kinuli) as TextView
-
-            val throwData = presenterGen.throwComputation(position,sneakySwitch.isChecked)
-
-            d20.text  = throwData.d20Throw.toString()
-            rezD20.text = throwData.d20Total.toString()
-
-            val gen1 = view.findViewById(R.id.answer1) as TextView
-            val gen2 = view.findViewById(R.id.answer2) as TextView
-            val gen3 = view.findViewById(R.id.answer3) as TextView
-
-            gen1.text =  throwData.dmgRoll1.toString()
-            gen2.text =  throwData.dmgRoll2.toString()
-            gen3.text =  throwData.dmgRoll3.toString()
-
-            val sneak1 = view.findViewById(R.id.sneakky) as TextView
-            sneak1.text = throwData.sneakDmg.toString()
-
-            val sum = view.findViewById(R.id.total_result) as TextView
-            if (throwData.totalDamageWithSneak < 0)
-                sum.text = "0"
-            else
-                sum.text = throwData.totalDamageWithSneak.toString()
-        }
         return view
 
         }
@@ -116,7 +93,7 @@ class GenerateFragment : Fragment(), Contract.View {
         super.onResume()
         presenterGen.readData()
         listView = requireView().findViewById(R.id.result_list)
-        listView.adapter = GenerateAdapter(context as Activity,0,sneakySwitch.isChecked,presenterGen)
+        listView.adapter = GenerateAdapter(0,sneakySwitch.isChecked,presenterGen, this)
         sneakySwitch.text = presenterGen.sneakySwitchLabel()
     }
 
